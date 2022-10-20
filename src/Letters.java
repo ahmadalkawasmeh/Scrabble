@@ -6,17 +6,20 @@
  */
 public enum Letters {
    //Letter constants and associated point values (letter scores)
-   A(1), B(3), C(3), D(2), E(1), F(4), G(2), H(4), I(1), J(8), K(5), L(1), M(3), N(1), O(1), P(3), 
-   Q(10), R(1), S(1), T(1), U(1), V(4), W(4), X(8), Y(4), Z(10);
+   A(1, 9), B(3, 2), C(3, 2), D(2, 4), E(1, 12), F(4, 2), G(2, 3), H(4, 2), I(1, 9), J(8, 1), K(5, 1), L(1, 4), M(3, 2), N(1, 6), O(1, 8), P(3, 2),
+   Q(10, 1), R(1, 6), S(1, 4), T(1, 6), U(1, 4), V(4, 2), W(4, 2), X(8, 1), Y(4, 2), Z(10, 1);
    
    // An integer point value
    private int letterScore;
+   private int quantity;
    
    /**
-    * Initializes all letters and their associated letterScores
+    * Initializes all letters and their associated letterScores and quantities
     */
-   Letters(int letterScore) {
+   Letters(int letterScore, int quantity) {
+
       this.letterScore = letterScore;
+      this.quantity = quantity;
    }
    
    
@@ -28,4 +31,11 @@ public enum Letters {
    public int getLetterScore() {
       return this.letterScore;
    }
+
+   /**
+    *
+    *
+    * @return the quantity of a letter
+    */
+   public int getQuantity(){return this.quantity;}
 }
