@@ -8,6 +8,11 @@ public class Game {
     private Stack<Round> roundHistory;
 
     public Game(int numPlayers){
+        initializeBoard();
+        initializePlayers();
+        initializeLetterBag();
+
+        while(playRound());
 
     }
 
@@ -23,7 +28,7 @@ public class Game {
 
     }
 
-    public void playRound(){
+    public boolean playRound(){
 
     }
 
