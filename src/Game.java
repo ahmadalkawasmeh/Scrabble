@@ -29,7 +29,7 @@ public class Game {
     }
 
     public boolean playRound(){
-
+        return true;
     }
 
     public void nextPlayer(){

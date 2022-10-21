@@ -28,7 +28,25 @@ public class Player
         tray = new Tray();
     }
 
-    
+    /**
+     * Returns a String representation of the name of this Player.
+     * @return the name of this Player.
+     */
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+
+    /**
+     * Returns a String representation of the letters in this Player's tray.
+     * For example:  "L M N O P Q R "
+     * @return
+     */
+    public String getTray() {
+        return tray.toString();
+    }
+
     /**
      * Updates the score of this Player if they have placed a word on the board.
      *
@@ -67,9 +85,14 @@ public class Player
      * @return true if all letters in lettersList are in the Player's Tray, 
      *         returns false otherwise.
      */
-    public boolean checkInTray(ArrayList<String> lettersList)
+    public boolean checkInTray(ArrayList<String> lettersList) // will change name of method once board is updated
     {
-        return tray.checkInTray(lettersList);
+        for(String letter: lettersList){
+            if (!tray.checkInTray(letter)) { // need to add condition to check board for letters not in tray
+                return false;
+            }
+        }
+        return true;
     }
     
     
@@ -79,13 +102,15 @@ public class Player
      *
      * @param lettersList The letters to remove from the Player's Tray.
      */
-
-
     public void removeLetters(ArrayList<String> lettersList)
     {
-        tray.removeLetters(lettersList);
-    }
+        for(String letter: lettersList){
 
+            if(lettersList.contains(letter)){
+                tray.removeLetter(letter);
+            }
+        }
+    }
 
     /*
 

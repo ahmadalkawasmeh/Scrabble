@@ -33,26 +33,14 @@ public class Tray
         }
     }
     
-    public boolean checkInTray(ArrayList<String> letters)
+    public boolean checkInTray(String letter)
     {
-        for(String letter: letters){
-             if(! this.letters.equals(letter)){
-                 return false;
-             }
-        }
-        return true;
+        return letters.contains(letter);
     }
 
 
-    public void removeLetters(ArrayList<String> letters){
-
-        for(String letter: letters){
-
-            if(this.letters.equals(letter)){
-
+    public void removeLetter(String letter) {
                 this.letters.remove(letter);
-            }
-        }
     }
 
 
