@@ -79,8 +79,22 @@ public class Player
      *
      * @param lettersList The letters to remove from the Player's Tray.
      */
+
+
     public void removeLetters(ArrayList<String> lettersList)
     {
         tray.removeLetters(lettersList);
     }
+
+
+    /*
+
+    public static void main(String[] args) {
+        Player player1 = new Player("Sam");
+        System.out.println( player1.tray.toString());
+
+
+    }
+
+     */
 }
