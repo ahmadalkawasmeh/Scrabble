@@ -51,4 +51,23 @@ public class LetterBag {
 
     }
 
+    /**
+     * returns the quantity of a letter
+     * @param letter
+     * @return the quantity of a letter in letter bag
+     */
+    private int letterQuantity(String letter){
+        return letterQuantities.get(letter);
+    }
+
+    /**
+     * @return the amount of letters left in letter bag
+     */
+    private int lettersLeft(){
+
+        return letterQuantities.size();
+
+    }
+
+
 }
