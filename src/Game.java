@@ -5,10 +5,10 @@ import java.util.Stack;
 
 public class Game {
     private Board board;
-    private static List<Player> players;
+    public static List<Player> players;
     private Player currentPlayer;
     private Round currentRound;
-    public static LetterBag letterBag;
+    private static LetterBag letterBag = new LetterBag();    //since its static we can just initialize it here and be done with it makes testing easier too
     private Stack<Round> roundHistory;
     private int passCount = 0;
 
@@ -20,19 +20,25 @@ public class Game {
 
         initializeBoard();
         initializePlayers(numPlayers);
-        initializeLetterBag();
+        //initializeLetterBag();
 
         while(playRound());
+    }
+
+    public static LetterBag getLetterBag() {
+        return letterBag;
+
     }
 
     private void initializeBoard(){
 
     }
 
+    /*
     private void initializeLetterBag(){
-
+        letterBag = new LetterBag();
     }
-
+    */
     private void initializePlayers(int numPlayers){
         for(int i = 0; i < numPlayers; i++){
 

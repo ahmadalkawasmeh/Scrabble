@@ -5,7 +5,7 @@ public class Round {
 
     }
 
-    public void HandleEventPlayer(playerEvent e){
+    public void HandleEventPlayer(){
 
     }
 

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Player represents an individual player in the game of ScrabbleScrabble.
@@ -88,7 +89,7 @@ public class Player
     public boolean checkInTray(ArrayList<String> lettersList) // will change name of method once board is updated
     {
         for(String letter: lettersList){
-            if (!tray.checkInTray(letter)) { // need to add condition to check board for letters not in tray
+            if (!tray.checkInTray(letter) && !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
                 return false;
             }
         }
@@ -112,14 +113,18 @@ public class Player
         }
     }
 
-    /*
+
+
 
     public static void main(String[] args) {
+
+
         Player player1 = new Player("Sam");
+        System.out.println( Game.getLetterBag().lettersLeft());
         System.out.println( player1.tray.toString());
 
 
     }
 
-     */
+
 }

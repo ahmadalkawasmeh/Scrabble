@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Write a description of class Tray here.
@@ -20,7 +22,7 @@ public class Tray
     public Tray()
     {
         letters = new ArrayList<>();
-        letterBag = new LetterBag();
+        letterBag = Game.getLetterBag();
         this.fill();
     }
 
@@ -38,6 +40,10 @@ public class Tray
         return letters.contains(letter);
     }
 
+    public int checkInTrayFrequency(String letter)  //checks how many occurances in tray
+    {
+        return Collections.frequency(letters, letter);
+    }
 
     public void removeLetter(String letter) {
                 this.letters.remove(letter);
