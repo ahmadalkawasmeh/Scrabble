@@ -63,7 +63,7 @@ public class LetterBag {
     /**
      * @return the amount of letters left in letter bag
      */
-    private int lettersLeft(){
+    public int lettersLeft(){
 
         return letterQuantities.size();
 

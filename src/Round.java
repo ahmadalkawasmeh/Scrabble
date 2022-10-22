@@ -8,4 +8,7 @@ public class Round {
     public HandleEventPlayer(playerEvent e){
 
     }
+
+    public boolean emptyTray() {
+    }
 }

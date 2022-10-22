@@ -8,7 +8,9 @@ public class Game {
     private static List<Player> players;
     private Player currentPlayer;
     private Round currentRound;
+    public static LetterBag letterBag;
     private Stack<Round> roundHistory;
+    private int passCount = 0;
 
     public Game(int numPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
@@ -38,6 +40,11 @@ public class Game {
     }
 
     public boolean playRound(){
+        nextPlayer();
+        currentRound = new Round(currentPlayer);
+        if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || passCount == 6){
+            return false;
+        }
         return true;
     }
 
