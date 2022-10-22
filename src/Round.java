@@ -5,10 +5,11 @@ public class Round {
 
     }
 
-    public HandleEventPlayer(playerEvent e){
+    public void HandleEventPlayer(playerEvent e){
 
     }
 
     public boolean emptyTray() {
+        return false;
     }
 }
