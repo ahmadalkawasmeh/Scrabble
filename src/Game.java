@@ -31,7 +31,7 @@ public class Game {
     }
 
     private void initializeBoard(){
-
+        board = new Board();
     }
 
     /*
