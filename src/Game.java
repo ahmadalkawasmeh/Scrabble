@@ -1,6 +1,5 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -69,7 +68,13 @@ public class Game {
     }
 
     public void getPlayerScores(){
-
+        System.out.println("--------------");
+        System.out.println("Player scores:");
+        System.out.println("");
+        for (Player p : players){
+            System.out.println(p.toString() + ": " + p.getScore());
+        }
+        System.out.println("--------------");
     }
 
     public void output(){
