@@ -1,20 +1,38 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
     enum scores{DL, TL, DW, TW}
 
     private final int SIZE = 15;
-    private char[][] usedSquares;
+    private String[][] usedSquares;
     public Enum[][] specialSquares;
     public Board(){
-        usedSquares = new char[SIZE][SIZE];
+        usedSquares = new String[SIZE][SIZE];
         specialSquares = new scores[SIZE][SIZE];
+
+        initializeBoard();
         setSpecialSquaresStandard();
+
+
     }
 
-    public void output(){
+
+    public String toString(){
+
+        String gridString = "";
+        String linePartition =  "_____________________________________________________________";
+
+        for (int i = 0; i < SIZE ; i++){
+            gridString =  gridString + linePartition + "\n";
+            for (int j = 0; j < SIZE; j++){
+                gridString += "| " + usedSquares[i][j] + " ";
+            }
+            gridString += "|\n";
+        }
+        gridString += linePartition;
+
+        return gridString;
+
 
     }
 
@@ -48,5 +66,30 @@ public class Board {
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
                                                                 specialSquares[11][14] = scores.DW;
+    }
+
+    private void initializeBoard(){
+
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
+                usedSquares[i][j] = " ";
+            }
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Board board = new Board();
+        board.usedSquares[7][3] = "C";
+        board.usedSquares[7][4] = "A";
+        board.usedSquares[7][5] = "T";
+
+        board.usedSquares[8][5] = "R";
+        board.usedSquares[9][5] = "E";
+        board.usedSquares[10][5] = "E";
+
+        System.out.print(board);
+
     }
 }

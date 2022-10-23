@@ -63,6 +63,6 @@ public class Game {
     }
 
     public void output(){
-        board.output();
+        board.toString();
     }
 }
