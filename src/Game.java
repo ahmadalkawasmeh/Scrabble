@@ -79,5 +79,6 @@ public class Game {
 
     public void output(){
         board.toString();
+        getPlayerScores();
     }
 }
