@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Board {
     enum scores{DL, TL, DW, TW}
@@ -6,7 +7,11 @@ public class Board {
     private final int SIZE = 15;
     private String[][] usedSquares;
     public Enum[][] specialSquares;
+
+    private HashMap<String, String> boardValues;
+
     public Board(){
+        boardValues = new HashMap<>();
         usedSquares = new String[SIZE][SIZE];
         specialSquares = new scores[SIZE][SIZE];
 
@@ -17,24 +22,66 @@ public class Board {
     }
 
 
+    /**
+     * @return String repersentation of the board
+     * Developed by Ibtasam Rasool
+     */
     public String toString(){
 
         String gridString = "";
-        String linePartition =  "_____________________________________________________________";
+        String letters =        "    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O";
+        String linePartition =  "  _____________________________________________________________";
 
+        gridString += letters + "\n";
         for (int i = 0; i < SIZE ; i++){
             gridString =  gridString + linePartition + "\n";
+
+            if(i < 9){gridString += i + 1 + " ";}
+            else{ gridString += i + 1;}
             for (int j = 0; j < SIZE; j++){
-                gridString += "| " + usedSquares[i][j] + " ";
+                gridString += "| " + usedSquares[j][i] + " ";
             }
             gridString += "|\n";
         }
-        gridString += linePartition;
-
+        gridString += linePartition + "\n";
+        gridString += letters;
         return gridString;
 
 
     }
+
+    /**
+     * adds a word to the board and to the boardValues map
+     * @param word
+     * developed by Ibtasam Rasool
+     */
+    public void addWordToBoard(Word word){
+        ArrayList<Integer> numPos = word.findWordPosition();
+        String letters[] = word.getWord().split("");
+
+        if(word.isHorizontal()) {
+            for (int i = 0; i < word.length(); i++) {
+
+                usedSquares[numPos.get(1) + i][numPos.get(0)] = letters[i];
+
+            }
+        }
+
+        else{
+
+            for (int i = 0; i < word.length(); i++) {
+
+                usedSquares[numPos.get(0)][numPos.get(1) + i] = letters[i];
+
+            }
+        }
+
+        this.boardValues.putAll(word.getLetterPositions());
+
+    }
+
+
+
 
     public void setSpecialSquares(ArrayList<String> specialSquares){
         for (String s : specialSquares){
@@ -68,6 +115,9 @@ public class Board {
                                                                 specialSquares[11][14] = scores.DW;
     }
 
+    /**
+     * Initializes board with empty values
+     */
     private void initializeBoard(){
 
         for (int i = 0; i < SIZE; i++){
@@ -81,13 +131,11 @@ public class Board {
 
     public static void main(String[] args) {
         Board board = new Board();
-        board.usedSquares[7][3] = "C";
-        board.usedSquares[7][4] = "A";
-        board.usedSquares[7][5] = "T";
 
-        board.usedSquares[8][5] = "R";
-        board.usedSquares[9][5] = "E";
-        board.usedSquares[10][5] = "E";
+       // Word word = new Word("CAT", "G6");
+       // Word word1 = new Word( "TREE","3H" );
+       // board.addWordToBoard(word);
+       // board.addWordToBoard(word1);
 
         System.out.print(board);
 

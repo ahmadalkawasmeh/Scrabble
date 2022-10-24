@@ -3,7 +3,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Write a description of class Tray here.
+ * Repersents the players letter tray.
  *
  * @author Ibtasam Rasool
  * @version 1.0
@@ -14,6 +14,8 @@ public class Tray
     private ArrayList<String> letters;
 
     private LetterBag letterBag;
+
+
 
 
     /**
@@ -27,6 +29,9 @@ public class Tray
     }
 
 
+    /**
+     * Fills Tray to size of NUMLETTERS (in this case 7)
+     */
     public void fill(){
         while(letters.size() < NUMLETTERS){
 
@@ -34,22 +39,42 @@ public class Tray
 
         }
     }
-    
+
+
+    /**
+     * Checks if given letter is in Tray
+     * @param letter
+     * @return  Boolean, True if word is in Tray False otherwise
+     */
     public boolean checkInTray(String letter)
     {
         return letters.contains(letter);
     }
 
-    public int checkInTrayFrequency(String letter)  //checks how many occurances in tray
+
+    /**
+     * checks frequency of letter in tray
+     * @param letter
+     * @return Frequency of a letter in the tray
+     */
+    public int checkInTrayFrequency(String letter)
     {
         return Collections.frequency(letters, letter);
     }
 
+
+    /**
+     * Removes a given letter from the tray
+     * @param letter
+     */
     public void removeLetter(String letter) {
                 this.letters.remove(letter);
     }
 
 
+    /**
+     * @return String repersentation of Tray
+     */
     public String toString()
     {
         StringBuffer stringBuffer = new StringBuffer();

@@ -89,7 +89,7 @@ public class Player
     public boolean checkInTray(ArrayList<String> lettersList) // will change name of method once board is updated
     {
         for(String letter: lettersList){
-            if (!tray.checkInTray(letter) && !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
+            if (!tray.checkInTray(letter) || !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
                 return false;
             }
         }
@@ -111,6 +111,13 @@ public class Player
                 tray.removeLetter(letter);
             }
         }
+    }
+
+    /**
+     * @return string repersentation of player tray
+     */
+    public String stringTray(){      //Prints player tray
+        return tray.toString();
     }
 
 

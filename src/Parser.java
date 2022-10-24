@@ -14,12 +14,12 @@ public class Parser {
 
     private Scanner scanner;
 
-    public Parser(Scanner scanner) {
+    public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
 
-    public void getInput() {
+    public Word getInput() {
         String inputText;
         String command = null;
         String location = null;
@@ -31,10 +31,26 @@ public class Parser {
         Scanner tokenizer = new Scanner(inputText);
         if(tokenizer.hasNext()) {
             command = tokenizer.next();      // Get the first word of the input (the command)
+            command = command.toUpperCase();
             if(tokenizer.hasNext()) {
                 location = tokenizer.next();      // Get the second word of the input (coordinates for the board)
+                location = location.toUpperCase();
             }
         }
+
+        Word word = new Word(command, location);    //Just for testing purposes
+
+        return word;
+
+
     }
+
+    public static void main(String[] args) {
+
+        Parser parse = new Parser();
+        parse.getInput();
+
+    }
+
 
 }
