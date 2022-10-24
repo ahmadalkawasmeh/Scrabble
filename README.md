@@ -15,7 +15,10 @@ SYSC 3110 Group Project (Fall 2022)
 
 # Included Files
 
-
+- src folder
+	- This folder contains all of the source code for the scrabblescrabble game.
+- legalWordsList.txt
+	-  This file contains the list of all legal words that can be played in the scrabblescrabble game.  Each line of this file contains one legal word.
 
 
 # New Updates
