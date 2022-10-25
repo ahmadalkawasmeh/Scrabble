@@ -36,11 +36,12 @@ public class Parser {
      *
      * @return a Word determined by the user's input.
      */
-    public Word getInput() {
+    public Move getInput() {
         String inputText;
         String command = null;
         String location = null;
 
+        System.out.println("Please enter a command:    WORD LOCATION    PASS    SWAP    QUIT    ");
         System.out.print(">>> "); // Prompt user for text input
 
         inputText = scanner.nextLine();
@@ -55,8 +56,8 @@ public class Parser {
             }
         }
 
-        Word word = new Word(command, location);    //Just for testing purposes
+        Move move = new Move(command, location);
 
-        return word;
+        return move;
     }
 }
