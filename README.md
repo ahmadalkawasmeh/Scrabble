@@ -5,12 +5,14 @@ SYSC 3110 Group Project (Fall 2022)
 	- Ahmad Alkawasmeh - 101108706
 	- James Grieder - 101177911
 	- Daniel Kuchanski - 
-	- Ibtasam Rasool - 
+	- Ibtasam Rasool - 101186050
 
 
 # Introduction
 
+scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  Each of the 1-4 players has a tray with 7 letters drawn from a bag of pre-set letters.  On each turn the player places a valid word on the game board.  Points are awarded based on the words placed, determined by the score of each letter used.  This first iteration of scrabblescrabble accepts user input from the keyboard.
 
+# Game Instructions
 
 
 # Included Files
@@ -19,6 +21,8 @@ SYSC 3110 Group Project (Fall 2022)
 	- This folder contains all of the source code for the scrabblescrabble game.
 - legalWordsList.txt
 	-  This file contains the list of all legal words that can be played in the scrabblescrabble game.  Each line of this file contains one legal word.
+- UML Diagram M1 Submission.violet
+	- This file is compatible with the violet-0.16c UML diagram program.  PNG/JPEG version will be added once finalized.
 
 
 # New Updates
