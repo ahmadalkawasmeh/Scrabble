@@ -19,6 +19,7 @@ public class Word {
     HashMap<String, String> letterPositions; // The set of all character positions of this Word
 
 
+
     /**
      * Constructor for objects of class Word.
      * Developed by: Ibtasam Rasool
@@ -31,7 +32,7 @@ public class Word {
         letterPositions = new HashMap<>();
         this.word = word;
         this.position =  position;
-        this.addLettersToMap();
+        if(hasValidBounds()){this.addLettersToMap();}
     }
 
 
@@ -161,6 +162,18 @@ public class Word {
     public HashMap<String, String> getLetterPositions()
     {
         return letterPositions;
+    }
+
+    /**
+     * checks if word falls within board bounds
+     * Developed by: Ibtasam Rasool
+     *
+     * @return boolean repersenting if word fits
+     */
+    public boolean hasValidBounds(){
+
+        return  (this.findWordPosition().get(1) + word.length() <= 15);
+
     }
 
 

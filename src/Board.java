@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Board {
     enum scores{DL, TL, DW, TW}
 
-    private final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
+    public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
     private String[][] usedSquares; // Squares that have letters placed on them
     public Enum[][] specialSquares; // Squares with special scoring modifiers
 
