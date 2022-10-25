@@ -74,7 +74,7 @@ public class Game {
     private boolean checkWord(Word word) {
         ArrayList<String> letters = new ArrayList<>(List.of(word.getWord().split("")));
 
-        return currentPlayer.checkInTray(letters); //&& dictionary.lookupDictionary(word.getWord());         Dictionary look up is not working
+        return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase());
 
     }
 
