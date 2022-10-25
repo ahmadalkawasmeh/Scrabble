@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A Word represents a word to be placed on the game board.
@@ -82,48 +83,32 @@ public class Word {
      * @return A list containing x and y positions of this Word on the board
      */
     public ArrayList<Integer> findWordPosition(){
-        int x, y;
+        int x = 0;
+        int y = 0;
         ArrayList<Integer> numPos = new ArrayList<>();
-        String coordinates[] =  position.split("");
+        ArrayList<String>  coordinates = new ArrayList<>(List.of(position.split("")));
 
-        if (isHorizontal()){
+        if(isHorizontal()){
+            y = Letters.valueOf(coordinates.get(coordinates.size() - 1)).ordinal();
+            coordinates.remove(coordinates.size() - 1);
 
-            if(coordinates.length > 2){
-                x = Integer.parseInt(coordinates[0]) * 10;
-                x += Integer.parseInt(coordinates[1]) - 1;
-                System.out.println(x);
-                y = Letters.valueOf(coordinates[2]).ordinal();
+            x = Integer.parseInt(String.join("", coordinates)) - 1;
 
-                numPos.add(x);
-                numPos.add(y);
-                return (numPos);
-            }
-            x = Integer.parseInt(coordinates[0]) - 1; // - 1 added for proper index
-            y = Letters.valueOf(coordinates[1]).ordinal();
 
-            numPos.add(x);
-            numPos.add(y);
-
-            return(numPos);
         }
 
-        if(coordinates.length > 2){
-            y = Integer.parseInt(coordinates[1]) * 10;
-            y += Integer.parseInt(coordinates[2]) - 1;
-            x = Letters.valueOf(coordinates[0]).ordinal();
+        else {
+            x = Letters.valueOf(coordinates.get(0)).ordinal();
+            coordinates.remove(0);
 
-            numPos.add(x);
-            numPos.add(y);
-            return (numPos);
+            y = Integer.parseInt(String.join("", coordinates)) - 1;
+
         }
-
-        y = Integer.parseInt(coordinates[1]) - 1;
-        x = Letters.valueOf(coordinates[0]).ordinal();
 
         numPos.add(x);
         numPos.add(y);
+        return (numPos);
 
-        return(numPos);
     }
 
 
