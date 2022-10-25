@@ -1,35 +1,45 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**
- * Wrods that are played, words have a string value as well as a position value.
+ * A Word represents a word to be placed on the game board.
+ * Words are only created when they are legal (found in the dictionary), and possible
+ * to construct from letters in a Player's tray and on the game board.  Each word has a
+ * String value and a String position.
  *
  * @author Ibtasam Rasool
  * @version 1.0
  */
-
 public class Word {
 
-    String word;
-    String position;
+    String word; // The string representation of this Word
+    String position; // The position of the first character of this Word
 
-    HashMap<String, String> letterPositions;
+    HashMap<String, String> letterPositions; // The set of all character positions of this Word
 
-    public Word(String word, String position){
+
+    /**
+     * Constructor for objects of class Word.
+     *
+     * @param word The word represented by this object.
+     * @param position The position of this Word.
+     */
+    public Word(String word, String position)
+    {
         letterPositions = new HashMap<>();
         this.word = word;
         this.position =  position;
         this.addLettersToMap();
-
     }
 
 
     /**
-     * Adds a letter to the hashmap repersenting the positions used by a word
-     * NOTE: all values are repersented with Alphabet then numeric value (i.e. A5) even if the value was entered in as 5A this maintains consistency in map.
+     * Adds a letter to the hashmap representing the positions used by a word
+     * NOTE: all values are represented with Alphabet then numeric value (i.e. A5)
+     * even if the value was entered in as 5A this maintains consistency in map.
      */
-    public void addLettersToMap(){
+    public void addLettersToMap()
+    {
         Integer changingCoordinate;
         ArrayList<Integer> numPos = findWordPosition();
         String letters[] = word.split("");
@@ -40,35 +50,32 @@ public class Word {
                      changingCoordinate = numPos.get(1) + i;
                      letterPositions.put(Letters.values()[changingCoordinate].toString() + numPos.get(0), letters[i]);
             }
-
-        }
-
-        else{
-            for (int i = 0; i < length(); i++) {
-
+        } else {
+            for (int i = 0; i < length(); i++)
+            {
                 changingCoordinate = numPos.get(1) + i;
                 letterPositions.put(Letters.values()[numPos.get(0)].toString() + changingCoordinate, letters[i]);
-
             }
-
-
         }
-
     }
 
 
     /**
-     * @return Boolean value repersenting whether a word is horizontal.
+     * Returns the direction of this word as a boolean, with the horizontal
+     * direction being true.
+     *
+     * @return true if this Word is horizontal, false otherwise (vertical).
      */
-    public boolean isHorizontal(){
-
+    public boolean isHorizontal()
+    {
         return Character.isDigit(position.charAt(0));
-
     }
 
+
     /**
-     * finds position of word on the baard.
-     * @return returns list containing x and y positions of word on board       Slightly overwritten will clean up later
+     * Finds the  position of this Word on the Board.
+     *
+     * @return A list containing x and y positions of this Word on the board       Slightly overwritten will clean up later
      */
     public ArrayList<Integer> findWordPosition(){
         int x, y;
@@ -94,7 +101,6 @@ public class Word {
             numPos.add(y);
 
             return(numPos);
-
         }
 
         if(coordinates.length > 2){
@@ -114,29 +120,35 @@ public class Word {
         numPos.add(y);
 
         return(numPos);
-
-
     }
 
-    /**
-     * @return word
-     */
-    public String getWord(){
 
+    /**
+     * Gets the String representation of the letters in this Word.
+     *
+     * @return The letters in this Word.
+     */
+    public String getWord()
+    {
         return  word;
     }
 
+
     /**
-     * @return length of word
+     * Gets the number of letters in this Word (the length).
+     *
+     * @return The length of this Word.
      */
-    public int length(){
-
+    public int length()
+    {
         return word.length();
-
     }
 
+
     /**
-     * @return calculates word score
+     * Calculates the wordScore of this Word.
+     *
+     * @return the wordScore of this Word.
      */
     public int wordScore(){
         int score = 0;
@@ -147,20 +159,21 @@ public class Word {
         return score;
     }
 
-    /**
-     * @return a map containing a words letter locations on the board
-     */
-    public HashMap<String, String> getLetterPositions(){
 
+    /**
+     * Gets the positions of the letters in this Word.
+     *
+     * @return A map containing this word's letter positions on the game Board.
+     */
+    public HashMap<String, String> getLetterPositions()
+    {
         return letterPositions;
     }
+
 
     /*
     public static void main(String[] args) {
         Word word = new Word("HELLO", "5G");
-
-
     }
     */
-
 }

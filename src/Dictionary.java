@@ -13,9 +13,10 @@ public class Dictionary
 {
     private HashSet<String> legalWords; // The list of legal words that can be placed on the board
 
+
     /**
      * Initializes the Dictionary using an input file.
-     * Reads the line of each input file, and adds that String to the
+     * Reads each line of the input file, and adds that String to the
      * list of legal words.
      */
     public Dictionary()
@@ -34,6 +35,7 @@ public class Dictionary
 		}
     }
 
+
     /**
      * Looks up a word in the dictionary, to see if it is a legal word in the game.
      *
@@ -43,9 +45,5 @@ public class Dictionary
     public boolean lookupDictionary(String word)
     {
         return legalWords.contains(word);
-    }
-
-    public static void main(String[] args) {
-
     }
 }

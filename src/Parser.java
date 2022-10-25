@@ -1,11 +1,14 @@
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
- * This parser reads user input from the keyboard and translates it to a command in
- * the ScrabbleScrabble game.
+ * This parser reads user input from the keyboard and translates it to a
+ * command in the ScrabbleScrabble game.
  *
- * Further explanation will go here (input syntax and what happens with end result).
+ * An example of a command to place a word would be "CAT H8", where CAT
+ * is the word to be placed on the board, and H8 is the position of the
+ * first letter.  The letters in the word to be placed on the board must
+ * be found in the player's tray, or must be found on the board in the
+ * needed positions to spell a legal word
  *
  * @author James Grieder
  * @version 1.0
@@ -14,11 +17,23 @@ public class Parser {
 
     private Scanner scanner;
 
+
+    /**
+     * Initializes the scrabblescrabble parser.  The parser takes keyboard
+     * input from the user.
+     */
     public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
 
+    /**
+     * Accepts a line of text input from the user, and creates a
+     * Word object by separating the input into two Strings (the
+     * word, and the starting position).
+     *
+     * @return a Word determined by the user's input.
+     */
     public Word getInput() {
         String inputText;
         String command = null;
@@ -41,16 +56,5 @@ public class Parser {
         Word word = new Word(command, location);    //Just for testing purposes
 
         return word;
-
-
     }
-
-    public static void main(String[] args) {
-
-        Parser parse = new Parser();
-        parse.getInput();
-
-    }
-
-
 }

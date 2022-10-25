@@ -10,21 +10,26 @@ public class Board {
 
     private HashMap<String, String> boardValues;
 
+    /**
+     * Initializes the scrabblescrabble game board.
+     */
     public Board(){
         boardValues = new HashMap<>();
         usedSquares = new String[SIZE][SIZE];
         specialSquares = new scores[SIZE][SIZE];
 
         initializeBoard();
-        setSpecialSquaresStandard();
+        setSpecialSquaresStandard(); // use the standard configuration of special squares
 
 
     }
 
 
     /**
-     * @return String repersentation of the board
-     * Developed by Ibtasam Rasool
+     * Returns the current status of the game board as a String representation.
+     *
+     * @return a String representation of the game board
+     * @author Ibtasam Rasool
      */
     public String toString(){
 
@@ -46,14 +51,14 @@ public class Board {
         gridString += linePartition + "\n";
         gridString += letters;
         return gridString;
-
-
     }
 
     /**
-     * adds a word to the board and to the boardValues map
-     * @param word
-     * developed by Ibtasam Rasool
+     * Places a word on the board.  This updates the boardValues map with the
+     * position of each letter.
+     *
+     * @param word The word to place on the board
+     * @author Ibtasam Rasool
      */
     public void addWordToBoard(Word word){
         ArrayList<Integer> numPos = word.findWordPosition();
@@ -63,31 +68,40 @@ public class Board {
             for (int i = 0; i < word.length(); i++) {
 
                 usedSquares[numPos.get(1) + i][numPos.get(0)] = letters[i];
-
             }
-        }
-
-        else{
+        } else{
 
             for (int i = 0; i < word.length(); i++) {
 
                 usedSquares[numPos.get(0)][numPos.get(1) + i] = letters[i];
-
             }
         }
-
         this.boardValues.putAll(word.getLetterPositions());
-
     }
 
 
-
-
+    /**
+     * Initializes the set of special squares on the board for a custom mapping.
+     *
+     * A special square is one that will have alternative scoring implementations
+     * (double letter score, triple letter score, double word score, triple word
+     * score).
+     *
+     * @param specialSquares the list of special squares
+     */
     public void setSpecialSquares(ArrayList<String> specialSquares){
         for (String s : specialSquares){
             //Add special squares to specialSquares array. Parser?
         }
     }
+
+    /**
+     * Initializes the standard mapping of special squares on the board.
+     *
+     * A special square is one that will have alternative scoring implementations
+     * (double letter score, triple letter score, double word score, triple word
+     * score).
+     */
     public void setSpecialSquaresStandard(){
         specialSquares[0][0] = specialSquares[0][7] = specialSquares[0][14] = specialSquares[7][0] =
                 specialSquares[7][7] = specialSquares[7][14] = specialSquares[14][0] =
@@ -116,17 +130,15 @@ public class Board {
     }
 
     /**
-     * Initializes board with empty values
+     * Initializes board with empty values on each square (indicating
+     * no letter has been placed on each square).
      */
     private void initializeBoard(){
-
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++){
                 usedSquares[i][j] = " ";
             }
-
         }
-
     }
 
     public static void main(String[] args) {

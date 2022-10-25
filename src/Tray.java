@@ -1,25 +1,25 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Repersents the players letter tray.
+ * Represents a Player's letter tray.
+ *
+ * The tray contains letters that may be placed on the game board.  The tray has a
+ * maximum capacity for the number of letters it holds.
  *
  * @author Ibtasam Rasool
  * @version 1.0
  */
 public class Tray
 {
-    private static final int NUMLETTERS = 7;
-    private ArrayList<String> letters;
+    private static final int NUMLETTERS = 7; // The maximum number of letters a tray can hold
 
-    private LetterBag letterBag;
-
-
+    private ArrayList<String> letters; // The letters in this tray
+    private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
 
 
     /**
-     * Constructor for objects of class Tray
+     * Initializes a Tray and fills it with letters.
      */
     public Tray()
     {
@@ -30,21 +30,21 @@ public class Tray
 
 
     /**
-     * Fills Tray to size of NUMLETTERS (in this case 7)
+     * Fills Tray with NUMLETTERS letters.
      */
-    public void fill(){
-        while(letters.size() < NUMLETTERS){
-
+    public void fill()
+    {
+        while(letters.size() < NUMLETTERS)
+        {
             letters.add(letterBag.drawRandomLetter());
-
         }
     }
 
 
     /**
-     * Checks if given letter is in Tray
-     * @param letter
-     * @return  Boolean, True if word is in Tray False otherwise
+     * Checks if an individual letter is in this Tray.
+     * @param letter The letter to check for.
+     * @return  true if letter is in this Tray, otherwise returns false.
      */
     public boolean checkInTray(String letter)
     {
@@ -53,9 +53,9 @@ public class Tray
 
 
     /**
-     * checks frequency of letter in tray
-     * @param letter
-     * @return Frequency of a letter in the tray
+     * Gets the current frequency of letter in this tray.
+     * @param letter The letter to check the current quantity of.
+     * @return The frequency of a letter in the tray
      */
     public int checkInTrayFrequency(String letter)
     {
@@ -64,8 +64,8 @@ public class Tray
 
 
     /**
-     * Removes a given letter from the tray
-     * @param letter
+     * Removes the specified letter from this tray.
+     * @param letter The letter to remove.
      */
     public void removeLetter(String letter) {
                 this.letters.remove(letter);
@@ -73,7 +73,10 @@ public class Tray
 
 
     /**
-     * @return String repersentation of Tray
+     * Returns a string representation of this Tray.
+     * For example: "L M N O P Q R "
+     *
+     * @return String representation of Tray
      */
     public String toString()
     {
