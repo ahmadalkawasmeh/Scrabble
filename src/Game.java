@@ -8,14 +8,20 @@ public class Game {
     public static List<Player> players;
     private Player currentPlayer;
     private Round currentRound;
-    private static LetterBag letterBag = new LetterBag();    //since its static we can just initialize it here and be done with it makes testing easier too
-    private Stack<Round> roundHistory;
+    private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
+    private Stack<Round> roundHistory; // will be used for undo/redo in the future
+    private Dictionary dictionary; // contains the legal words of the game
+    private Parser parser = new Parser(); // accepts user input
     private int passCount = 0;
 
-    private Dictionary dictionary;
 
-    private Parser parser = new Parser();
-
+    /**
+     * Initializes all aspects and then starts the game.
+     * Initializes the Players, a history of rounds, the dictionary and the
+     * board.  Then begins the first turn of the game.
+     *
+     * @param numPlayers The number of Players in this game.
+     */
     public Game(int numPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
@@ -34,48 +40,42 @@ public class Game {
     }
 
     /**
-     * Runs game with while loop
+     * Runs the game until the game has finished.  The game starts
+     * with the first player's turn, then switches players at the
+     * end of each turn.
      */
     public void play(){
         currentPlayer = players.get(0);
-
 
         boolean finished = false;
 
         while(! finished){
 
             this.output();
-
             Word word = parser.getInput();
 
-            if(this.checkWord(word) /*&& checkLegalWordPosition(word)*/){   //removed for now
-
+            if(this.checkWord(word) /*&& checkLegalWordPosition(word)*/) // removed for now
+            {
                 board.addWordToBoard(word);
 
-                currentPlayer.updateScore(word.wordScore());                                //updates score
-                currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split(""))));  //removes used letters
-                currentPlayer.fillTray();                                                   //fills player tray
-
+                currentPlayer.updateScore(word.wordScore());  //updates score
+                currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split("")))); //removes used letters from the players tray
+                currentPlayer.fillTray();  //fills player tray
             }
             nextPlayer();
-
-
         }
-
-
-
     }
 
+
     /**
-     * checks if tray can form word
-     * @param word
-     * @return  boolean of if word is present in tray
+     * Checks if word is found in the Player's Tray.
+     * @param word The word to check for in the Player's Tray.
+     * @return true if the word is present in the Player's Tray, false otherwise.
      */
     private boolean checkWord(Word word) {
         ArrayList<String> letters = new ArrayList<>(List.of(word.getWord().split("")));
 
         return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase());
-
     }
 
 
@@ -94,20 +94,30 @@ public class Game {
     */
 
 
-    public static LetterBag getLetterBag() {
+    /**
+     * Gets the LetterBag shared by all Player's in the game.
+     *
+     * @return The game's LetterBag.
+     */
+    public static LetterBag getLetterBag()
+    {
         return letterBag;
-
     }
 
+
+    /**
+     * Initializes the game Board.
+     */
     private void initializeBoard(){
         board = new Board();
     }
 
-    /*
-    private void initializeLetterBag(){
-        letterBag = new LetterBag();
-    }
-    */
+
+    /**
+     * Initializes the Players of the Game.
+     *
+     * @param numPlayers
+     */
     private void initializePlayers(int numPlayers){
         for(int i = 0; i < numPlayers; i++){
 
@@ -118,6 +128,14 @@ public class Game {
         }
     }
 
+
+    /**
+     * Checks the ending game conditions.  The game ends if the LetterBag is empty
+     * and the current Player has no letters to place, or if Players have passed
+     * their turns 6 consecutive times without scoring any points.
+     *
+     * @return true if the game will continue, false otherwise.
+     */
     public boolean playRound(){
         nextPlayer();
         currentRound = new Round(currentPlayer);
@@ -127,6 +145,10 @@ public class Game {
         return true;
     }
 
+
+    /**
+     * Updates the current Player for the next round.
+     */
     public void nextPlayer(){
         for (int i = 0; i < players.size(); i++){
             if(i == players.size() - 1){
@@ -140,6 +162,10 @@ public class Game {
         }
     }
 
+
+    /**
+     * Prints the scores of all Player's to the console.
+     */
     public void getPlayerScores(){
         System.out.println("--------------");
         System.out.println("Player scores:");
@@ -150,8 +176,10 @@ public class Game {
         System.out.println("--------------");
     }
 
+
     /**
-     * Prints in console the board, player, and player tray
+     * Prints the current game status to the console, including the board,
+     * player scores, and the current player's tray.
      */
     public void output(){
         System.out.println(board);
@@ -159,12 +187,8 @@ public class Game {
         System.out.println(currentPlayer.toString() +"'s Turn \n" + currentPlayer.toString() +"'s Tray: {  "+ currentPlayer.stringTray() +" }");
     }
 
+
     public static void main(String[] args) {
         Game game =  new Game(2);
-
-
     }
-
-
-
 }
