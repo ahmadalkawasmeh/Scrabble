@@ -13,6 +13,7 @@ public class LetterBag {
 
     /**
      * Initializes the LetterBag by mapping each letter to its default starting quantity.
+     * Developed by: Ibtasam Rasool
      */
     public LetterBag(){
         letterQuantities = new HashMap<>();
@@ -26,6 +27,7 @@ public class LetterBag {
     /**
      * Returns a String representation of a random letter being drawn from the bag.
      * The quantity of the letter is decremented by 1.
+     * Developed by: Ibtasam Rasool
      *
      * @return a random letter from the LetterBag.
      */
@@ -46,6 +48,7 @@ public class LetterBag {
     /**
      * Removes a specified letter from LetterBag once its quantity has reached 0.
      * Prevents the letter from being drawn from the LetterBag.
+     * Developed by: Ibtasam Rasool
      *
      * @param letter The letter to remove from the LetterBag.
      */
@@ -57,7 +60,10 @@ public class LetterBag {
 
 
     /**
-     * @param letter
+     * Decrements the quantity of a letter in LetterBag by 1.
+     * Developed by: Ibtasam Rasool
+     *
+     * @param letter The letter to decrement.
      */
     private void decreaseLetterQuantity(String letter)
     {
@@ -72,6 +78,7 @@ public class LetterBag {
 
     /**
      * Returns the quantity of a letter.
+     * Developed by: Ibtasam Rasool
      *
      * @param letter The letter to get the quantity of.
      * @return The quantity of letter in letter bag.
@@ -83,6 +90,7 @@ public class LetterBag {
 
     /**
      * Returns the total amount of letters remaining in this LetterBag.
+     * Developed by: Ibtasam Rasool
      *
      * @return the amount of letters remaining.
      */

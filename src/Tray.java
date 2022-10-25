@@ -20,6 +20,7 @@ public class Tray
 
     /**
      * Initializes a Tray and fills it with letters.
+     * Developed by: Ibtasam Rasool
      */
     public Tray()
     {
@@ -31,6 +32,7 @@ public class Tray
 
     /**
      * Fills Tray with NUMLETTERS letters.
+     * Developed by: Ibtasam Rasool
      */
     public void fill()
     {
@@ -43,6 +45,8 @@ public class Tray
 
     /**
      * Checks if an individual letter is in this Tray.
+     * Developed by: Ibtasam Rasool & James Grieder
+     *
      * @param letter The letter to check for.
      * @return  true if letter is in this Tray, otherwise returns false.
      */
@@ -54,6 +58,8 @@ public class Tray
 
     /**
      * Gets the current frequency of letter in this tray.
+     * Developed by: Ibtasam Rasool & James Grieder
+     *
      * @param letter The letter to check the current quantity of.
      * @return The frequency of a letter in the tray
      */
@@ -65,6 +71,8 @@ public class Tray
 
     /**
      * Removes the specified letter from this tray.
+     * Developed by: Ibtasam Rasool
+     *
      * @param letter The letter to remove.
      */
     public void removeLetter(String letter) {
@@ -75,6 +83,7 @@ public class Tray
     /**
      * Returns a string representation of this Tray.
      * For example: "L M N O P Q R "
+     * Developed by: Ibtasam Rasool
      *
      * @return String representation of Tray
      */
@@ -82,11 +91,11 @@ public class Tray
     {
         StringBuffer stringBuffer = new StringBuffer();
 
-        for(String letter : letters){
+        for(String letter : letters)
+        {
             stringBuffer.append(letter);
             stringBuffer.append(" ");
         }
-
         return  stringBuffer.toString();
     }
 }

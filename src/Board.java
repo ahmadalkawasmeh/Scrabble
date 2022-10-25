@@ -1,17 +1,22 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The Board for scrabblescrabble.  Represents a square grid of squares, where
+ * each square is able to hold one letter.
+ */
 public class Board {
     enum scores{DL, TL, DW, TW}
 
-    private final int SIZE = 15;
-    private String[][] usedSquares;
-    public Enum[][] specialSquares;
+    private final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
+    private String[][] usedSquares; // Squares that have letters placed on them
+    public Enum[][] specialSquares; // Squares with special scoring modifiers
 
     private HashMap<String, String> boardValues;
 
     /**
-     * Initializes the scrabblescrabble game board.
+     * Initializes the scrabblescrabble game board, by setting up the board with empty values (no letters), an
+     * empty array for used squares, and initializes the special squares in the game.
      */
     public Board(){
         boardValues = new HashMap<>();
@@ -20,16 +25,14 @@ public class Board {
 
         initializeBoard();
         setSpecialSquaresStandard(); // use the standard configuration of special squares
-
-
     }
 
 
     /**
      * Returns the current status of the game board as a String representation.
+     * Developed by: Ibtasam Rasool
      *
-     * @return a String representation of the game board
-     * @author Ibtasam Rasool
+     * @return a String representation of the game board.
      */
     public String toString(){
 
@@ -56,9 +59,9 @@ public class Board {
     /**
      * Places a word on the board.  This updates the boardValues map with the
      * position of each letter.
+     * Developed by: Ibtasam Rasool
      *
-     * @param word The word to place on the board
-     * @author Ibtasam Rasool
+     * @param word The word to place on the board.
      */
     public void addWordToBoard(Word word){
         ArrayList<Integer> numPos = word.findWordPosition();
@@ -82,10 +85,10 @@ public class Board {
 
     /**
      * Initializes the set of special squares on the board for a custom mapping.
-     *
      * A special square is one that will have alternative scoring implementations
      * (double letter score, triple letter score, double word score, triple word
      * score).
+     * Developed by: Daniel Kuchanski
      *
      * @param specialSquares the list of special squares
      */
@@ -97,10 +100,10 @@ public class Board {
 
     /**
      * Initializes the standard mapping of special squares on the board.
-     *
      * A special square is one that will have alternative scoring implementations
      * (double letter score, triple letter score, double word score, triple word
      * score).
+     * Developed by: Daniel Kuchanski
      */
     public void setSpecialSquaresStandard(){
         specialSquares[0][0] = specialSquares[0][7] = specialSquares[0][14] = specialSquares[7][0] =
@@ -132,6 +135,7 @@ public class Board {
     /**
      * Initializes board with empty values on each square (indicating
      * no letter has been placed on each square).
+     * Developed by: Ibtasam Rasool
      */
     private void initializeBoard(){
         for (int i = 0; i < SIZE; i++){

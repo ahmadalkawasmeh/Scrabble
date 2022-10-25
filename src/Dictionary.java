@@ -18,6 +18,7 @@ public class Dictionary
      * Initializes the Dictionary using an input file.
      * Reads each line of the input file, and adds that String to the
      * list of legal words.
+     * Developed by: James Grieder
      */
     public Dictionary()
     {
@@ -38,6 +39,7 @@ public class Dictionary
 
     /**
      * Looks up a word in the dictionary, to see if it is a legal word in the game.
+     * Developed by: James Grieder
      *
      * @param  word  The word to look up in the dictionary.
      * @return true if the word is in legalWords, false otherwise.

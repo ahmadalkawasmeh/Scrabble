@@ -20,6 +20,7 @@ public class Word {
 
     /**
      * Constructor for objects of class Word.
+     * Developed by: Ibtasam Rasool
      *
      * @param word The word represented by this object.
      * @param position The position of this Word.
@@ -37,6 +38,7 @@ public class Word {
      * Adds a letter to the hashmap representing the positions used by a word
      * NOTE: all values are represented with Alphabet then numeric value (i.e. A5)
      * even if the value was entered in as 5A this maintains consistency in map.
+     * Developed by: Ibtasam Rasool
      */
     public void addLettersToMap()
     {
@@ -63,6 +65,7 @@ public class Word {
     /**
      * Returns the direction of this word as a boolean, with the horizontal
      * direction being true.
+     * Developed by: Ibtasam Rasool
      *
      * @return true if this Word is horizontal, false otherwise (vertical).
      */
@@ -74,8 +77,9 @@ public class Word {
 
     /**
      * Finds the  position of this Word on the Board.
+     * Developed by: Ibtasam Rasool
      *
-     * @return A list containing x and y positions of this Word on the board       Slightly overwritten will clean up later
+     * @return A list containing x and y positions of this Word on the board
      */
     public ArrayList<Integer> findWordPosition(){
         int x, y;
@@ -125,6 +129,7 @@ public class Word {
 
     /**
      * Gets the String representation of the letters in this Word.
+     * Developed by: Ibtasam Rasool
      *
      * @return The letters in this Word.
      */
@@ -136,6 +141,7 @@ public class Word {
 
     /**
      * Gets the number of letters in this Word (the length).
+     * Developed by: Ibtasam Rasool
      *
      * @return The length of this Word.
      */
@@ -147,6 +153,7 @@ public class Word {
 
     /**
      * Calculates the wordScore of this Word.
+     * Developed by: Ibtasam Rasool
      *
      * @return the wordScore of this Word.
      */
@@ -162,6 +169,7 @@ public class Word {
 
     /**
      * Gets the positions of the letters in this Word.
+     * Developed by: Ibtasam Rasool
      *
      * @return A map containing this word's letter positions on the game Board.
      */

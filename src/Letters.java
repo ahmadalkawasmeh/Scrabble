@@ -24,6 +24,7 @@ public enum Letters {
 
    /**
     * Initializes all letters and their associated letterScores and default quantities.
+    * Developed by: James Grieder & Ibtasam Rasool
     *
     * @param letterScore the score of this letter.
     * @param quantity the quantity of this letter.
@@ -37,6 +38,7 @@ public enum Letters {
    
    /**
     * Gets the letterScore of this letter.
+    * Developed by: James Grieder
     * 
     * @return the letterScore of a letter.
     */
@@ -47,6 +49,7 @@ public enum Letters {
 
    /**
     * Gets the default quantity of this letter.
+    * Developed by: Ibtasam Rasool
     *
     * @return the default quantity of a letter.
     */

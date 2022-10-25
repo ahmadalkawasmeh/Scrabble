@@ -21,6 +21,7 @@ public class Parser {
     /**
      * Initializes the scrabblescrabble parser.  The parser takes keyboard
      * input from the user.
+     * Developed by: James Grieder
      */
     public Parser() {
         this.scanner = new Scanner(System.in);
@@ -31,6 +32,7 @@ public class Parser {
      * Accepts a line of text input from the user, and creates a
      * Word object by separating the input into two Strings (the
      * word, and the starting position).
+     * Developed by: James Grieder
      *
      * @return a Word determined by the user's input.
      */
