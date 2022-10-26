@@ -122,9 +122,25 @@ public class Player
     {
         for(String letter: lettersList){
 
-            if(lettersList.contains(letter)){
+            if(tray.checkInTray(letter)){
                 tray.removeLetter(letter);
             }
         }
+
     }
+
+    /**
+     * swaps a given list of letters in tray with letters from letter bag
+     * @param lettersList list of letters to swap
+     */
+    public void swapLetters(ArrayList<String> lettersList){
+        for(String letter: lettersList){
+
+            if(tray.checkInTray(letter)){
+                tray.returnLetterToBag(letter);
+            }
+        }
+        fillTray();
+    }
+
 }

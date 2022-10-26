@@ -97,7 +97,7 @@ public class Game {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
 
-        if (this.checkWord(word) /*&& checkLegalWordPosition(word)*/) // removed for now
+        if (this.checkWord(word))
         {
             zeroScoreTurns = 0; // Reset counter if a word is placed
 
@@ -128,14 +128,8 @@ public class Game {
      * @param letters The letters that will be put back in the LetterBag
      */
     public void swap(String letters) {
-
-        ArrayList<String> swapList = new ArrayList<>(); // convert letters to an ArrayList format
-        for (int i = 0; i < letters.length(); i++)
-        {
-            swapList.add("" + letters.charAt(i));
-        }
-        currentPlayer.removeLetters(swapList); // remove the specified letters
-        currentPlayer.fillTray(); // refill the player's tray
+        ArrayList<String> swapList = new ArrayList<>(List.of(letters.split(""))); // convert letters to an ArrayList format
+        currentPlayer.swapLetters(swapList);
     }
 
 
@@ -147,23 +141,8 @@ public class Game {
     private boolean checkWord(Word word) {
         ArrayList<String> letters = new ArrayList<>(List.of(word.getWord().split("")));
 
-        return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase());
+        return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase()) && word.hasValidBounds();
     }
-
-
-    /*                              LOGIC NEEDED FOR CHECKING POSITION HAVENT ACTUALLY IMPLEMENTED IT YET
-    private boolean checkLegalWordPosition(Word word){
-
-        if(word.isHorizontal()){
-
-            return  (word.findWordPosition().get(0) + word.length() <= 15);
-
-        }
-
-        return  (word.findWordPosition().get(1) + word.length() <= 15);
-
-    }
-    */
 
 
     /**

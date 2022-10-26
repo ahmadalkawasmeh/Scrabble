@@ -172,7 +172,7 @@ public class Word {
      */
     public boolean hasValidBounds(){
 
-        return  (this.findWordPosition().get(1) + word.length() <= 15);
+        return  (this.findWordPosition().get(1) + word.length() <= Board.SIZE);
 
     }
 

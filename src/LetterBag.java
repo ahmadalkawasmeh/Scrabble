@@ -98,4 +98,19 @@ public class LetterBag {
     {
         return letterQuantities.size();
     }
+
+    /**
+     * increments the quantity of a letter in letterbag by 1 if letter does not exist adds it in letterbag with quantity 1
+     * Developed by James and Ibtasam
+     * @param letter to increment
+     */
+    public void increaseLetterQuantity(String letter) {
+        if(letterQuantities.containsKey(letter))
+        {
+            letterQuantities.put(letter, letterQuantities.get(letter) + 1); // increases letters quantity
+
+        } else {
+            letterQuantities.put(letter, 1);
+        }
+    }
 }

@@ -79,6 +79,16 @@ public class Tray
                 this.letters.remove(letter);
     }
 
+    /**
+     * returns a letter back to the letter bag
+     * @param letter to return to bag
+     * developed by James & Ibtasam
+     */
+    public void returnLetterToBag(String letter){
+        removeLetter(letter);
+        letterBag.increaseLetterQuantity(letter);
+    }
+
 
     /**
      * Returns a string representation of this Tray.
