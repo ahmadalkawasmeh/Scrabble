@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class Word {
 
-    String word; // The string representation of this Word
-    String position; // The position of the first character of this Word
+    private String word; // The string representation of this Word
+    private String position; // The position of the first character of this Word
 
-    HashMap<String, String> letterPositions; // The set of all character positions of this Word
+    private HashMap<String, String> letterPositions; // The set of all character positions of this Word
 
 
     /**

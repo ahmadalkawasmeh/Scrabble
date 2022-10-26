@@ -145,16 +145,4 @@ public class Board {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Board board = new Board();
-
-       // Word word = new Word("CAT", "G6");
-       // Word word1 = new Word( "TREE","3H" );
-       // board.addWordToBoard(word);
-       // board.addWordToBoard(word1);
-
-        System.out.print(board);
-
-    }
 }
