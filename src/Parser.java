@@ -41,7 +41,7 @@ public class Parser {
         String command = null;
         String location = null;
 
-        System.out.println("Please enter a command:    WORD LOCATION    PASS    SWAP    QUIT    ");
+        System.out.println("Please enter a command:    [WORD LOCATION]    [PASS]    [SWAP AB...YZ]    [QUIT]    ");
         System.out.print(">>> "); // Prompt user for text input
 
         inputText = scanner.nextLine();

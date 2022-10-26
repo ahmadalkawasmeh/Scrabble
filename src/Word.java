@@ -19,7 +19,6 @@ public class Word {
     HashMap<String, String> letterPositions; // The set of all character positions of this Word
 
 
-
     /**
      * Constructor for objects of class Word.
      * Developed by: Ibtasam Rasool
@@ -94,8 +93,6 @@ public class Word {
             coordinates.remove(coordinates.size() - 1);
 
             x = Integer.parseInt(String.join("", coordinates)) - 1;
-
-
         }
 
         else {
@@ -103,13 +100,11 @@ public class Word {
             coordinates.remove(0);
 
             y = Integer.parseInt(String.join("", coordinates)) - 1;
-
         }
 
         numPos.add(x);
         numPos.add(y);
         return (numPos);
-
     }
 
 
@@ -121,7 +116,7 @@ public class Word {
      */
     public String getWord()
     {
-        return  word;
+        return word;
     }
 
 
@@ -168,18 +163,10 @@ public class Word {
      * checks if word falls within board bounds
      * Developed by: Ibtasam Rasool
      *
-     * @return boolean repersenting if word fits
+     * @return boolean representing if word fits
      */
-    public boolean hasValidBounds(){
-
+    public boolean hasValidBounds()
+    {
         return  (this.findWordPosition().get(1) + word.length() <= Board.SIZE);
-
     }
-
-
-    /*
-    public static void main(String[] args) {
-        Word word = new Word("HELLO", "5G");
-    }
-    */
 }

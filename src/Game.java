@@ -3,13 +3,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
+ * alternates between 2 players.  The game accepts user input via the keyboard.  The game is currently incomplete.
+ * Players can add words to the board, pass their turn, swap their pieces with the letterbag, and quit the game.
+ * Developed by Ibtasam & James & Daniel
+ */
 public class Game {
     private Board board;
     public static List<Player> players;
     private Player currentPlayer;
-    private Round currentRound;
+    // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
-    private Stack<Round> roundHistory; // will be used for undo/redo in the future
+    //private Stack<Round> roundHistory; // will be used for undo/redo in the future
     private Dictionary dictionary;
     private Parser parser = new Parser();
     private boolean finished;
@@ -20,6 +26,7 @@ public class Game {
      * Initializes all aspects and then starts the game.
      * Initializes the Players, a history of rounds, the dictionary and the
      * board.  Then begins the first turn of the game.
+     * Developed by Daniel
      *
      * @param numPlayers The number of Players in this game.
      */
@@ -27,15 +34,11 @@ public class Game {
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         players = new ArrayList<Player>();
-        roundHistory = new Stack<Round>();
+        // roundHistory = new Stack<Round>(); // for the future
         dictionary = new Dictionary();
 
         initializeBoard();
         initializePlayers(numPlayers);
-
-        //initializeLetterBag();
-
-        //while(playRound()); //? fix later
 
         finished = false;
         play();
@@ -46,6 +49,7 @@ public class Game {
      * Runs the game until the game has finished.  The game starts
      * with the first player's turn, then switches players at the
      * end of each turn.
+     * Developed by Ibtasam
      */
     public void play(){
         currentPlayer = players.get(0);
@@ -135,6 +139,8 @@ public class Game {
 
     /**
      * Checks if word is found in the Player's Tray.
+     * Developed by Ibtasam
+     *
      * @param word The word to check for in the Player's Tray.
      * @return true if the word is present in the Player's Tray, false otherwise.
      */
@@ -147,6 +153,7 @@ public class Game {
 
     /**
      * Gets the LetterBag shared by all Player's in the game.
+     * Developed by Daniel
      *
      * @return The game's LetterBag.
      */
@@ -158,6 +165,7 @@ public class Game {
 
     /**
      * Initializes the game Board.
+     * Developed by Daniel
      */
     private void initializeBoard(){
         board = new Board();
@@ -166,8 +174,9 @@ public class Game {
 
     /**
      * Initializes the Players of the Game.
+     * Developed by Daniel
      *
-     * @param numPlayers
+     * @param numPlayers the number of Players in the game.
      */
     private void initializePlayers(int numPlayers){
         for(int i = 0; i < numPlayers; i++){
@@ -187,18 +196,19 @@ public class Game {
      *
      * @return true if the game will continue, false otherwise.
      */
-    public boolean playRound(){
+    /* public boolean playRound(){
         nextPlayer();
         currentRound = new Round(currentPlayer);
         if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || zeroScoreTurns == 6){
             return false;
         }
         return true;
-    }
+    } */
 
 
     /**
      * Updates the current Player for the next round.
+     * Developed by Daniel
      */
     public void nextPlayer(){
         for (int i = 0; i < players.size(); i++){
@@ -216,6 +226,7 @@ public class Game {
 
     /**
      * Prints the scores of all Player's to the console.
+     * Developed by Daniel
      */
     public void getPlayerScores(){
         System.out.println("--------------");
@@ -231,6 +242,7 @@ public class Game {
     /**
      * Prints the current game status to the console, including the board,
      * player scores, and the current player's tray.
+     * Developed by Daniel and Ibtasam
      */
     public void output(){
         System.out.println(board);

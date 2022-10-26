@@ -126,7 +126,6 @@ public class Player
                 tray.removeLetter(letter);
             }
         }
-
     }
 
     /**
@@ -142,5 +141,4 @@ public class Player
         }
         fillTray();
     }
-
 }
