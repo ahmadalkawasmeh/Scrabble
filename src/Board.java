@@ -23,8 +23,8 @@ public class Board {
         usedSquares = new String[SIZE][SIZE];
         specialSquares = new scores[SIZE][SIZE];
 
-        initializeBoard();
-        setSpecialSquaresStandard(); // use the standard configuration of special squares
+        this.initializeBoard();
+        // setSpecialSquaresStandard(); // use the standard configuration of special squares (For milestone 3)
     }
 
 
@@ -99,13 +99,14 @@ public class Board {
     }
 
     /**
+     * --- NOT FOR MILESTONE 1 ---
      * Initializes the standard mapping of special squares on the board.
      * A special square is one that will have alternative scoring implementations
      * (double letter score, triple letter score, double word score, triple word
      * score).
      * Developed by: Daniel Kuchanski
      */
-    public void setSpecialSquaresStandard(){
+     /* public void setSpecialSquaresStandard(){
         specialSquares[0][0] = specialSquares[0][7] = specialSquares[0][14] = specialSquares[7][0] =
                 specialSquares[7][7] = specialSquares[7][14] = specialSquares[14][0] =
                 specialSquares[14][7] = specialSquares[14][14] = scores.TW;
@@ -130,7 +131,7 @@ public class Board {
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
                                                                 specialSquares[11][14] = scores.DW;
-    }
+    } */
 
     /**
      * Initializes board with empty values on each square (indicating

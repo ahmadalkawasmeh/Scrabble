@@ -10,9 +10,10 @@ public class Game {
     private Round currentRound;
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
     private Stack<Round> roundHistory; // will be used for undo/redo in the future
-    private Dictionary dictionary; // contains the legal words of the game
-    private Parser parser = new Parser(); // accepts user input
-    private int passCount = 0;
+    private Dictionary dictionary;
+    private Parser parser = new Parser();
+    private boolean finished;
+    private int zeroScoreTurns = 0; // Track for a game-ending condition
 
 
     /**
@@ -36,8 +37,10 @@ public class Game {
 
         //while(playRound()); //? fix later
 
+        finished = false;
         play();
     }
+
 
     /**
      * Runs the game until the game has finished.  The game starts
@@ -47,23 +50,92 @@ public class Game {
     public void play(){
         currentPlayer = players.get(0);
 
-        boolean finished = false;
-
         while(! finished){
 
             this.output();
-            Word word = parser.getInput();
+            Move move = parser.getInput();
+            processMove(move);
 
-            if(this.checkWord(word) /*&& checkLegalWordPosition(word)*/) // removed for now
-            {
-                board.addWordToBoard(word);
-
-                currentPlayer.updateScore(word.wordScore());  //updates score
-                currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split("")))); //removes used letters from the players tray
-                currentPlayer.fillTray();  //fills player tray
-            }
             nextPlayer();
         }
+    }
+
+
+    /**
+     * Carries out the desired command that the user has input.
+     * Developed by: James Grieder
+     *
+     * @param move The command that the user has input.
+     */
+    public void processMove(Move move) {
+
+        if (move.getSecondCommandWord() == null) { // Single word commands
+            if (move.getFirstCommandWord().equals("QUIT")) {
+                quit();
+            } else if (move.getFirstCommandWord().equals("PASS")) {
+                zeroScoreTurns += 1;
+            }
+        }
+        // Beginning of multiple word commands
+        else if (move.getFirstCommandWord().equals("SWAP"))
+        {swap(move.getSecondCommandWord());}
+
+         else { // Place a word on the board
+            processWord(move);
+        }
+    }
+
+
+    /**
+     * Converts a user input Move to a Word object.
+     * Developed by: James Grieder
+     *
+     * @param move The command that the user has input.
+     * @return the Word that will be placed on the board.
+     */
+    public Word processWord(Move move) {
+
+        Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
+
+        if (this.checkWord(word) /*&& checkLegalWordPosition(word)*/) // removed for now
+        {
+            zeroScoreTurns = 0; // Reset counter if a word is placed
+
+            board.addWordToBoard(word);
+
+            currentPlayer.updateScore(word.wordScore());  //updates score
+            currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split("")))); //removes used letters from the players tray
+            currentPlayer.fillTray();  //fills player tray
+        }
+        return word;
+    }
+
+
+    /**
+     * Quits the game.
+     * Developed by: James Grieder
+     */
+    public void quit() {
+        finished = true;
+    }
+
+
+    /**
+     * Puts letters from the current player's tray back to the LetterBag,
+     * and draws new letters to the player's tray.
+     * Developed by: James Grieder
+     *
+     * @param letters The letters that will be put back in the LetterBag
+     */
+    public void swap(String letters) {
+
+        ArrayList<String> swapList = new ArrayList<>(); // convert letters to an ArrayList format
+        for (int i = 0; i < letters.length(); i++)
+        {
+            swapList.add("" + letters.charAt(i));
+        }
+        currentPlayer.removeLetters(swapList); // remove the specified letters
+        currentPlayer.fillTray(); // refill the player's tray
     }
 
 
@@ -139,7 +211,7 @@ public class Game {
     public boolean playRound(){
         nextPlayer();
         currentRound = new Round(currentPlayer);
-        if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || passCount == 6){
+        if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || zeroScoreTurns == 6){
             return false;
         }
         return true;
