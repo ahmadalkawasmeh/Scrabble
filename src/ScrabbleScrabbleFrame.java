@@ -1,0 +1,207 @@
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+
+public class ScrabbleScrabbleFrame extends JFrame {
+
+    private Container pane;
+    private JButton[][] gameBoardButtons;
+
+    private JButton[] letterTrayButtons;
+
+    private JLabel[] playerNamesAndScores; // indices 0, 2, 4, 6 are player names, indices 1, 3, 5, 7 are player scores
+    private JLabel currentPlayerLabel;
+    private JButton placeWordButton, swapButton, passButton, goButton;
+
+
+    public ScrabbleScrabbleFrame() {
+        super("ScrabbleScrabble Game");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(700,700);
+        this.setLayout(new BorderLayout());
+
+        pane = this.getContentPane();
+
+        JMenuBar menuBar = new JMenuBar();
+        this.setJMenuBar(menuBar);
+
+        JMenu fileMenu = new JMenu("File");
+        menuBar.add(fileMenu);
+
+        JMenuItem newGame = new JMenuItem("New Game");
+        fileMenu.add(newGame);
+        JMenuItem saveGame = new JMenuItem("Save Game");
+        fileMenu.add(saveGame);
+        JMenuItem loadGame = new JMenuItem("Load Game");
+        fileMenu.add(loadGame);
+        JMenuItem quitGame = new JMenuItem("Quit Game");
+        fileMenu.add(quitGame);
+
+        JMenu gameHistoryOptions = new JMenu("Game History Options");
+        menuBar.add(gameHistoryOptions);
+
+        JMenuItem undoMenuItem = new JMenuItem("Undo");
+        gameHistoryOptions.add(undoMenuItem);
+        JMenuItem redoMenuItem = new JMenuItem("Redo");
+        gameHistoryOptions.add(redoMenuItem);
+
+        JMenu helpMenu = new JMenu("Help");
+        menuBar.add(helpMenu);
+
+        JMenuItem viewGameInstructions = new JMenuItem("View Game Instructions");
+        helpMenu.add(viewGameInstructions);
+        JMenuItem viewReadme = new JMenuItem("View readme");
+        helpMenu.add(viewReadme);
+
+        JPanel logoPanel = new JPanel();
+        JPanel scoreBoardPanel = new JPanel();
+        JPanel centrePanel = new JPanel();
+        JPanel gameBoardPanel = new JPanel();
+        JPanel playerInputPanel = new JPanel();
+        JPanel letterTrayPanel = new JPanel();
+
+        pane.add(logoPanel, BorderLayout.NORTH);
+        pane.add(scoreBoardPanel, BorderLayout.WEST);
+        pane.add(centrePanel, BorderLayout.CENTER);
+        pane.add(playerInputPanel, BorderLayout.EAST);
+
+        centrePanel.setLayout(new BorderLayout());
+        centrePanel.add(gameBoardPanel, BorderLayout.NORTH);
+        centrePanel.add(letterTrayPanel, BorderLayout.SOUTH);
+
+        // logoPanel
+
+        logoPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.DARK_GRAY));
+        logoPanel.setBackground(new Color(162, 129, 40));
+        JLabel logo = new JLabel("ScrabbleScrabble");
+        logoPanel.add(logo);
+        logo.setFont(new Font(Font.SERIF, Font.BOLD, 36));
+
+        // scoreBoardPanel
+
+        scoreBoardPanel.setLayout(new BorderLayout());
+
+        JLabel scoreBoardLabel = new JLabel("Scoreboard");
+        scoreBoardLabel.setFont(new Font(Font.SERIF, Font.BOLD, 22));
+        scoreBoardPanel.add(scoreBoardLabel, BorderLayout.NORTH);
+
+
+        JPanel playerScoresPanel = new JPanel();
+        playerScoresPanel.setLayout(new GridLayout(1, 2));
+
+        JPanel playerNameListPanel = new JPanel();
+        playerNameListPanel.setLayout(new BoxLayout(playerNameListPanel, BoxLayout.Y_AXIS));
+        JPanel playerScoreListPanel = new JPanel();
+        playerScoreListPanel.setLayout(new BoxLayout(playerScoreListPanel, BoxLayout.Y_AXIS));
+
+        playerNamesAndScores = new JLabel[8];
+        for (int i = 0; i < 8; i++) {
+            JLabel l;
+            if (i % 2 == 0) {
+                l = new JLabel("Player name: ");
+                l.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+                playerNameListPanel.add(l);
+            } else {
+                l = new JLabel("score");
+                l.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+                playerScoreListPanel.add(l);
+            }
+            playerNamesAndScores[i] = l;
+        }
+        scoreBoardPanel.add(playerScoresPanel, BorderLayout.CENTER);
+
+        playerScoresPanel.add(playerNameListPanel);
+        playerScoresPanel.add(playerScoreListPanel);
+
+        playerNameListPanel.setVisible(true);
+        playerScoreListPanel.setVisible(true);
+
+        scoreBoardPanel.setVisible(true);
+
+        // gameBoardPanel
+
+        gameBoardPanel.setLayout(new GridLayout(15, 15));
+        gameBoardButtons = new JButton[15][15]; // should add variable
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+
+                JButton b = new JButton(" ");
+                gameBoardButtons[i][j] = b;
+                b.setActionCommand(i + " " + j);
+                gameBoardPanel.add(b);
+
+                // remove click mechanism (colour changing)
+                b.setBackground(new Color(228, 201, 128));
+                b.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+            }
+        }
+
+        JLabel gameStatusMessage = new JLabel("Welcome to ScrabbleScrabble");
+        gameStatusMessage.setFont(new Font(Font.SERIF, Font.PLAIN, 18));
+        gameStatusMessage.setHorizontalAlignment(SwingConstants.CENTER);
+
+        centrePanel.add(gameStatusMessage, BorderLayout.CENTER);
+
+        // playerInputPanel
+
+        playerInputPanel.setLayout(new BoxLayout(playerInputPanel, BoxLayout.Y_AXIS));
+
+        currentPlayerLabel = new JLabel("Current Player: N/A");
+        currentPlayerLabel.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        playerInputPanel.add(currentPlayerLabel);
+
+        placeWordButton = new JButton("Place Word");
+        placeWordButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        placeWordButton.setMaximumSize(new Dimension(200, 50));
+        playerInputPanel.add(placeWordButton);
+
+        swapButton = new JButton("Swap");
+        swapButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        swapButton.setMaximumSize(new Dimension(200, 50));
+        playerInputPanel.add(swapButton);
+
+        passButton = new JButton("Pass");
+        passButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        passButton.setMaximumSize(new Dimension(200, 50));
+        playerInputPanel.add(passButton);
+
+        goButton = new JButton("GO");
+        goButton.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
+        playerInputPanel.add(goButton);
+        goButton.setMaximumSize(new Dimension(200, 175));
+
+
+        // letterTrayPanel
+
+        letterTrayPanel.setLayout(new GridLayout(1, 7));
+
+        letterTrayButtons = new JButton[7];
+        for (int i = 0; i < 7; i++) {
+            JButton b = new JButton();
+            letterTrayButtons[i] = b;
+            b.setActionCommand("" + i);
+
+            b.setText(" ");
+            b.setFont(new Font(Font.SERIF, Font.BOLD, 36));
+            letterTrayPanel.add(b);
+        }
+
+        gameBoardPanel.setVisible(true);
+        letterTrayPanel.setVisible(true);
+        centrePanel.setVisible(true);
+
+
+
+
+
+
+
+
+
+        this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+    }
+}
