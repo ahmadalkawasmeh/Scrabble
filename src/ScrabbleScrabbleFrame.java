@@ -2,22 +2,28 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 
+/**
+ * ScrabbleScrabbleFrame is a GUI view for the game of ScrabbleScrabble.
+ * This view is a part of the MVC pattern. This view displays the game title,
+ * the game grid, a status message, the player's letter tray, a scoreboard,
+ * and provides a panel for the user to input commands by selecting buttons
+ * (place word, pass, skip, go).
+ */
 public class ScrabbleScrabbleFrame extends JFrame {
 
     private Container pane;
     private JButton[][] gameBoardButtons;
-
     private JButton[] letterTrayButtons;
-
     private JLabel[] playerNamesAndScores; // indices 0, 2, 4, 6 are player names, indices 1, 3, 5, 7 are player scores
     private JLabel currentPlayerLabel;
     private JButton placeWordButton, swapButton, passButton, goButton;
+    private JLabel gameStatusMessage;
 
 
     public ScrabbleScrabbleFrame() {
         super("ScrabbleScrabble Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700,700);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLayout(new BorderLayout());
 
         pane = this.getContentPane();
@@ -85,7 +91,6 @@ public class ScrabbleScrabbleFrame extends JFrame {
         scoreBoardLabel.setFont(new Font(Font.SERIF, Font.BOLD, 22));
         scoreBoardPanel.add(scoreBoardLabel, BorderLayout.NORTH);
 
-
         JPanel playerScoresPanel = new JPanel();
         playerScoresPanel.setLayout(new GridLayout(1, 2));
 
@@ -113,6 +118,12 @@ public class ScrabbleScrabbleFrame extends JFrame {
         playerScoresPanel.add(playerNameListPanel);
         playerScoresPanel.add(playerScoreListPanel);
 
+        scoreBoardPanel.setBackground(new Color(168,186,169));
+        playerInputPanel.setBackground(new Color(168,186,169));
+        playerScoresPanel.setBackground(new Color(168,186,169));
+        playerNameListPanel.setBackground(new Color(168,186,169));
+        playerScoreListPanel.setBackground(new Color(168,186,169));
+
         playerNameListPanel.setVisible(true);
         playerScoreListPanel.setVisible(true);
 
@@ -121,6 +132,7 @@ public class ScrabbleScrabbleFrame extends JFrame {
         // gameBoardPanel
 
         gameBoardPanel.setLayout(new GridLayout(15, 15));
+        gameBoardPanel.setBackground(new Color(168,186,169));
         gameBoardButtons = new JButton[15][15]; // should add variable
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
@@ -135,12 +147,21 @@ public class ScrabbleScrabbleFrame extends JFrame {
                 b.setFont(new Font(Font.SERIF, Font.BOLD, 20));
             }
         }
+        gameBoardButtons[7][7].setBackground(new Color(121, 80, 48));
 
-        JLabel gameStatusMessage = new JLabel("Welcome to ScrabbleScrabble");
-        gameStatusMessage.setFont(new Font(Font.SERIF, Font.PLAIN, 18));
+
+        JPanel gameStatusPane = new JPanel();
+        gameStatusMessage = new JLabel("Welcome to ScrabbleScrabble");
+        gameStatusMessage.setFont(new Font(Font.SERIF, Font.PLAIN, 28));
         gameStatusMessage.setHorizontalAlignment(SwingConstants.CENTER);
 
-        centrePanel.add(gameStatusMessage, BorderLayout.CENTER);
+        gameStatusPane.setLayout(new GridLayout(1,1));
+        gameStatusPane.setBackground(new Color(162, 129, 40));
+        gameStatusPane.setBorder(new BevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY));
+
+        centrePanel.add(gameStatusPane, BorderLayout.CENTER);
+        gameStatusPane.add(gameStatusMessage);
+
 
         // playerInputPanel
 
@@ -153,20 +174,24 @@ public class ScrabbleScrabbleFrame extends JFrame {
         placeWordButton = new JButton("Place Word");
         placeWordButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         placeWordButton.setMaximumSize(new Dimension(200, 50));
+        placeWordButton.setBackground(new Color(92, 206, 128));
         playerInputPanel.add(placeWordButton);
 
         swapButton = new JButton("Swap");
         swapButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         swapButton.setMaximumSize(new Dimension(200, 50));
+        swapButton.setBackground(new Color(92, 206, 128));
         playerInputPanel.add(swapButton);
 
         passButton = new JButton("Pass");
         passButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         passButton.setMaximumSize(new Dimension(200, 50));
+        passButton.setBackground(new Color(92, 206, 128));
         playerInputPanel.add(passButton);
 
         goButton = new JButton("GO");
         goButton.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
+        goButton.setBackground(new Color(67, 143, 95));
         playerInputPanel.add(goButton);
         goButton.setMaximumSize(new Dimension(200, 175));
 
@@ -174,6 +199,8 @@ public class ScrabbleScrabbleFrame extends JFrame {
         // letterTrayPanel
 
         letterTrayPanel.setLayout(new GridLayout(1, 7));
+        letterTrayPanel.setBackground(new Color(168,186,169));
+        letterTrayPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.GRAY));
 
         letterTrayButtons = new JButton[7];
         for (int i = 0; i < 7; i++) {
@@ -183,23 +210,17 @@ public class ScrabbleScrabbleFrame extends JFrame {
 
             b.setText(" ");
             b.setFont(new Font(Font.SERIF, Font.BOLD, 36));
+            b.setBackground(new Color(228, 201, 128));
             letterTrayPanel.add(b);
         }
-
         gameBoardPanel.setVisible(true);
         letterTrayPanel.setVisible(true);
         centrePanel.setVisible(true);
 
-
-
-
-
-
-
-
-
         this.setVisible(true);
     }
+
+
 
     public static void main(String[] args) {
         ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
