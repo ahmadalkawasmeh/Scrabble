@@ -83,13 +83,14 @@ public class LetterBag {
      * @param letter The letter to get the quantity of.
      * @return The quantity of letter in letter bag.
      */
-    private int letterQuantity(String letter){
+    public int letterQuantity(String letter){
         return letterQuantities.get(letter);
     }
 
 
     /**
      * Returns the total amount of letters remaining in this LetterBag.
+     * Made Public for testing in Deliverable 2
      * Developed by: Ibtasam Rasool
      *
      * @return the amount of letters remaining.
