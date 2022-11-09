@@ -9,7 +9,7 @@ import java.awt.*;
  * and provides a panel for the user to input commands by selecting buttons
  * (place word, pass, skip, go).
  */
-public class ScrabbleScrabbleFrame extends JFrame {
+public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleView {
 
     private Container pane;
     private JButton[][] gameBoardButtons;
@@ -221,8 +221,12 @@ public class ScrabbleScrabbleFrame extends JFrame {
     }
 
 
-
     public static void main(String[] args) {
         ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+    }
+
+    @Override
+    public void update(GameEvent e) {
+
     }
 }

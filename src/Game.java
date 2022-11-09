@@ -10,6 +10,8 @@ import java.util.Stack;
  * Developed by Ibtasam & James & Daniel
  */
 public class Game {
+
+    private ArrayList<ScrabbleScrabbleView> views;
     private Board board;
     public static List<Player> players;
     private Player currentPlayer;
