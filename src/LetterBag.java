@@ -65,7 +65,7 @@ public class LetterBag {
      *
      * @param letter The letter to decrement.
      */
-    private void decreaseLetterQuantity(String letter)
+    public void decreaseLetterQuantity(String letter)
     {
         if(letterQuantities.get(letter) == 1)
         {

@@ -159,6 +159,7 @@ public class Game {
      *
      * @return The game's LetterBag.
      */
+
     public static LetterBag getLetterBag()
     {
         return letterBag;

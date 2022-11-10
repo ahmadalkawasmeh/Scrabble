@@ -1,5 +1,7 @@
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The Board for scrabblescrabble.  Represents a square grid of squares, where
@@ -145,4 +147,170 @@ public class Board {
             }
         }
     }
+
+    public boolean checkWordOnBoard(Word word){
+        HashMap<String, String> letterPositions = word.getLetterPositions();
+        ArrayList<Integer> coordinate =  Word.numCoordinate(letterPositions.keySet().iterator().next());
+
+        if(word.isHorizontal()){
+            return checkHorizontal(coordinate, true);
+        }
+
+        return checkVertical(coordinate, true);
+
+    }
+
+    private boolean checkVertical(ArrayList<Integer> coordinate, boolean secondScan) {
+        boolean runCheck = true;
+        int count = 0;
+        String wordFormed = "";
+        Dictionary dictionary = new Dictionary();
+
+        //System.out.println(coordinate.get(0));
+        //System.out.println(coordinate.get(1));
+
+
+        while(runCheck){
+
+            if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0)][coordinate.get(1) + count].equals(" ")) {
+                wordFormed = wordFormed + usedSquares[coordinate.get(0)][coordinate.get(1) + count];
+
+                if((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) + count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) + count].equals(" ")) && secondScan) {
+                    if(!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) + count)), false)){
+                        return false;
+                    }
+                }
+
+                count += 1;
+            }
+            else {
+                runCheck = false;
+            }
+        }
+
+        System.out.println(wordFormed);
+        runCheck = true;
+        count  = 1;
+
+        while (runCheck){
+            if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0)][coordinate.get(1) - count].equals(" ")) {
+                wordFormed = usedSquares[coordinate.get(0)][coordinate.get(1) - count] + wordFormed;
+
+                if((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
+                    if(!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)){
+                        return false;
+                    }
+                }
+
+                count += 1;
+            }
+            else {
+                runCheck = false;
+            }
+        }
+        System.out.println(wordFormed);
+        //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
+
+        return dictionary.lookupDictionary(wordFormed.toLowerCase());
+
+    }
+
+
+
+    private boolean checkHorizontal(ArrayList<Integer> coordinate, boolean secondScan){
+        boolean runCheck = true;
+        int count = 0;
+        String wordFormed = "";
+        Dictionary dictionary = new Dictionary();
+
+            //System.out.println(coordinate.get(0));
+            //System.out.println(coordinate.get(1));
+
+
+            while(runCheck){
+
+                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {
+                    wordFormed = wordFormed + usedSquares[coordinate.get(0) + count][coordinate.get(1)];
+
+
+                    if((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                        if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)){
+                            return false;
+                        }
+                    }
+
+                    count += 1;
+                }
+                else {
+                    runCheck = false;
+                }
+            }
+
+            System.out.println(wordFormed);
+            runCheck = true;
+            count  = 1;
+            while (runCheck){
+                if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0) - count][coordinate.get(1)].equals(" ")) {
+                    wordFormed = usedSquares[coordinate.get(0) - count][coordinate.get(1)] + wordFormed;
+
+
+
+                    if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                        if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
+                            return false;
+                        }
+                    }
+
+
+
+                    count += 1;
+                }
+                else {
+                    runCheck = false;
+                }
+            }
+            System.out.println(wordFormed);
+            //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
+
+            return dictionary.lookupDictionary(wordFormed.toLowerCase());
+
+    }
+
+
+
+    public static void main(String[] args) {
+        /*
+        Word word1 = new Word("Slope", "G5");
+        Word word2 = new Word("Stil", "6C");
+        Board board = new Board();
+        board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
+
+        ArrayList<String> e = new ArrayList<>();
+        e.add("slime");
+        System.out.println( e.iterator().next());
+
+        System.out.println(board);
+        System.out.println(board.checkWordOnBoard(word2));
+
+         */
+        Word word1 = new Word("CAT", "G5");
+       // Word word2 = new Word("CH", "7K");
+        Word word2 = new Word("TEMP", "7G");
+        Word word3 = new Word("MOTOR", "I7");
+        Word word4 = new Word("CH", "G8");
+        Word word5 = new Word("CHASE", "13A");
+
+        Board board = new Board();
+        board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
+        board.addWordToBoard(word3);
+        board.addWordToBoard(word4);
+        board.addWordToBoard(word5);
+        System.out.println(board.checkWordOnBoard(word2));
+        System.out.println(board);
+
+    }
+
+
 }

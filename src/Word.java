@@ -169,4 +169,12 @@ public class Word {
     {
         return  (this.findWordPosition().get(1) + word.length() <= Board.SIZE);
     }
+
+    public static ArrayList<Integer> numCoordinate(String coordinate){
+        ArrayList<Integer> numericCooridnate = new ArrayList<>();
+        numericCooridnate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
+        numericCooridnate.add(Character.getNumericValue(coordinate.charAt(1)));
+
+        return numericCooridnate;
+    }
 }
