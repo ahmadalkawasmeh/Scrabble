@@ -26,6 +26,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLayout(new BorderLayout());
 
+        Game gameModel = new Game(2);
+        BoardController boardController = new BoardController(gameModel);
+        TrayController trayController = new TrayController(gameModel);
+        gameModel.addview(this);
+
         pane = this.getContentPane();
 
         JMenuBar menuBar = new JMenuBar();
@@ -134,12 +139,13 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameBoardPanel.setLayout(new GridLayout(15, 15));
         gameBoardPanel.setBackground(new Color(168,186,169));
         gameBoardButtons = new JButton[15][15]; // should add variable
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < Board.SIZE; i++) {
+            for (int j = 0; j < Board.SIZE; j++) {
 
                 JButton b = new JButton(" ");
                 gameBoardButtons[i][j] = b;
                 b.setActionCommand(i + " " + j);
+                b.addActionListener(boardController);
                 gameBoardPanel.add(b);
 
                 // remove click mechanism (colour changing)
@@ -206,27 +212,68 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         for (int i = 0; i < 7; i++) {
             JButton b = new JButton();
             letterTrayButtons[i] = b;
-            b.setActionCommand("" + i);
+            b.setActionCommand(String.valueOf(i));
 
             b.setText(" ");
             b.setFont(new Font(Font.SERIF, Font.BOLD, 36));
             b.setBackground(new Color(228, 201, 128));
             letterTrayPanel.add(b);
+            b.addActionListener(trayController);
         }
         gameBoardPanel.setVisible(true);
         letterTrayPanel.setVisible(true);
         centrePanel.setVisible(true);
 
         this.setVisible(true);
+        gameModel.play();
     }
 
 
     public static void main(String[] args) {
+
         ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+
     }
 
     @Override
     public void update(GameEvent e) {
 
+        if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedTrayValue() != null) ){
+            gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
+
+        }
+        else{
+            updateTray(e.getTrayValues());
+            updateBoard(e.getUsedSquares());
+        }
+
     }
+
+    @Override
+    public void initalization() {
+
+    }
+
+    private void updateTray(String trayValues){
+        String[] tray =  trayValues.split(" ");
+        for(int i = 0; i < 7; i++){
+            letterTrayButtons[i].setText(tray[i]);
+        }
+
+    }
+
+    private void updateBoard(String[][] boardValues){
+
+        for(int i = 0; i < Board.SIZE; i++){
+            for(int j = 0; j < Board.SIZE; j++) {
+
+                gameBoardButtons[j][i].setText(boardValues[i][j]);
+            }
+
+        }
+
+    }
+
+
+
 }

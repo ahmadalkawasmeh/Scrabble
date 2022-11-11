@@ -23,6 +23,13 @@ public class Game {
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
 
+    private String currentSelectedTrayValue;
+
+    private ArrayList<Integer> currentSelectedBoardValue;
+
+    private int trayNumPos;
+
+
 
     /**
      * Initializes all aspects and then starts the game.
@@ -36,6 +43,7 @@ public class Game {
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         players = new ArrayList<Player>();
+        views = new ArrayList<>();
         // roundHistory = new Stack<Round>(); // for the future
         dictionary = new Dictionary();
 
@@ -43,7 +51,7 @@ public class Game {
         initializePlayers(numPlayers);
 
         finished = false;
-        play();
+
     }
 
 
@@ -55,14 +63,20 @@ public class Game {
      */
     public void play(){
         currentPlayer = players.get(0);
+        currentSelectedTrayValue = " ";
+        currentSelectedBoardValue = null;
 
         while(! finished){
 
+            updateViews();
             this.output();
             Move move = parser.getInput();
             processMove(move);
 
             nextPlayer();
+            currentSelectedTrayValue = " ";
+            currentSelectedBoardValue = null;
+
         }
     }
 
@@ -253,6 +267,27 @@ public class Game {
         System.out.println(currentPlayer.toString() +"'s Turn \n" + currentPlayer.toString() +"'s Tray: {  "+ currentPlayer.stringTray() +" }");
     }
 
+    public void addview(ScrabbleScrabbleView view){
+        views.add(view);
+    }
+
+    public void updateViews(){
+        for(ScrabbleScrabbleView view: views){
+            view.update(new GameEvent(this, currentPlayer, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos));
+        }
+    }
+
+    public void selectTrayValue(String trayValue, int buttonNum){
+        currentSelectedTrayValue = trayValue;
+        trayNumPos = buttonNum;
+    }
+
+    public void selectBoardValue(ArrayList<Integer> boardValue){
+        if(!currentSelectedTrayValue.equals(" ")){
+            currentSelectedBoardValue = boardValue;
+            updateViews();
+        }
+    }
 
     public static void main(String[] args) {
         Game game =  new Game(2);
