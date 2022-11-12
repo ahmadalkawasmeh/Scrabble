@@ -267,7 +267,11 @@ public class Game {
         System.out.println(currentPlayer.toString() +"'s Turn \n" + currentPlayer.toString() +"'s Tray: {  "+ currentPlayer.stringTray() +" }");
     }
 
-    public void addview(ScrabbleScrabbleView view){
+    /**
+     * Adds view to the list of views that this Game (the model) manages.
+     * @param view The view to add.
+     */
+    public void addView(ScrabbleScrabbleView view){
         views.add(view);
     }
 

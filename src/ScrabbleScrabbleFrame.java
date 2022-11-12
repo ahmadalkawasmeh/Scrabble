@@ -29,7 +29,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         Game gameModel = new Game(2);
         BoardController boardController = new BoardController(gameModel);
         TrayController trayController = new TrayController(gameModel);
-        gameModel.addview(this);
+        gameModel.addView(this);
 
         pane = this.getContentPane();
 
@@ -136,9 +136,9 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
         // gameBoardPanel
 
-        gameBoardPanel.setLayout(new GridLayout(15, 15));
+        gameBoardPanel.setLayout(new GridLayout(Board.SIZE, Board.SIZE));
         gameBoardPanel.setBackground(new Color(168,186,169));
-        gameBoardButtons = new JButton[15][15]; // should add variable
+        gameBoardButtons = new JButton[Board.SIZE][Board.SIZE]; // should add variable
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
 
@@ -250,7 +250,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
     @Override
-    public void initalization() {
+    public void initialization() {
 
     }
 

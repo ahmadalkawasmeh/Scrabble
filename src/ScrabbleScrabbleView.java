@@ -4,6 +4,6 @@ public interface ScrabbleScrabbleView {
 
     public void update(GameEvent e);
 
-    public void initalization();
+    public void initialization();
 
 }

@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class Tray
 {
-    private static final int NUMLETTERS = 7; // The maximum number of letters a tray can hold
+    private static final int SIZE = 7; // The maximum number of letters a tray can hold
 
     private ArrayList<String> letters; // The letters in this tray
     private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
@@ -36,7 +36,7 @@ public class Tray
      */
     public void fill()
     {
-        while(letters.size() < NUMLETTERS)
+        while(letters.size() < SIZE)
         {
             letters.add(letterBag.drawRandomLetter());
         }
