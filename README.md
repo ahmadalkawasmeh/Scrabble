@@ -10,7 +10,7 @@ SYSC 3110 Group Project (Fall 2022)
 
 # Introduction
 
-scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  In its current iteration, each of the 2 players has a tray with 7 letters drawn from a bag of pre-set letters.  Points are awarded based on the words placed, determined by the score of each letter used.  This first iteration of scrabblescrabble accepts user input from the keyboard.
+scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  In its current iteration, each of the 2 players has a tray with 7 letters drawn from a bag of pre-set letters.  Points are awarded based on the words placed, determined by the score of each letter used.  This second iteration of scrabblescrabble accepts user input via the mouse.
 
 
 # Game Instructions
@@ -71,7 +71,7 @@ N/A.  This iteration represents milestone 1 of 4.  All of the current program fu
 
 # Future Milestones
 
-The project is currently in milestone 1 of 4.  Future milestones are scheduled to include the following features:
+The project is currently in milestone 2 of 4.  Future milestones are scheduled to include the following features:
 
 - Milestone 2:
 	- A GUI-based version of scrabblescrabble
