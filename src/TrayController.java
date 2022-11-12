@@ -18,5 +18,6 @@ public class TrayController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         button = (JButton) e.getSource();
         gameModel.selectTrayValue(button.getText(), Integer.parseInt(e.getActionCommand()));
+        button.setEnabled(false);
     }
 }
