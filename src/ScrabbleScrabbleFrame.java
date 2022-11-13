@@ -188,6 +188,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         playerInputPanel.add(placeWordButton);
 
         swapButton = new JButton("Swap");
+        swapButton.addActionListener(gameController);
+        swapButton.setActionCommand("SWAP");
         swapButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         swapButton.setMaximumSize(new Dimension(200, 50));
         swapButton.setBackground(new Color(92, 206, 128));
@@ -211,6 +213,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
 
         goButton = new JButton("GO");
+        goButton.addActionListener(gameController);
+        goButton.setActionCommand("GO");
         goButton.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
         goButton.setBackground(new Color(67, 143, 95));
         playerInputPanel.add(goButton);

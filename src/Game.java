@@ -41,6 +41,10 @@ public class Game {
 
     private boolean resetBoard = true;
 
+    private boolean swapState;
+
+    private String lettersToSwap;
+
 
     /**
      * Initializes all aspects and then starts the game.
@@ -62,6 +66,8 @@ public class Game {
         initializePlayers(numPlayers);
 
         finished = false;
+
+        lettersToSwap = "";
 
 
     }
@@ -298,8 +304,12 @@ public class Game {
     }
 
     public void selectTrayValue(String trayValue, int buttonNum){
-        currentSelectedTrayValue = trayValue;
-        trayNumPos = buttonNum;
+        if (swapState) {
+            lettersToSwap += trayValue;
+        } else {
+            currentSelectedTrayValue = trayValue;
+            trayNumPos = buttonNum;
+        }
     }
 
     public void selectBoardValue(ArrayList<Integer> boardValue){
@@ -344,6 +354,8 @@ public class Game {
         startingWordPos = null;
         currentWord = "";
         lengthOfWordBeingBuilt = 0;
+        lettersToSwap = "";
+        swapState = false;
     }
 
     public void playPass() {
@@ -351,6 +363,17 @@ public class Game {
     }
 
     public void reset() {
+        resetViewValues();
+        updateViews();
+    }
+
+    public void swapNoParameters(boolean toSwap) {
+        swapState = toSwap;
+
+        if (!swapState) {
+            this.play("SWAP " + lettersToSwap);
+        }
+
         resetViewValues();
         updateViews();
     }

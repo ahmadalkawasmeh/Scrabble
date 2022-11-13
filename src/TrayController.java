@@ -8,6 +8,7 @@ public class TrayController implements ActionListener {
     private Game gameModel;
     private String[] trayButtonInfo;
 
+
     private  JButton button;
 
     public TrayController(Game gameModel){

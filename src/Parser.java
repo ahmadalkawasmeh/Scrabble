@@ -64,7 +64,7 @@ public class Parser {
     public Move getInput(String input) {
         //System.out.println(input);
 
-        String inputText[] = input.split(" ");
+        String inputText[] = input.split(" ", 2);
 
         String command = inputText[0]; // Get the first word of the input (the command)
         //System.out.println(command);
