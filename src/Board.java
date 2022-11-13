@@ -296,18 +296,21 @@ public class Board {
         System.out.println(board.checkWordOnBoard(word2));
 
          */
-        //Word word1 = new Word("DID", "7F");
-       // Word word2 = new Word("CH", "7K");
-        Word word2 = new Word("DID", "9M");
+        Word word1 = new Word("FEE", "H8");
+        Word word2 = new Word("S", "11H");
+        //Word word2 = new Word("DID", "9M");
         //Word word3 = new Word("ID", "9G");
         //Word word4 = new Word("DID", "H7");
         //Word word5 = new Word("FINITE", "8E");
 
         Board board = new Board();
         //board.addWordToBoard(word1);
-        board.addWordToBoard(word2);
+        //board.addWordToBoard(word2);
         //board.addWordToBoard(word3);
         //board.addWordToBoard(word4);
+        //board.addWordToBoard(word2);
+
+        board.addWordToBoard(word1);
         board.addWordToBoard(word2);
         System.out.println(board.checkWordOnBoard(word2));
         System.out.println(board);

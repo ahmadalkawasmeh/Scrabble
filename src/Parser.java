@@ -60,4 +60,19 @@ public class Parser {
 
         return move;
     }
+
+    public Move getInput2(String input) {
+
+        String inputText[] = input.split(" ", 2);
+
+        String command = inputText[0]; // Get the first word of the input (the command)
+        String location = inputText[1]; // Get the second word of the input (coordinates for the board)
+
+        command = command.toUpperCase();
+        location = location.toUpperCase();
+
+        Move move = new Move(command, location);
+
+        return move;
+    }
 }
