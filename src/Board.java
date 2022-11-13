@@ -229,7 +229,7 @@ public class Board {
 
             while(runCheck){
 
-                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {
+                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {    //FIX SIZE ERROR
                     wordFormed = wordFormed + usedSquares[coordinate.get(0) + count][coordinate.get(1)];
 
 

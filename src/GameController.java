@@ -1,12 +1,11 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuController implements ActionListener {
+public class GameController implements ActionListener {
 
     private Game model;
 
-    public MenuController(Game model) {
+    public GameController(Game model) {
         this.model = model;
     }
 
@@ -18,5 +17,9 @@ public class MenuController implements ActionListener {
         if(e.getActionCommand().equals("PASS")){
             model.playPass();
         }
+        if(e.getActionCommand().equals("RESET")){
+            model.reset();
+        }
+
     }
 }

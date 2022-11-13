@@ -16,7 +16,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JButton[] letterTrayButtons;
     private JLabel[] playerNamesAndScores; // indices 0, 2, 4, 6 are player names, indices 1, 3, 5, 7 are player scores
     private JLabel currentPlayerLabel;
-    private JButton placeWordButton, swapButton, passButton, goButton;
+    private JButton placeWordButton, swapButton, passButton, goButton, resetButton;
     private JLabel gameStatusMessage;
 
 
@@ -31,7 +31,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         TrayController trayController = new TrayController(gameModel);
         gameModel.addView(this);
 
-        MenuController menuController = new MenuController(gameModel);
+        GameController gameController = new GameController(gameModel);
 
         pane = this.getContentPane();
 
@@ -180,7 +180,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         playerInputPanel.add(currentPlayerLabel);
 
         placeWordButton = new JButton("Place Word");
-        placeWordButton.addActionListener(menuController);
+        placeWordButton.addActionListener(gameController);
         placeWordButton.setActionCommand("PLACE");
         placeWordButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         placeWordButton.setMaximumSize(new Dimension(200, 50));
@@ -199,6 +199,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         passButton.setMaximumSize(new Dimension(200, 50));
         passButton.setBackground(new Color(92, 206, 128));
         playerInputPanel.add(passButton);
+
+
+        resetButton = new JButton("Reset");
+        resetButton.setActionCommand("RESET");
+        resetButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        resetButton.setMaximumSize(new Dimension(200, 50));
+        resetButton.setBackground(new Color(92, 206, 128));
+        playerInputPanel.add(resetButton);
+
 
         goButton = new JButton("GO");
         goButton.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
@@ -230,7 +239,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         centrePanel.setVisible(true);
 
         this.setVisible(true);
-        gameModel.play();
+        gameModel.intializeGamePlay();
     }
 
 
@@ -252,66 +261,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             updateBoard(e.getUsedSquares());
         }
 
-        if (e.isPlaceCurrentBuildingWord()) {
-            placeWordOnGrid(e);
-
-        }
-
-
-
-    }
-
-    private void placeWordOnGrid(GameEvent e) {
-        int y = e.getStartingWordPos().get(0);
-        int x = e.getStartingWordPos().get(1);
-
-
-        if(checkHorizontalDirection(x, y)){
-            for (int i = 0; i < e.getLengthOfWordBeingBuilt(); i++){
-                if(!gameBoardButtons[y][x + i].getText().equals(" ")){
-                    gameBoardButtons[y][x + i].setEnabled(false);
-                }
-            }
-
-        }else{
-            for (int i = 0; i < e.getLengthOfWordBeingBuilt(); i++){
-                if(!gameBoardButtons[y + i][x].getText().equals(" ")){
-                    gameBoardButtons[y + i][x].setEnabled(false);
-                }
-            }
-
-        }
-
-
-    }
-
-    private void clearActiveButtonValues(){
-        for(int i = 0; i < Board.SIZE; i++){
-            for(int j = 0; j < Board.SIZE; j++) {
-
-                if(gameBoardButtons[j][i].isEnabled()){
-                    gameBoardButtons[j][i].setText(" ");
-                }
-            }
-
-        }
-    }
-
-
-    private boolean checkHorizontalDirection(int x, int y) {
-        if((x + 1) > (Board.SIZE - 1)){
-            return false;
-        }
-
-        if((y + 1) > (Board.SIZE - 1)){
-            return true;
-        }
-
-        if(gameBoardButtons[y][x + 1].getText().equals(" ")){
-            return false;
-        }
-
-            return true;
 
     }
 
@@ -335,8 +284,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             for(int j = 0; j < Board.SIZE; j++) {
 
                 gameBoardButtons[j][i].setText(boardValues[i][j]);
-                if(!boardValues[i][j].equals(" ")){
+                if(!gameBoardButtons[j][i].getText().equals(" ")){
                     gameBoardButtons[j][i].setEnabled(false);
+                }
+                if(gameBoardButtons[j][i].isEnabled()) {
+
+                    gameBoardButtons[j][i].setText(" ");
                 }
             }
 

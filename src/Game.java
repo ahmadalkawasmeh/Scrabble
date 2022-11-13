@@ -39,7 +39,7 @@ public class Game {
 
     private String input;
 
-    private boolean resetBoard;
+    private boolean resetBoard = true;
 
 
     /**
@@ -62,7 +62,7 @@ public class Game {
         initializePlayers(numPlayers);
 
         finished = false;
-        placeCurrentBuildingWord = false;
+
 
     }
 
@@ -73,29 +73,27 @@ public class Game {
      * end of each turn.
      * Developed by Ibtasam
      */
-    public void play(){
+
+    public void intializeGamePlay(){
         currentPlayer = players.get(0);
-        currentSelectedTrayValue = " ";
-        currentSelectedBoardValue = null;
-        startingWordPos = null;
-        currentWord = "";
-        lengthOfWordBeingBuilt = 0;
+        resetViewValues();
+        updateViews();
+    }
 
-        while(! finished){
 
-            updateViews();
+    public void play(String moveToPlay){
+
             this.output();
-            Move move = parser.getInput();
+            Move move = parser.getInput(moveToPlay);
             processMove(move);
-
             nextPlayer();
-            currentSelectedTrayValue = " ";
-            currentSelectedBoardValue = null;
-            startingWordPos = null;
-            currentWord = "";
-            lengthOfWordBeingBuilt = 0;
+            resetViewValues();
+            updateViews();
+            //updateViews();
 
-        }
+            this.output();
+
+
     }
 
 
@@ -318,26 +316,42 @@ public class Game {
 
     public void placeWord (){
         String wordCoordinate;
+        Integer y = startingWordPos.get(0) + 1;
         if(!currentSelectedTrayValue.equals(" ")){
             if(dictionary.lookupDictionary(currentWord.toLowerCase())){
                 if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
-                     input = Letters.values()[startingWordPos.get(0)].toString() + startingWordPos.get(1).toString();
+                    //System.out.println(currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+                     play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
                 }
-                if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
-                     input = Letters.values()[startingWordPos.get(0)].toString() + startingWordPos.get(1).toString();
+                else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+
+                     play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
                 }
                 //lengthOfWordBeingBuilt = currentWord.length();
                 //placeCurrentBuildingWord = true;
-                updateViews();
+                //updateViews();
             }
             //placeCurrentBuildingWord = false;
         }
-        resetBoard = true;
+        //resetBoard = true;
 
+    }
+
+    public void resetViewValues(){
+        placeCurrentBuildingWord = false;
+        currentSelectedTrayValue = " ";
+        currentSelectedBoardValue = null;
+        startingWordPos = null;
+        currentWord = "";
+        lengthOfWordBeingBuilt = 0;
     }
 
     public void playPass() {
 
     }
 
+    public void reset() {
+        resetViewValues();
+        updateViews();
+    }
 }
