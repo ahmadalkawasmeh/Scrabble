@@ -12,6 +12,11 @@ public class MenuController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e){
-
+        if(e.getActionCommand().equals("PLACE")){
+            model.placeWord();
+        }
+        if(e.getActionCommand().equals("PASS")){
+            model.playPass();
+        }
     }
 }

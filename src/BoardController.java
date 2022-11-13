@@ -16,7 +16,7 @@ public class BoardController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e){
-        coordinates= e.getActionCommand().split(" ");
+        coordinates = e.getActionCommand().split(" ");
         ArrayList<Integer> numCoordinates = new ArrayList<>();
         numCoordinates.add(Integer.parseInt(coordinates[0]));
         numCoordinates.add(Integer.parseInt(coordinates[1]));

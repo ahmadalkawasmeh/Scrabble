@@ -29,6 +29,17 @@ public class Game {
 
     private int trayNumPos;
 
+    private boolean placeCurrentBuildingWord;
+
+    private ArrayList<Integer> startingWordPos;
+
+    private String currentWord;
+
+    private int lengthOfWordBeingBuilt;
+
+    private String input;
+
+    private boolean resetBoard;
 
 
     /**
@@ -51,6 +62,7 @@ public class Game {
         initializePlayers(numPlayers);
 
         finished = false;
+        placeCurrentBuildingWord = false;
 
     }
 
@@ -65,6 +77,9 @@ public class Game {
         currentPlayer = players.get(0);
         currentSelectedTrayValue = " ";
         currentSelectedBoardValue = null;
+        startingWordPos = null;
+        currentWord = "";
+        lengthOfWordBeingBuilt = 0;
 
         while(! finished){
 
@@ -76,6 +91,9 @@ public class Game {
             nextPlayer();
             currentSelectedTrayValue = " ";
             currentSelectedBoardValue = null;
+            startingWordPos = null;
+            currentWord = "";
+            lengthOfWordBeingBuilt = 0;
 
         }
     }
@@ -277,7 +295,7 @@ public class Game {
 
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos));
+            view.update(new GameEvent(this, currentPlayer, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
         }
     }
 
@@ -288,12 +306,38 @@ public class Game {
 
     public void selectBoardValue(ArrayList<Integer> boardValue){
         if(!currentSelectedTrayValue.equals(" ")){
+            currentWord += currentSelectedTrayValue;
             currentSelectedBoardValue = boardValue;
+            if(startingWordPos == null){
+                startingWordPos = currentSelectedBoardValue;
+            }
+
             updateViews();
         }
     }
 
-    public static void main(String[] args) {
-        Game game =  new Game(2);
+    public void placeWord (){
+        String wordCoordinate;
+        if(!currentSelectedTrayValue.equals(" ")){
+            if(dictionary.lookupDictionary(currentWord.toLowerCase())){
+                if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
+                     input = Letters.values()[startingWordPos.get(0)].toString() + startingWordPos.get(1).toString();
+                }
+                if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+                     input = Letters.values()[startingWordPos.get(0)].toString() + startingWordPos.get(1).toString();
+                }
+                //lengthOfWordBeingBuilt = currentWord.length();
+                //placeCurrentBuildingWord = true;
+                updateViews();
+            }
+            //placeCurrentBuildingWord = false;
+        }
+        resetBoard = true;
+
     }
+
+    public void playPass() {
+
+    }
+
 }

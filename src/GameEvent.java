@@ -17,6 +17,12 @@ public class GameEvent extends EventObject {
 
     private int trayNumPos;
 
+    private boolean placeCurrentBuildingWord;
+
+    private ArrayList<Integer> startingWordPos;
+
+    private int lengthOfWordBeingBuilt;
+
     /**
      * Constructs a prototypical Event.
      *
@@ -27,9 +33,12 @@ public class GameEvent extends EventObject {
      * @param currentSelectedTrayValue
      * @param currentSelectedBoardValue
      * @param trayNumPos
+     * @param placeCurrentBuildingWord
+     * @param startingWordPos
+     * @param lengthOfWordBeingBuilt
      * @throws IllegalArgumentException if source is null
      */
-    public GameEvent(Object source, Player currentPlayer, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos) {
+    public GameEvent(Object source, Player currentPlayer, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
 
         super(source);
         this.currentPlayer = currentPlayer;
@@ -38,6 +47,9 @@ public class GameEvent extends EventObject {
         this.currentSelectedTrayValue = currentSelectedTrayValue;
         this.currentSelectedBoardValue = currentSelectedBoardValue;
         this.trayNumPos = trayNumPos;
+        this.placeCurrentBuildingWord = placeCurrentBuildingWord;
+        this.startingWordPos = startingWordPos;
+        this.lengthOfWordBeingBuilt = lengthOfWordBeingBuilt;
     }
 
     public String[][] getUsedSquares() {
@@ -51,7 +63,6 @@ public class GameEvent extends EventObject {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
     public String getCurrentSelectedTrayValue() {
         return currentSelectedTrayValue;
     }
@@ -62,5 +73,17 @@ public class GameEvent extends EventObject {
 
     public int getTrayNumPos() {
         return trayNumPos;
+    }
+
+    public boolean isPlaceCurrentBuildingWord() {
+        return placeCurrentBuildingWord;
+    }
+
+    public ArrayList<Integer> getStartingWordPos() {
+        return startingWordPos;
+    }
+
+    public int getLengthOfWordBeingBuilt() {
+        return lengthOfWordBeingBuilt;
     }
 }
