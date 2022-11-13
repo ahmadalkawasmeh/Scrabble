@@ -202,6 +202,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
 
         resetButton = new JButton("Reset");
+        resetButton.addActionListener(gameController);
         resetButton.setActionCommand("RESET");
         resetButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         resetButton.setMaximumSize(new Dimension(200, 50));
