@@ -304,8 +304,10 @@ public class Game {
     }
 
     public void selectTrayValue(String trayValue, int buttonNum){
+        System.out.print(swapState + "");
         if (swapState) {
             lettersToSwap += trayValue;
+
         } else {
             currentSelectedTrayValue = trayValue;
             trayNumPos = buttonNum;
@@ -373,8 +375,6 @@ public class Game {
         if (!swapState) {
             this.play("SWAP " + lettersToSwap);
         }
-
-        resetViewValues();
         updateViews();
     }
 }

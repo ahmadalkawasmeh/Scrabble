@@ -69,6 +69,7 @@ public class Parser {
         String command = inputText[0]; // Get the first word of the input (the command)
         //System.out.println(command);
         String location = inputText[1]; // Get the second word of the input (coordinates for the board)
+        // System.out.print("swapletters in parser" + location);
 
         command = command.toUpperCase();
         location = location.toUpperCase();

@@ -39,7 +39,7 @@ public class GameEvent extends EventObject {
      * @throws IllegalArgumentException if source is null
      */
     public GameEvent(Object source, Player currentPlayer, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
-
+        
         super(source);
         this.currentPlayer = currentPlayer;
         this.trayValues = trayValues;
