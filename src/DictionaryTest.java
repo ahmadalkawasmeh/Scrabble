@@ -58,5 +58,6 @@ public class DictionaryTest {
 
         String word2 = "milde";
         assertFalse(d.lookupDictionary(word2));
+
     }
 }
