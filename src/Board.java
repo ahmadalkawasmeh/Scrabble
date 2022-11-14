@@ -292,6 +292,4 @@ public class Board {
     public String[][] getUsedSquares(){
         return usedSquares;
     }
-
-
 }
