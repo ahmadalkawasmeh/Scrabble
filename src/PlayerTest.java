@@ -1,8 +1,5 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -10,8 +7,10 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
+
     Player p, p2, p3;
-    ArrayList<String> before, after, expected, actual, temp;
+    ArrayList<String> before, after, expected, actual, temp, temp2;
+
 
     @Before
     public void setUp() throws Exception {
@@ -88,24 +87,6 @@ public class PlayerTest {
 
 
     @Test
-    public void testRemoveLettersDoesNotRemoveRandomlyIfLetterNotInTray() {
-        actual = p.getLetters();
-
-
-        //temp.add(letter);   // put the letter into an array list
-        p.removeLetters(temp); //remove that letter from the player's tray
-
-        expected.remove(1); // remove the first index using ArrayList methods
-
-        assert(p.getLetters().size() < Tray.SIZE);
-        assertTrue(expected.equals(actual));
-    }
-
-
-
-
-
-    @Test
     public void testRemoveLettersRemovesAllLetters() {
         actual = p.getLetters();
 
@@ -119,8 +100,6 @@ public class PlayerTest {
 
         assert(p.getLetters().size() == 0);
     }
-
-
 
 
     @Test
