@@ -24,7 +24,7 @@ public class DictionaryTest {
     public void testDictionaryContainsALegalWord() {
         String word = "WORD";
         assertTrue(d.lookupDictionary(word));
-
+    }
 
 
 
