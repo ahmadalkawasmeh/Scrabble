@@ -1,7 +1,7 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Stack; // for milestone 3
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -13,7 +13,7 @@ public class Game {
 
     private ArrayList<ScrabbleScrabbleView> views;
     private Board board;
-    public static List<Player> players;
+    public static ArrayList<Player> players;
     private Player currentPlayer;
     // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
@@ -29,6 +29,21 @@ public class Game {
 
     private int trayNumPos;
 
+    private boolean placeCurrentBuildingWord;
+
+    private ArrayList<Integer> startingWordPos;
+
+    private String currentWord;
+
+    private int lengthOfWordBeingBuilt;
+
+    private String input;
+
+    private boolean resetBoard = true;
+
+    private boolean swapState;
+
+    private String lettersToSwap;
 
 
     /**
@@ -52,6 +67,7 @@ public class Game {
 
         finished = false;
 
+        lettersToSwap = "";
     }
 
 
@@ -61,23 +77,30 @@ public class Game {
      * end of each turn.
      * Developed by Ibtasam
      */
-    public void play(){
+    public void intializeGamePlay(){
         currentPlayer = players.get(0);
-        currentSelectedTrayValue = " ";
-        currentSelectedBoardValue = null;
+        resetViewValues();
+        updateViews();
+    }
 
-        while(! finished){
 
-            updateViews();
+    /**
+     * Transforms input from the user into move object to be played.
+     * Processes the move in the model, and then notifies the views.
+     *
+     * @param moveToPlay The string describing the move that the
+     *                   current player will play.
+     */
+    public void play(String moveToPlay){
+
             this.output();
-            Move move = parser.getInput();
+            Move move = parser.getInput(moveToPlay);
             processMove(move);
-
             nextPlayer();
-            currentSelectedTrayValue = " ";
-            currentSelectedBoardValue = null;
+            resetViewValues();
+            updateViews();
 
-        }
+            this.output();
     }
 
 
@@ -94,6 +117,7 @@ public class Game {
                 quit();
             } else if (move.getFirstCommandWord().equals("PASS")) {
                 zeroScoreTurns += 1;
+                nextPlayer();
             }
         }
         // Beginning of multiple word commands
@@ -173,7 +197,6 @@ public class Game {
      *
      * @return The game's LetterBag.
      */
-
     public static LetterBag getLetterBag()
     {
         return letterBag;
@@ -197,11 +220,8 @@ public class Game {
      */
     private void initializePlayers(int numPlayers){
         for(int i = 0; i < numPlayers; i++){
-
             Player player = new Player("Player " + (i + 1));
-
             players.add(player);
-
         }
     }
 
@@ -267,6 +287,7 @@ public class Game {
         System.out.println(currentPlayer.toString() +"'s Turn \n" + currentPlayer.toString() +"'s Tray: {  "+ currentPlayer.stringTray() +" }");
     }
 
+
     /**
      * Adds view to the list of views that this Game (the model) manages.
      * @param view The view to add.
@@ -275,25 +296,117 @@ public class Game {
         views.add(view);
     }
 
+
+    /**
+     * Notifies the views of updates to this game model.
+     */
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos));
+            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
         }
     }
 
+    /**
+     * Updates the ongoing move based on the selected tray button.
+     * For example, if the player is swapping letters, the list of letters to swap is updated.
+     * Or, if the player is putting words on the board, the letter and position are updated.
+     * @param trayValue the Letter selected in the tray (i.e. "A")
+     * @param buttonNum the position of the selected letter in the Tray (i.e. position 3)
+     */
     public void selectTrayValue(String trayValue, int buttonNum){
-        currentSelectedTrayValue = trayValue;
-        trayNumPos = buttonNum;
+        System.out.print(swapState + "");
+        if (swapState) {
+            lettersToSwap += trayValue;
+
+        } else {
+            currentSelectedTrayValue = trayValue;
+            trayNumPos = buttonNum;
+        }
     }
 
+
+    /**
+     * Places a single letter on the board.  This is a temporary placement until the word is checked.
+     *
+     * @param boardValue The letter to place on the board.
+     */
     public void selectBoardValue(ArrayList<Integer> boardValue){
         if(!currentSelectedTrayValue.equals(" ")){
+            currentWord += currentSelectedTrayValue;
             currentSelectedBoardValue = boardValue;
+            if(startingWordPos == null){
+                startingWordPos = currentSelectedBoardValue;
+            }
             updateViews();
         }
     }
 
-    public static void main(String[] args) {
-        Game game =  new Game(2);
+
+    /**
+     * Places a word on the board.
+     */
+    public void placeWord (){
+        String wordCoordinate;
+        Integer y = startingWordPos.get(0) + 1;
+        if(!currentSelectedTrayValue.equals(" ")){
+            if(dictionary.lookupDictionary(currentWord.toLowerCase())){
+                if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
+                    //System.out.println(currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+                     play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+                }
+                else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+
+                     play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Resets values that the views will require between turns.
+     */
+    public void resetViewValues(){
+        placeCurrentBuildingWord = false;
+        currentSelectedTrayValue = " ";
+        currentSelectedBoardValue = null;
+        startingWordPos = null;
+        currentWord = "";
+        lengthOfWordBeingBuilt = 0;
+        lettersToSwap = "";
+        swapState = false;
+    }
+
+
+    /**
+     * Implements the pass command.
+     */
+    public void playPass() {
+        updateViews();
+    }
+
+
+    /**
+     * Implements the reset command, resets the current word being constructed.
+     */
+    public void reset() {
+        resetViewValues();
+        updateViews();
+    }
+
+
+    /**
+     * Implements the swap command.  Allows the user to add multiple letters to a swap command.
+     *
+     * @param toSwap The state of the player swapping.  True if the player is beginning a swap,
+     *               false if the player is ending a swap.
+     */
+    public void swapNoParameters(boolean toSwap) {
+        swapState = toSwap;
+
+        if (!swapState) {
+            this.play("SWAP " + lettersToSwap);
+        }
+        updateViews();
     }
 }

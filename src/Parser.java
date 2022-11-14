@@ -36,7 +36,7 @@ public class Parser {
      *
      * @return a Word determined by the user's input.
      */
-    public Move getInput() {
+    public Move getInput2() {
         String inputText;
         String command = null;
         String location = null;
@@ -61,15 +61,19 @@ public class Parser {
         return move;
     }
 
-    public Move getInput2(String input) {
-
+    public Move getInput(String input) {
+        String command, location;
         String inputText[] = input.split(" ", 2);
 
-        String command = inputText[0]; // Get the first word of the input (the command)
-        String location = inputText[1]; // Get the second word of the input (coordinates for the board)
-
+        command = inputText[0]; // Get the first word of the input (the command)
         command = command.toUpperCase();
-        location = location.toUpperCase();
+
+        if (inputText.length > 1) {
+            location = inputText[1]; // Get the second word of the input (coordinates for the board)
+            location = location.toUpperCase();
+        } else {
+            location = null;
+        }
 
         Move move = new Move(command, location);
 
