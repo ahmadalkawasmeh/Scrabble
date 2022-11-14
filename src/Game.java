@@ -68,8 +68,6 @@ public class Game {
         finished = false;
 
         lettersToSwap = "";
-
-
     }
 
 
@@ -79,7 +77,6 @@ public class Game {
      * end of each turn.
      * Developed by Ibtasam
      */
-
     public void intializeGamePlay(){
         currentPlayer = players.get(0);
         resetViewValues();
@@ -95,11 +92,8 @@ public class Game {
             nextPlayer();
             resetViewValues();
             updateViews();
-            //updateViews();
 
             this.output();
-
-
     }
 
 
@@ -339,14 +333,8 @@ public class Game {
 
                      play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
                 }
-                //lengthOfWordBeingBuilt = currentWord.length();
-                //placeCurrentBuildingWord = true;
-                //updateViews();
             }
-            //placeCurrentBuildingWord = false;
         }
-        //resetBoard = true;
-
     }
 
     public void resetViewValues(){
@@ -361,7 +349,9 @@ public class Game {
     }
 
     public void playPass() {
-
+        //this.nextPlayer();
+        //resetViewValues();
+        updateViews();
     }
 
     public void reset() {

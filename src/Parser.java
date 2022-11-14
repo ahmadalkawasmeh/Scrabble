@@ -62,17 +62,18 @@ public class Parser {
     }
 
     public Move getInput(String input) {
-        //System.out.println(input);
-
+        String command, location;
         String inputText[] = input.split(" ", 2);
 
-        String command = inputText[0]; // Get the first word of the input (the command)
-        //System.out.println(command);
-        String location = inputText[1]; // Get the second word of the input (coordinates for the board)
-        // System.out.print("swapletters in parser" + location);
-
+        command = inputText[0]; // Get the first word of the input (the command)
         command = command.toUpperCase();
-        location = location.toUpperCase();
+
+        if (inputText.length > 1) {
+            location = inputText[1]; // Get the second word of the input (coordinates for the board)
+            location = location.toUpperCase();
+        } else {
+            location = null;
+        }
 
         Move move = new Move(command, location);
 

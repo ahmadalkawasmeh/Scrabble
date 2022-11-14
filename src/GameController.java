@@ -20,7 +20,7 @@ public class GameController implements ActionListener {
             model.playPass();
         }
         if(e.getActionCommand().equals("RESET")){
-            //System.out.println("RESET HIT");
+            System.out.println("RESET HIT");
             model.reset();
         }
         if(e.getActionCommand().equals("SWAP")){
@@ -30,6 +30,10 @@ public class GameController implements ActionListener {
         if(e.getActionCommand().equals("GO")){
             //System.out.println("GO HIT");
             model.swapNoParameters(false);
+        }
+        if(e.getActionCommand().equals("PASS")){
+            System.out.println("PASS HIT");
+            model.playPass();
         }
 
     }

@@ -196,6 +196,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         playerInputPanel.add(swapButton);
 
         passButton = new JButton("Pass");
+        passButton.addActionListener(gameController);
         passButton.setActionCommand("PASS");
         passButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         passButton.setMaximumSize(new Dimension(200, 50));
