@@ -13,7 +13,7 @@ public class Game {
 
     private ArrayList<ScrabbleScrabbleView> views;
     private Board board;
-    public static List<Player> players;
+    public static ArrayList<Player> players;
     private Player currentPlayer;
     // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
@@ -294,7 +294,7 @@ public class Game {
 
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
+            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
         }
     }
 

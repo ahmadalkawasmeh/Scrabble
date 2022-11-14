@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * ScrabbleScrabbleFrame is a GUI view for the game of ScrabbleScrabble.
@@ -264,6 +265,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         else{
             updateTray(e.getTrayValues());
             updateBoard(e.getUsedSquares());
+            updateCurrentPlayer(e.getCurrentPlayer().toString());
+            updateScoreBoard(e.getPlayerList());
         }
 
 
@@ -297,6 +300,22 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                     gameBoardButtons[j][i].setText(" ");
                 }
             }
+
+        }
+
+    }
+
+
+    private void updateCurrentPlayer(String currentPlayer) {
+        currentPlayerLabel.setText(currentPlayer);
+    }
+
+
+    private void updateScoreBoard(ArrayList<Player> namesAndScores) {
+        for(int i = 0; i < 2; i++) {
+            Player p = namesAndScores.get(i);
+            playerNamesAndScores[(i * 2)].setText(p.toString());
+            playerNamesAndScores[(i * 2) + 1].setText(p.stringScore());
 
         }
 

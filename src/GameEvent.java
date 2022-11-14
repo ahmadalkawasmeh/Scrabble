@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.List;
 
 public class GameEvent extends EventObject {
 
@@ -23,6 +24,9 @@ public class GameEvent extends EventObject {
 
     private int lengthOfWordBeingBuilt;
 
+
+    private ArrayList<Player> playerList;
+
     /**
      * Constructs a prototypical Event.
      *
@@ -38,7 +42,7 @@ public class GameEvent extends EventObject {
      * @param lengthOfWordBeingBuilt
      * @throws IllegalArgumentException if source is null
      */
-    public GameEvent(Object source, Player currentPlayer, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
+    public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
         
         super(source);
         this.currentPlayer = currentPlayer;
@@ -50,6 +54,7 @@ public class GameEvent extends EventObject {
         this.placeCurrentBuildingWord = placeCurrentBuildingWord;
         this.startingWordPos = startingWordPos;
         this.lengthOfWordBeingBuilt = lengthOfWordBeingBuilt;
+        this.playerList = playerList;
     }
 
     public String[][] getUsedSquares() {
@@ -62,6 +67,10 @@ public class GameEvent extends EventObject {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
     }
     public String getCurrentSelectedTrayValue() {
         return currentSelectedTrayValue;
@@ -86,4 +95,7 @@ public class GameEvent extends EventObject {
     public int getLengthOfWordBeingBuilt() {
         return lengthOfWordBeingBuilt;
     }
+
+
+
 }
