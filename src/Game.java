@@ -1,7 +1,7 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Stack; // for milestone 3
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -84,6 +84,13 @@ public class Game {
     }
 
 
+    /**
+     * Transforms input from the user into move object to be played.
+     * Processes the move in the model, and then notifies the views.
+     *
+     * @param moveToPlay The string describing the move that the
+     *                   current player will play.
+     */
     public void play(String moveToPlay){
 
             this.output();
@@ -190,7 +197,6 @@ public class Game {
      *
      * @return The game's LetterBag.
      */
-
     public static LetterBag getLetterBag()
     {
         return letterBag;
@@ -214,11 +220,8 @@ public class Game {
      */
     private void initializePlayers(int numPlayers){
         for(int i = 0; i < numPlayers; i++){
-
             Player player = new Player("Player " + (i + 1));
-
             players.add(player);
-
         }
     }
 
@@ -284,6 +287,7 @@ public class Game {
         System.out.println(currentPlayer.toString() +"'s Turn \n" + currentPlayer.toString() +"'s Tray: {  "+ currentPlayer.stringTray() +" }");
     }
 
+
     /**
      * Adds view to the list of views that this Game (the model) manages.
      * @param view The view to add.
@@ -292,12 +296,23 @@ public class Game {
         views.add(view);
     }
 
+
+    /**
+     * Notifies the views of updates to this game model.
+     */
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
             view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
         }
     }
 
+    /**
+     * Updates the ongoing move based on the selected tray button.
+     * For example, if the player is swapping letters, the list of letters to swap is updated.
+     * Or, if the player is putting words on the board, the letter and position are updated.
+     * @param trayValue the Letter selected in the tray (i.e. "A")
+     * @param buttonNum the position of the selected letter in the Tray (i.e. position 3)
+     */
     public void selectTrayValue(String trayValue, int buttonNum){
         System.out.print(swapState + "");
         if (swapState) {
@@ -309,6 +324,12 @@ public class Game {
         }
     }
 
+
+    /**
+     * Places a single letter on the board.  This is a temporary placement until the word is checked.
+     *
+     * @param boardValue The letter to place on the board.
+     */
     public void selectBoardValue(ArrayList<Integer> boardValue){
         if(!currentSelectedTrayValue.equals(" ")){
             currentWord += currentSelectedTrayValue;
@@ -320,6 +341,10 @@ public class Game {
         }
     }
 
+
+    /**
+     * Places a word on the board.
+     */
     public void placeWord (){
         String wordCoordinate;
         Integer y = startingWordPos.get(0) + 1;
@@ -337,6 +362,10 @@ public class Game {
         }
     }
 
+
+    /**
+     * Resets values that the views will require between turns.
+     */
     public void resetViewValues(){
         placeCurrentBuildingWord = false;
         currentSelectedTrayValue = " ";
@@ -348,15 +377,30 @@ public class Game {
         swapState = false;
     }
 
+
+    /**
+     * Implements the pass command.
+     */
     public void playPass() {
         updateViews();
     }
 
+
+    /**
+     * Implements the reset command, resets the current word being constructed.
+     */
     public void reset() {
         resetViewValues();
         updateViews();
     }
 
+
+    /**
+     * Implements the swap command.  Allows the user to add multiple letters to a swap command.
+     *
+     * @param toSwap The state of the player swapping.  True if the player is beginning a swap,
+     *               false if the player is ending a swap.
+     */
     public void swapNoParameters(boolean toSwap) {
         swapState = toSwap;
 

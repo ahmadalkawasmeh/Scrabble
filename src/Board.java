@@ -1,20 +1,23 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 /**
  * The Board for scrabblescrabble.  Represents a square grid of squares, where
  * each square is able to hold one letter.
  */
 public class Board {
+
+
     enum scores{DL, TL, DW, TW}
+
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
     private String[][] usedSquares; // Squares that have letters placed on them
     public Enum[][] specialSquares; // Squares with special scoring modifiers
-
     private HashMap<String, String> boardValues;
+
 
     /**
      * Initializes the scrabblescrabble game board, by setting up the board with empty values (no letters), an
@@ -57,6 +60,7 @@ public class Board {
         gridString += letters;
         return gridString;
     }
+
 
     /**
      * Places a word on the board.  This updates the boardValues map with the
@@ -135,6 +139,7 @@ public class Board {
                                                                 specialSquares[11][14] = scores.DW;
     } */
 
+
     /**
      * Initializes board with empty values on each square (indicating
      * no letter has been placed on each square).
@@ -148,6 +153,14 @@ public class Board {
         }
     }
 
+
+    /**
+     * Checks if the word being placed on the board has conflicts with the words around it.  A conflict means
+     * that the word creates illegal words (not found in the dictionary) as a result of placing this word.
+     *
+     * @param word The Word to check
+     * @return true if the word is placed in a location with no conflicts, otherwise returns false
+     */
     public boolean checkWordOnBoard(Word word){
         HashMap<String, String> letterPositions = word.getLetterPositions();
         ArrayList<Integer> coordinate =  Word.numCoordinate(letterPositions.keySet().iterator().next());
@@ -155,20 +168,22 @@ public class Board {
         if(word.isHorizontal()){
             return checkHorizontal(coordinate, true);
         }
-
         return checkVertical(coordinate, true);
-
     }
 
+
+    /**
+     * Checks the list of coordinates for word conflicts in the vertical direction.
+     *
+     * @param coordinate The coordinate to check.
+     * @param secondScan
+     * @return true if the coordinates have no conflicts in the vertical direction, false otherwise.
+     */
     private boolean checkVertical(ArrayList<Integer> coordinate, boolean secondScan) {
         boolean runCheck = true;
         int count = 0;
         String wordFormed = "";
         Dictionary dictionary = new Dictionary();
-
-        //System.out.println(coordinate.get(0));
-        //System.out.println(coordinate.get(1));
-
 
         while(runCheck){
 
@@ -212,20 +227,19 @@ public class Board {
         //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
 
         return dictionary.lookupDictionary(wordFormed.toLowerCase());
-
     }
 
 
-
+    /**Checks the list of coordinates for word conflicts in the horizontal direction.
+     * @param coordinate The coordinate to check.
+     * @param secondScan
+     * @return true if the coordinates have no conflicts in the horizontal direction, false otherwise.
+     **/
     private boolean checkHorizontal(ArrayList<Integer> coordinate, boolean secondScan){
         boolean runCheck = true;
         int count = 0;
         String wordFormed = "";
         Dictionary dictionary = new Dictionary();
-
-            //System.out.println(coordinate.get(0));
-            //System.out.println(coordinate.get(1));
-
 
             while(runCheck){
 
@@ -253,16 +267,11 @@ public class Board {
                 if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0) - count][coordinate.get(1)].equals(" ")) {
                     wordFormed = usedSquares[coordinate.get(0) - count][coordinate.get(1)] + wordFormed;
 
-
-
                     if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
                         if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
                             return false;
                         }
                     }
-
-
-
                     count += 1;
                 }
                 else {
@@ -270,48 +279,18 @@ public class Board {
                 }
             }
             System.out.println(wordFormed);
-            //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
 
             return dictionary.lookupDictionary(wordFormed.toLowerCase());
-
     }
 
+
+    /**
+     * Gets the list of used squares on the board.
+     *
+     * @return The coordinate list of squares that have had letters placed.
+     * */
     public String[][] getUsedSquares(){
         return usedSquares;
-    }
-
-    public static void main(String[] args) {
-        /*
-        Word word1 = new Word("Slope", "G5");
-        Word word2 = new Word("Stil", "6C");
-        Board board = new Board();
-        board.addWordToBoard(word1);
-        board.addWordToBoard(word2);
-
-        ArrayList<String> e = new ArrayList<>();
-        e.add("slime");
-        System.out.println( e.iterator().next());
-
-        System.out.println(board);
-        System.out.println(board.checkWordOnBoard(word2));
-
-         */
-        //Word word1 = new Word("DID", "7F");
-       // Word word2 = new Word("CH", "7K");
-        Word word2 = new Word("DID", "9M");
-        //Word word3 = new Word("ID", "9G");
-        //Word word4 = new Word("DID", "H7");
-        //Word word5 = new Word("FINITE", "8E");
-
-        Board board = new Board();
-        //board.addWordToBoard(word1);
-        board.addWordToBoard(word2);
-        //board.addWordToBoard(word3);
-        //board.addWordToBoard(word4);
-        board.addWordToBoard(word2);
-        System.out.println(board.checkWordOnBoard(word2));
-        System.out.println(board);
-
     }
 
 
