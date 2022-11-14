@@ -1,8 +1,12 @@
+/**
+ * DictionaryTest tests the Dictionary class through the following tests
+ * Developed by: James Grieder, Ahmad Alkawasmeh
+ */
+
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.*;
 
 public class DictionaryTest {
 
@@ -16,30 +20,43 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryConstructor() {
-        // Assert true that d is not null
+
+        assertTrue(d != null);
     }
 
 
     @Test
-    public void testDictionaryContainsALegalWord() {
-        // Assert that d contains "stringofalegalword"
+    public void testDictionaryContainsALegalWord1() {
+        // Assert that d contains "StringOfALegalWord"
+
+        String word1 = "car";
+        assertTrue(d.lookupDictionary(word1));
     }
 
 
     @Test
     public void testDictionaryContainsALegalWord2() {
-        // Assert that d contains "stringofalegalword"
+        // Assert that d contains "StringOfALegalWord"
+
+        String word2 = "ace";
+        assertTrue(d.lookupDictionary(word2));
     }
 
 
     @Test
-    public void testDictionaryDoesNotContainAnIlegalWord() {
-        // AssertFalse that d contains "stringofalegalword"
+    public void testDictionaryDoesNotContainAnIllegalWord1() {
+        // AssertFalse that d contains "StringOfAIllegalWord"
+
+        String word1 = "absx";
+        assertFalse(d.lookupDictionary(word1));
     }
 
 
     @Test
-    public void testDictionaryDoesNotContainAnIlegalWord2() {
-        // AssertFalse that d contains "stringofalegalword"
+    public void testDictionaryDoesNotContainAnIllegalWord2() {
+        // AssertFalse that d contains "StringOfAIllegalWord"
+
+        String word2 = "milde";
+        assertFalse(d.lookupDictionary(word2));
     }
 }
