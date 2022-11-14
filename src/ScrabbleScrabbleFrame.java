@@ -21,6 +21,10 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel gameStatusMessage;
 
 
+    /**
+     * Constructor for ScrabbleScrabbleFrame.
+     * Initializes all GUI elements.
+     */
     public ScrabbleScrabbleFrame() {
         super("ScrabbleScrabble Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -249,18 +253,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
-    public static void main(String[] args) {
-
-        ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
-
-    }
-
     @Override
     public void update(GameEvent e) {
 
         if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
-
         }
         else{
             updateTray(e.getTrayValues());
@@ -268,16 +265,13 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
         }
-
-
     }
 
 
-    @Override
-    public void initialization() {
-
-    }
-
+    /**
+     * Updates the current player's tray.
+     * @param trayValues The values of this player's tray.
+     */
     private void updateTray(String trayValues){
         String[] tray =  trayValues.split(" ");
         for(int i = 0; i < 7; i++){
@@ -286,6 +280,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     }
 
+    /**
+     * Updates the game board when a letter is placed.
+     *
+     * @param boardValues The values of the board grid.
+     */
     private void updateBoard(String[][] boardValues){
 
         for(int i = 0; i < Board.SIZE; i++){
@@ -306,11 +305,19 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
+    /**
+     * Updates the currentPlayer label to the right of the game board.
+     * @param currentPlayer the player whose turn it is.
+     */
     private void updateCurrentPlayer(String currentPlayer) {
         currentPlayerLabel.setText(currentPlayer);
     }
 
 
+    /**
+     * Updates the player scores on the ScoreBoard to the left of the game board.
+     * @param namesAndScores the list of players and scores
+     */
     private void updateScoreBoard(ArrayList<Player> namesAndScores) {
         for(int i = 0; i < 2; i++) {
             Player p = namesAndScores.get(i);
@@ -321,6 +328,10 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     }
 
+    public static void main(String[] args) {
 
+        ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+
+    }
 
 }

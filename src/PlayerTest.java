@@ -28,12 +28,6 @@ public class PlayerTest {
 
 
     @Test
-    public void testConstructorInitialTrayIsSetUp() {
-
-    }
-
-
-    @Test
     public void testCanUpdateScoreByPositiveNumber() {
         assertTrue(p.getScore() == 0);
         p.updateScore(25);
@@ -50,81 +44,6 @@ public class PlayerTest {
         assertTrue(p.getScore() == 0);
         p.updateScore(-4);
         assertFalse(p.getScore() >= 0);
-    }
-
-
-    @Test
-    public void testCheckInTrayTrueForListInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testCheckInTrayFalseForListNotInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testRemoveLettersRemovesALetter() {
-
-
-    }
-
-
-    @Test
-    public void testRemoveLettersDoesNotRemoveALetterNotInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testTestRemoveLettersRemoves4Letters() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testRemoveLettersRemovesAllLetters() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersSwapsALetter() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersDoesNotSwapLettersNotInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersSwapMultipleLetters() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersCanSwapAllLetters() { // Incomplete
-        String testString1, testString2, testString3;
-        testString1 = "";
-        testString2 = "";
-        testString3 = "";
-
-
-        String tray1 = p.stringTray();
-        String tray2 = p2.stringTray();
-        String tray3 = p3.stringTray();
-
-
-
-        System.out.println(testString1);
-
-        assertFalse(true);
     }
 
 }

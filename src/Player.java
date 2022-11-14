@@ -133,6 +133,7 @@ public class Player
         }
     }
 
+
     /**
      * swaps a given list of letters in tray with letters from letter bag
      * @param lettersList list of letters to swap

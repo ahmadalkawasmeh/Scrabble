@@ -61,6 +61,7 @@ public class Parser {
         return move;
     }
 
+
     public Move getInput(String input) {
         String command, location;
         String inputText[] = input.split(" ", 2);

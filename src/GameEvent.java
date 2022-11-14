@@ -31,15 +31,15 @@ public class GameEvent extends EventObject {
      * Constructs a prototypical Event.
      *
      * @param source                    the object on which the Event initially occurred
-     * @param currentPlayer
-     * @param trayValues
-     * @param usedSquares
-     * @param currentSelectedTrayValue
-     * @param currentSelectedBoardValue
-     * @param trayNumPos
-     * @param placeCurrentBuildingWord
-     * @param startingWordPos
-     * @param lengthOfWordBeingBuilt
+     * @param currentPlayer             the player that initiated the event
+     * @param trayValues                the tray values of the player
+     * @param usedSquares               the squares used
+     * @param currentSelectedTrayValue  the currently selected letter from the player tray
+     * @param currentSelectedBoardValue the currently selected board coordinate
+     * @param trayNumPos                the position in the player tray of the current letter selected
+     * @param placeCurrentBuildingWord  the status of building a word or not
+     * @param startingWordPos           the starting position of the word to be placed
+     * @param lengthOfWordBeingBuilt    the length of the word being built
      * @throws IllegalArgumentException if source is null
      */
     public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
@@ -79,23 +79,6 @@ public class GameEvent extends EventObject {
     public ArrayList<Integer> getCurrentSelectedBoardValue(){
         return currentSelectedBoardValue;
     }
-
-    public int getTrayNumPos() {
-        return trayNumPos;
-    }
-
-    public boolean isPlaceCurrentBuildingWord() {
-        return placeCurrentBuildingWord;
-    }
-
-    public ArrayList<Integer> getStartingWordPos() {
-        return startingWordPos;
-    }
-
-    public int getLengthOfWordBeingBuilt() {
-        return lengthOfWordBeingBuilt;
-    }
-
 
 
 }

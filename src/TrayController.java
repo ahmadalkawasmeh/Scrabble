@@ -3,17 +3,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The TrayController controls the current player's letter tray.
+ */
 public class TrayController implements ActionListener {
 
     private Game gameModel;
-    private String[] trayButtonInfo;
-
 
     private  JButton button;
 
+    /**
+     * Constructor for class LetterTray.
+     *
+     * @param gameModel the Model for this controller.
+     */
     public TrayController(Game gameModel){
         this.gameModel = gameModel;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
