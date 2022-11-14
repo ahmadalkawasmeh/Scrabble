@@ -16,9 +16,8 @@ public class TrayTest {
 
     @Test
     public void testTrayConstructor() {
-        // 1 line to assert t is not null
-
-        // 1 line to assert size of letters arraylist is equal to Tray.SIZE
+        assertNotNull(t);
+        assertEquals(Tray.SIZE,t.getLetters().size());
     }
 
 
