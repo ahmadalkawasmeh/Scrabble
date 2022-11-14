@@ -33,7 +33,7 @@ public class GameController implements ActionListener {
         }
         if(e.getActionCommand().equals("PASS")){
             System.out.println("PASS HIT");
-            model.playPass();
+            model.swapNoParameters(false);
         }
 
     }

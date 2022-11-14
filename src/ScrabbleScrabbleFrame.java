@@ -203,7 +203,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         passButton.setBackground(new Color(92, 206, 128));
         playerInputPanel.add(passButton);
 
-
         resetButton = new JButton("Reset");
         resetButton.addActionListener(gameController);
         resetButton.setActionCommand("RESET");

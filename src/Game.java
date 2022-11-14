@@ -110,6 +110,7 @@ public class Game {
                 quit();
             } else if (move.getFirstCommandWord().equals("PASS")) {
                 zeroScoreTurns += 1;
+                nextPlayer();
             }
         }
         // Beginning of multiple word commands
@@ -315,7 +316,6 @@ public class Game {
             if(startingWordPos == null){
                 startingWordPos = currentSelectedBoardValue;
             }
-
             updateViews();
         }
     }
@@ -349,8 +349,6 @@ public class Game {
     }
 
     public void playPass() {
-        //this.nextPlayer();
-        //resetViewValues();
         updateViews();
     }
 
