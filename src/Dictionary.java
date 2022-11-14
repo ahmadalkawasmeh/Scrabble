@@ -46,6 +46,6 @@ public class Dictionary
      */
     public boolean lookupDictionary(String word)
     {
-        return legalWords.contains(word);
+        return legalWords.contains(word.toLowerCase());
     }
 }

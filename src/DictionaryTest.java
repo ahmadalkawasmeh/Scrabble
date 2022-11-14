@@ -22,8 +22,10 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryContainsALegalWord() {
-        // Assert that d contains "stringofalegalword"
-    }
+        String word = "WORD";
+        assertTrue(d.lookupDictionary(word));
+
+
 
 
     @Test
