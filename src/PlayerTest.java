@@ -1,5 +1,9 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -7,12 +11,20 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     Player p, p2, p3;
+    ArrayList<String> before, after, expected, actual, temp;
 
     @Before
     public void setUp() throws Exception {
         p = new Player("Weird Al");
         p2 = new Player("P2");
         p3 = new Player("James");
+
+        // used to compare the player's tray before and after invoking methods
+        before = new ArrayList<>();
+        after = new ArrayList<>();
+        expected = new ArrayList<>();
+        actual = new ArrayList<>();
+        temp = new ArrayList<>();
     }
 
     @Test
@@ -24,12 +36,6 @@ public class PlayerTest {
     @Test
     public void testConstructorInitialNameIsCorrect() { // should update test after GUI (break from player input?)
         assertTrue(p.toString().equals("Weird Al"));
-    }
-
-
-    @Test
-    public void testConstructorInitialTrayIsSetUp() {
-
     }
 
 
@@ -67,33 +73,54 @@ public class PlayerTest {
 
     @Test
     public void testRemoveLettersRemovesALetter() {
+        actual = p.getLetters();
+        expected = p.getLetters();
 
+        String letter = p.getLetters().get(0); // get the first letter of the player's tray
+        temp.add(letter);   // put the letter into an array list
+        p.removeLetters(temp); //remove that letter from the player's tray
 
+        expected.remove(1); // remove the first index using ArrayList methods
+
+        assert(p.getLetters().size() < Tray.SIZE);
+        assertTrue(expected.equals(actual));
     }
 
 
     @Test
-    public void testRemoveLettersDoesNotRemoveALetterNotInTray() {
-        assertFalse(true);
+    public void testRemoveLettersDoesNotRemoveRandomlyIfLetterNotInTray() {
+        actual = p.getLetters();
+
+
+        //temp.add(letter);   // put the letter into an array list
+        p.removeLetters(temp); //remove that letter from the player's tray
+
+        expected.remove(1); // remove the first index using ArrayList methods
+
+        assert(p.getLetters().size() < Tray.SIZE);
+        assertTrue(expected.equals(actual));
     }
 
 
-    @Test
-    public void testTestRemoveLettersRemoves4Letters() {
-        assertFalse(true);
-    }
+
 
 
     @Test
     public void testRemoveLettersRemovesAllLetters() {
-        assertFalse(true);
+        actual = p.getLetters();
+
+        String letter;
+        for (int i = 0; i < Tray.SIZE; i++) {
+            letter = p.getLetters().get(i);
+            temp.add(letter);
+        }
+
+        p.removeLetters(temp); //remove that letter from the player's tray
+
+        assert(p.getLetters().size() == 0);
     }
 
 
-    @Test
-    public void testSwapLettersSwapsALetter() {
-        assertFalse(true);
-    }
 
 
     @Test
@@ -103,28 +130,13 @@ public class PlayerTest {
 
 
     @Test
-    public void testSwapLettersSwapMultipleLetters() {
-        assertFalse(true);
+    public void testSwapLettersSwapsOneOrMoreLetters() {
+        before.addAll(p.getLetters()); // create a copy of the player's tray
+
+        p.swapLetters(before); // attempt to swap all letters
+
+        after.addAll(p.getLetters());
+
+        assertFalse(before.equals(after));
     }
-
-
-    @Test
-    public void testSwapLettersCanSwapAllLetters() { // Incomplete
-        String testString1, testString2, testString3;
-        testString1 = "";
-        testString2 = "";
-        testString3 = "";
-
-
-        String tray1 = p.stringTray();
-        String tray2 = p2.stringTray();
-        String tray3 = p3.stringTray();
-
-
-
-        System.out.println(testString1);
-
-        assertFalse(true);
-    }
-
 }

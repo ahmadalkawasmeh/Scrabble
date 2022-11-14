@@ -12,7 +12,8 @@ import java.util.Collections;
  */
 public class Tray
 {
-    private static final int SIZE = 7; // The maximum number of letters a tray can hold
+    public static final int SIZE = 7; // The maximum number of letters a tray can hold
+
 
     private ArrayList<String> letters; // The letters in this tray
     private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
@@ -108,4 +109,12 @@ public class Tray
         }
         return  stringBuffer.toString();
     }
+
+
+    public ArrayList<String> getLetters() {
+        return letters;
+    }
+
+
+
 }

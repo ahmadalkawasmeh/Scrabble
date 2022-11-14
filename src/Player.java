@@ -58,6 +58,11 @@ public class Player
     }
 
 
+    public ArrayList<String> getLetters() {
+        return tray.getLetters();
+    }
+
+
     /**
      * Updates the score of this Player if they have placed a word on the board.
      * Developed by: James Grieder
