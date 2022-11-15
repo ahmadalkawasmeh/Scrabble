@@ -61,6 +61,11 @@ public class Player
     }
 
 
+    public ArrayList<String> getLetters() {
+        return tray.getLetters();
+    }
+
+
     public String stringScore() {
         return score.toString();
     }
@@ -149,6 +154,10 @@ public class Player
             }
         }
         fillTray();
+    }
+
+    public int numberOfLettersLeftInTray() {
+        return tray.remainingNumberOfLettersInTray();
     }
 
     /**
