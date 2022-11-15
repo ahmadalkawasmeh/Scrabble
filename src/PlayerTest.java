@@ -28,7 +28,7 @@ public class PlayerTest {
 
 
     @Test
-    public void testConstructorInitialTrayIsSetUp() {
+    public void testConstructorInitialTrayIsSetUp() { assertTrue(p.stringTray() != null));
 
     }
 
