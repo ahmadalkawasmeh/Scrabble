@@ -177,9 +177,12 @@ public class Word {
      * @return
      */
     public static ArrayList<Integer> numCoordinate(String coordinate){
+        StringBuilder sb = new StringBuilder(coordinate);
         ArrayList<Integer> numericCooridnate = new ArrayList<>();
         numericCooridnate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
-        numericCooridnate.add(Character.getNumericValue(coordinate.charAt(1)));
+        sb.deleteCharAt(0);
+        coordinate = sb.toString();
+        numericCooridnate.add(Integer.parseInt(coordinate));
 
         return numericCooridnate;
     }
