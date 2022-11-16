@@ -17,6 +17,7 @@ public class PlayerTest {
         p3 = new Player("James");
     }
 
+
     @Test
     public void testConstructorInitialScoreZero() {
         assertTrue(p.getScore() == 0);
@@ -102,12 +103,6 @@ public class PlayerTest {
 
 
     @Test
-    public void testRemoveLettersDoesNotRemoveALetterNotInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
     public void testTestRemoveLettersRemoves4Letters() {
         if (Tray.SIZE > 4) {
             int before = p.numberOfLettersLeftInTray();
@@ -149,26 +144,30 @@ public class PlayerTest {
 
 
     @Test
-    public void testSwapLettersSwapsALetter() {
-        assertFalse(true);
+    public void testSwapLettersSwapsOneOrMoreLetters() {
+
+        // Note: This method runs 3 similar cases, as a swapped letter
+        // may be replaced with the same letter upon swapping with the LetterBag
+
+        ArrayList<String> before = p.getLetters();
+        ArrayList<String> before2 = p2.getLetters();
+        ArrayList<String> before3 = p3.getLetters();
+
+        ArrayList<String> lettersToSwap1 = new ArrayList<>();
+        ArrayList<String> lettersToSwap2 = new ArrayList<>();
+        ArrayList<String> lettersToSwap3 = new ArrayList<>();
+
+        lettersToSwap1.add(before.get(0));
+        lettersToSwap2.add(before2.get(0));
+        lettersToSwap3.add(before3.get(0));
+
+        p.swapLetters(lettersToSwap1);
+        p2.swapLetters(lettersToSwap2);
+        p3.swapLetters(lettersToSwap3);
+
+        // Check that at least one of the cases results in a letter being replaced with a different letter
+        assertFalse(!before.equals(p.getLetters()) &&
+                !before2.equals(p2.getLetters()) &&
+                !before3.equals(p3.getLetters()));
     }
-
-
-    @Test
-    public void testSwapLettersDoesNotSwapLettersNotInTray() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersSwapMultipleLetters() {
-        assertFalse(true);
-    }
-
-
-    @Test
-    public void testSwapLettersCanSwapAllLetters() {
-        assertFalse(true);
-    }
-
 }

@@ -180,6 +180,7 @@ public class Player
 
 
 
+
         // If placing a word was unsuccessful after 3 attempts, swap some letters instead
         if (wordPlaced == 0 && tray.remainingNumberOfLettersInTray() > 0) {
             String lettersToSwap = tray.AIgetLettersToSwap();
