@@ -18,7 +18,7 @@ public class Game {
     // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
     //private Stack<Round> roundHistory; // will be used for undo/redo in the future
-    private Dictionary dictionary;
+    public static Dictionary dictionary;
     private Parser parser = new Parser();
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
@@ -94,7 +94,11 @@ public class Game {
     public void play(String moveToPlay){
 
             this.output();
-            Move move = parser.getInput(moveToPlay);
+
+            Move move;
+            if (currentPlayer.isAIPlayer()) {
+                move = currentPlayer.getNextMove();
+            } else { move = parser.getInput(moveToPlay); }
             processMove(move);
             nextPlayer();
             resetViewValues();

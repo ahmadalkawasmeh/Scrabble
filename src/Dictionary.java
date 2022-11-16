@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -48,4 +49,21 @@ public class Dictionary
     {
         return legalWords.contains(word);
     }
+
+
+    /**
+     * Generates a possible list of legal words found in the dictionary based on a player's tray.
+     * @param tray The Player's Tray
+     * @return The list of legal words found in the tray
+     */
+    public ArrayList<String> generateWords(Tray tray) {
+        ArrayList<String> possibleWords = new ArrayList<>();
+        for (String s : legalWords) {
+            if (tray.checkWordInTray(s)) {
+                possibleWords.add(s);
+            }
+        }
+        return possibleWords;
+    }
+
 }

@@ -17,13 +17,15 @@ public class Player
     private Integer score;
     private Tray tray;
 
+    boolean isAIPlayer;
+
 
     /**
-     * Constructor for objects of class Player.  Initializes the player's name, 
-     * and an initial score of 0.  Initializes an empty Tray for the player 
+     * Constructor for objects of class Player.  Initializes the player's name,
+     * and an initial score of 0.  Initializes an empty Tray for the player
      * that will hold their letters.
      * Developed by: James Grieder
-     * 
+     *
      * @param name The name of the player.
      */
     public Player(String name)
@@ -31,6 +33,7 @@ public class Player
         this.name = name;
         score = 0;
         tray = new Tray();
+        isAIPlayer = false;
     }
 
 
@@ -58,6 +61,11 @@ public class Player
     }
 
 
+    public ArrayList<String> getLetters() {
+        return tray.getLetters();
+    }
+
+
     public String stringScore() {
         return score.toString();
     }
@@ -73,8 +81,8 @@ public class Player
     {
         this.score += wordScore;
     }
-    
-    
+
+
     /**
      * Returns the score of the player.
      * Developed by: James Grieder
@@ -85,8 +93,8 @@ public class Player
     {
         return score;
     }
-    
-    
+
+
     /**
      * Fills this Player's Tray to the maximum number of letters, if it is not already full.
      * Developed by: James Grieder
@@ -95,29 +103,29 @@ public class Player
     {
         tray.fill();
     }
-    
-    
+
+
     /**
      * Check if the letters in lettersList are currently in this Player's Tray.
      * Developed by: James Grieder & Ibtasam Rasool
      *
      * @param  lettersList  The letters that will be checked for.
-     * @return true if all letters in lettersList are in the Player's Tray, 
+     * @return true if all letters in lettersList are in the Player's Tray,
      *         returns false otherwise.
      */
     public boolean checkInTray(ArrayList<String> lettersList)
     {
         for(String letter: lettersList){
-            if (!tray.checkInTray(letter) || !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
+            if (!tray.checkLetterInTray(letter) || !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
                 return false;
             }
         }
         return true;
     }
-    
-    
+
+
     /**
-     * Remove all letters in lettersList from this Player's tray.  Each occurrence 
+     * Remove all letters in lettersList from this Player's tray.  Each occurrence
      * in lettersList will only be removed once if the Player has duplicate letters.
      * Developed by: James Grieder & Ibtasam Rasool
      *
@@ -127,7 +135,7 @@ public class Player
     {
         for(String letter: lettersList){
 
-            if(tray.checkInTray(letter)){
+            if(tray.checkLetterInTray(letter)){
                 tray.removeLetter(letter);
             }
         }
@@ -141,10 +149,44 @@ public class Player
     public void swapLetters(ArrayList<String> lettersList){
         for(String letter: lettersList){
 
-            if(tray.checkInTray(letter)){
+            if(tray.checkLetterInTray(letter)){
                 tray.returnLetterToBag(letter);
             }
         }
         fillTray();
+    }
+
+    public int numberOfLettersLeftInTray() {
+        return tray.remainingNumberOfLettersInTray();
+    }
+
+    /**
+     * Returns whether the player is controlled by AI, or if the player is
+     * controlled by a user playing the game.
+     * @return True if the Player is an AIPlayer, false if the Player is a user
+     */
+    public boolean isAIPlayer() {
+        return isAIPlayer;
+    }
+
+    public Move getNextMove() {
+
+        int wordPlaced = 0;
+
+        // generate words based on the player's tray
+        ArrayList<String> possibleWords = Game.dictionary.generateWords(tray);
+
+        // Attempt to place 3 words
+
+
+
+
+        // If placing a word was unsuccessful after 3 attempts, swap some letters instead
+        if (wordPlaced == 0 && tray.remainingNumberOfLettersInTray() > 0) {
+            String lettersToSwap = tray.AIgetLettersToSwap();
+            Move move = new Move("SWAP", lettersToSwap);
+        }
+
+        return new Move("", "");
     }
 }
