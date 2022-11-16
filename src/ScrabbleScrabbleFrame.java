@@ -19,6 +19,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JButton placeWordButton, swapButton, passButton, goButton;
     private JLabel gameStatusMessage;
 
+    private static final Color DOUBLE_WORD = new Color(234, 113, 227);
+    private static final Color TRIPLE_WORD = new Color(229, 7, 7);
+    private static final Color DOUBLE_LETTER = new Color(43, 160, 186);
+    private static final Color TRIPLE_LETTER = new Color(1, 29, 208);
+    private static final Color PLAIN = new Color(228, 201, 128);
 
     public ScrabbleScrabbleFrame() {
         super("ScrabbleScrabble Game");
@@ -149,7 +154,10 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                 gameBoardPanel.add(b);
 
                 // remove click mechanism (colour changing)
-                b.setBackground(new Color(228, 201, 128));
+                b.setBackground(DOUBLE_WORD);
+                setSquareScore(gameModel.getSquareSpecialty(i,j),b);
+
+
                 b.setFont(new Font(Font.SERIF, Font.BOLD, 20));
             }
         }
@@ -271,6 +279,18 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             }
 
         }
+
+    }
+
+    private void setSquareScore(Board.scores score, JButton b){
+        if (score == null) return;
+        b.setBackground(
+                switch (score){
+                    case DL -> DOUBLE_LETTER;
+                    case TL -> TRIPLE_LETTER;
+                    case DW -> DOUBLE_WORD;
+                    case TW -> TRIPLE_WORD;
+                });
 
     }
 

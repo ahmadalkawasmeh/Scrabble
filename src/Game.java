@@ -293,6 +293,9 @@ public class Game {
         }
     }
 
+    public Board.scores getSquareSpecialty(int x, int y){
+        return (Board.scores) board.getSquareScore(x,y);
+    }
     public static void main(String[] args) {
         Game game =  new Game(2);
     }

@@ -11,7 +11,7 @@ public class Board {
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
     private String[][] usedSquares; // Squares that have letters placed on them
-    public Enum[][] specialSquares; // Squares with special scoring modifiers
+    public static Enum[][] specialSquares; // Squares with special scoring modifiers
 
     private HashMap<String, String> boardValues;
 
@@ -25,7 +25,7 @@ public class Board {
         specialSquares = new scores[SIZE][SIZE];
 
         this.initializeBoard();
-        // setSpecialSquaresStandard(); // use the standard configuration of special squares (For milestone 3)
+        setSpecialSquaresStandard();
     }
 
 
@@ -107,7 +107,7 @@ public class Board {
      * score).
      * Developed by: Daniel Kuchanski
      */
-     /* public void setSpecialSquaresStandard(){
+     public void setSpecialSquaresStandard(){
         specialSquares[0][0] = specialSquares[0][7] = specialSquares[0][14] = specialSquares[7][0] =
                 specialSquares[7][7] = specialSquares[7][14] = specialSquares[14][0] =
                 specialSquares[14][7] = specialSquares[14][14] = scores.TW;
@@ -131,8 +131,8 @@ public class Board {
                                                 = specialSquares[0][11] = specialSquares[7][11] =
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
-                                                                specialSquares[11][14] = scores.DW;
-    } */
+                                                                specialSquares[11][14] = scores.DL;
+    }
 
     /**
      * Initializes board with empty values on each square (indicating
@@ -279,6 +279,9 @@ public class Board {
         return usedSquares;
     }
 
+    public Enum getSquareScore(int x, int y){
+        return specialSquares[x][y];
+    }
     public static void main(String[] args) {
         /*
         Word word1 = new Word("Slope", "G5");
