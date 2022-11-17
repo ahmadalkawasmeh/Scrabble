@@ -154,8 +154,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                 gameBoardPanel.add(b);
 
                 // remove click mechanism (colour changing)
-                b.setBackground(DOUBLE_WORD);
-                //setSquareScore(gameModel.getSquareSpecialty(i,j),b);
+                b.setBackground(PLAIN);
+                setSquareScore(gameModel.getSquareSpecialty(i,j),b);
 
 
                 b.setFont(new Font(Font.SERIF, Font.BOLD, 20));
