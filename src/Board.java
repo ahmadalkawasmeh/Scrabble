@@ -393,22 +393,83 @@ public class Board {
         return usedSquares;
     }
 
-    public static void main(String[] args) {
-        Word word1 = new Word("fee", "H8");
-        Board board = new Board();
-        board.addWordToBoard(word1);
-        Word word2 = new Word("SA", "H12");
-        word2.getLetterPositions();
-        board.addWordToBoard(word2);
-        System.out.println(board.checkWordOnBoard(word2));
-        System.out.println(board);
 
-        ArrayList<String> list = new ArrayList<>();
-        int i = 1;
-        if(i == 0 && list.get(2).equals("s")){
-            System.out.println("test");
+    /**
+     * Searches for a possible letter on the board that an AI player can build a word off of.
+     * Returns a String coordinate that is equivalent to what a user would input by text. i.e. 1A
+     * is used to place a word horizontally starting at coordinate 1A.
+     *
+     * @return the String coordinate of the word.
+     */
+    public String getPossibleWordPosition() {
+        int x = 0;
+        int y = 0;
+        boolean positionFound = false;
+
+        for (x = 0; x < SIZE; x++) {
+            for (y = 0; y < SIZE; y++) {
+                if (!positionFound) { // if we haven't found a position yet
+
+                    // find letter
+                    if (!usedSquares[x][y].equals(" ")) {
+
+                        // check for 3 empty spaces to the right of the letter
+                        if (x + 3 < SIZE) {
+                            if (usedSquares[x + 1][y].equals(" ") && usedSquares[x + 2][y].equals(" ") && usedSquares[x + 3][y].equals(" ")) {
+
+                                // return coordinate of letter
+                                return getCoordinateString(x, y, true);
+                            }
+                        }
+                        // if less than 3 empty spaces, then check for 3 empty spaces down from the letter
+                        if (y + 3 < SIZE) {
+                            if (usedSquares[x][y + 1].equals(" ") && usedSquares[x][y + 2].equals(" ") && usedSquares[x][y + 3].equals(" ")) {
+
+                                // return coordinate of letter
+                                return getCoordinateString(y, x, false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private static String getCoordinateString(int i, int j, boolean horizontalFirst) {
+        String s = "";
+        i++;
+        j++;
+
+        if (horizontalFirst) {
+            s += i;
+            s += String.valueOf((char) (j + 64));
+        }
+        else {
+            s += String.valueOf((char) (j + 64));
+            s += i;
+        }
+        return s;
+    }
+
+
+    public String getLetterFromPosition(String position) {
+        ArrayList<Integer> coordinates = Word.numCoordinate(position);
+        int x = coordinates.get(0);
+        int y = coordinates.get(1);
+        return usedSquares[x][y];
+    }
+
+
+    public static void main(String[] args) {
+
+        String string = getCoordinateString(14, 14, true);
+        System.out.println(string);
+
+
+
         }
 
     }
 
-}
+

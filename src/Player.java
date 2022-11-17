@@ -18,6 +18,7 @@ public class Player
     private Tray tray;
 
     boolean isAIPlayer;
+    Board board;
 
 
     /**
@@ -169,24 +170,42 @@ public class Player
         return isAIPlayer;
     }
 
-    public Move getNextMove() {
-
-        int wordPlaced = 0;
-
-        // generate words based on the player's tray
-        ArrayList<String> possibleWords = Game.dictionary.generateWords(tray);
-
-        // Attempt to place 3 words
+    public Move getNextAIMove() {
 
 
 
+        // Find position with space to add 2+ tiles right or down
+        Move move = null;
+        String wordPosition;
+        wordPosition = board.getPossibleWordPosition();
 
-        // If placing a word was unsuccessful after 3 attempts, swap some letters instead
-        if (wordPlaced == 0 && tray.remainingNumberOfLettersInTray() > 0) {
-            String lettersToSwap = tray.AIgetLettersToSwap();
-            Move move = new Move("SWAP", lettersToSwap);
+        // Get that letter
+        String letter;
+        letter = board.getLetterFromPosition(wordPosition);
+
+
+        // Generate words based on player tray + letter
+        ArrayList<String> possibleWords = Game.dictionary.generateWords(tray, letter); // need to update to add letter on board parameter
+
+        // Select a word to place
+
+        String word = "";
+        boolean wordSelected = false;
+        while (!wordSelected) {
+            for (String possibleWord : possibleWords) {
+                if (possibleWord.length() > 2 && possibleWord.length() < 5) { // select word if 3 or 4 letters
+                    return new Move(wordPosition, possibleWord);
+                }
+            }
         }
 
-        return new Move("", "");
+        // If placing a word was unsuccessful after 3 attempts, swap some letters instead
+        if (!wordSelected && tray.remainingNumberOfLettersInTray() > 0) {
+            String lettersToSwap = tray.AIgetLettersToSwap();
+            return new Move("SWAP", lettersToSwap);
+        }
+
+        return new Move("PASS", "");
     }
+
 }

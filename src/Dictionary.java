@@ -13,6 +13,8 @@ import java.io.FileReader;
 public class Dictionary
 {
     private HashSet<String> legalWords; // The list of legal words that can be placed on the board
+    private HashSet<String> AILegalWords; // A dictionary used to construct words for AI players
+
 
 
     /**
@@ -24,11 +26,14 @@ public class Dictionary
     public Dictionary()
     {
         legalWords = new HashSet<>();
+        AILegalWords = new HashSet<>();
         
         try {
         	Scanner scanner = new Scanner(new FileReader("legalWordsList.txt"));
 			while (scanner.hasNextLine()) {
-                            String s = scanner.nextLine();
+
+                String s = scanner.nextLine();
+
 			    legalWords.add(s);
 			}
 			scanner.close();
@@ -56,10 +61,10 @@ public class Dictionary
      * @param tray The Player's Tray
      * @return The list of legal words found in the tray
      */
-    public ArrayList<String> generateWords(Tray tray) {
+    public ArrayList<String> generateWords(Tray tray, String letter) {
         ArrayList<String> possibleWords = new ArrayList<>();
-        for (String s : legalWords) {
-            if (tray.checkWordInTray(s)) {
+        for (String s : AILegalWords) {
+            if (tray.checkWordInTray(s.substring(1)) && s.substring(0,0).equals(letter)) {
                 possibleWords.add(s);
             }
         }

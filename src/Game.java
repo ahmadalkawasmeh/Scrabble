@@ -1,7 +1,6 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack; // for milestone 3
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -70,6 +69,10 @@ public class Game {
         lettersToSwap = "";
     }
 
+    public Board getBoard() {
+        return this.board;
+    }
+
 
     /**
      * Runs the game until the game has finished.  The game starts
@@ -97,7 +100,7 @@ public class Game {
 
             Move move;
             if (currentPlayer.isAIPlayer()) {
-                move = currentPlayer.getNextMove();
+                move = currentPlayer.getNextAIMove();
             } else { move = parser.getInput(moveToPlay); }
             processMove(move);
             nextPlayer();
