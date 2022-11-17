@@ -118,7 +118,7 @@ public class Board {
                                 specialSquares[9][13] = scores.TL;
 
         specialSquares[1][1] = specialSquares[13][1] = specialSquares[2][2] = specialSquares[12][2] =
-                specialSquares[3][3] = specialSquares[10][3] = specialSquares[4][4] = specialSquares[9][4] =
+                specialSquares[3][3] = specialSquares[10][3] = specialSquares[4][4] = specialSquares[10][4] =
                         specialSquares[4][10] = specialSquares[10][10] = specialSquares[3][11] =
                                 specialSquares[11][11] = specialSquares[2][12] = specialSquares[12][12] =
                                         specialSquares[1][13] = specialSquares[13][13] = scores.DW;
@@ -129,7 +129,7 @@ public class Board {
                                 specialSquares[3][7] = specialSquares[11][7] = specialSquares[2][8] =
                                         specialSquares[6][8] = specialSquares[8][8] = specialSquares[12][8]
                                                 = specialSquares[0][11] = specialSquares[7][11] =
-                                                specialSquares[13][11] = specialSquares[6][12] =
+                                                specialSquares[14][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
                                                                 specialSquares[11][14] = scores.DL;
     }
