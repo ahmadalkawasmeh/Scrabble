@@ -88,6 +88,27 @@ public class Board {
         this.boardValues.putAll(word.getLetterPositions());
     }
 
+    public void removeWordFromBoard(Word word){
+        ArrayList<Integer> numPos = word.findWordPosition();
+
+        if(word.isHorizontal()) {
+            for (int i = 0; i < word.length(); i++) {
+
+                usedSquares[numPos.get(1) + i][numPos.get(0)] = " ";
+            }
+        } else{
+
+            for (int i = 0; i < word.length(); i++) {
+
+                usedSquares[numPos.get(0)][numPos.get(1) + i] = " ";
+            }
+        }
+        for(String key: word.getLetterPositions().keySet()){
+            this.boardValues.remove(key);
+        }
+
+    }
+
 
     /**
      * Initializes the set of special squares on the board for a custom mapping.
@@ -237,7 +258,7 @@ public class Board {
             }
         }
 
-        System.out.println(wordFormed);
+        //System.out.println(wordFormed);
         runCheck = true;
         count  = 1;
 
@@ -283,7 +304,7 @@ public class Board {
                 runCheck = false;
             }
         }
-        System.out.println(wordFormed);
+        //System.out.println(wordFormed);
         //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
 
         return dictionary.lookupDictionary(wordFormed.toLowerCase());
@@ -338,7 +359,7 @@ public class Board {
             }
 
 
-            System.out.println(wordFormed);
+            //System.out.println(wordFormed);
             runCheck = true;
             count  = 1;
             while (runCheck){
@@ -378,7 +399,7 @@ public class Board {
                     runCheck = false;
                 }
             }
-            System.out.println(wordFormed);
+            //System.out.println(wordFormed);
 
             return dictionary.lookupDictionary(wordFormed.toLowerCase());
     }
@@ -393,7 +414,9 @@ public class Board {
         return usedSquares;
     }
 
+    /*
     public static void main(String[] args) {
+
         Word word1 = new Word("fee", "H8");
         Board board = new Board();
         board.addWordToBoard(word1);
@@ -402,7 +425,9 @@ public class Board {
         board.addWordToBoard(word2);
         System.out.println(board.checkWordOnBoard(word2));
         System.out.println(board);
-
+        board.removeWordFromBoard(word1);
+        System.out.println(board);
+        System.out.println(board.boardValues);
         ArrayList<String> list = new ArrayList<>();
         int i = 1;
         if(i == 0 && list.get(2).equals("s")){
@@ -410,5 +435,5 @@ public class Board {
         }
 
     }
-
+    */
 }

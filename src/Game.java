@@ -314,7 +314,7 @@ public class Game {
      * @param buttonNum the position of the selected letter in the Tray (i.e. position 3)
      */
     public void selectTrayValue(String trayValue, int buttonNum){
-        System.out.print(swapState + "");
+        //System.out.print(swapState + "");
         if (swapState) {
             lettersToSwap += trayValue;
 
@@ -352,16 +352,59 @@ public class Game {
             if(dictionary.lookupDictionary(currentWord.toLowerCase())){
                 if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
                     //System.out.println(currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
-                     play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+                    play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
                 }
                 else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
 
-                     play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
+                    play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
                 }
             }
         }
     }
 
+    /*
+    public void placeWord (){
+        Word wordtoPlay;
+
+        Integer y = startingWordPos.get(0) + 1;
+
+        if(!currentSelectedTrayValue.equals(" ")){
+
+
+
+                if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
+
+                    wordtoPlay = new Word(currentWord, (y + Letters.values()[startingWordPos.get(1)].toString()));
+                    board.addWordToBoard(wordtoPlay);
+
+                    if(board.checkWordOnBoard(wordtoPlay)){
+
+                        board.removeWordFromBoard(wordtoPlay);
+                        play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+
+                    }else{ board.removeWordFromBoard(wordtoPlay);}
+
+
+                }
+
+                else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+                    wordtoPlay = new Word(currentWord, Letters.values()[startingWordPos.get(1)].toString() + y);
+                    board.addWordToBoard(wordtoPlay);
+
+                    if(board.checkWordOnBoard(wordtoPlay)){
+
+                        board.removeWordFromBoard(wordtoPlay);
+                        play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
+
+                    }else{board.removeWordFromBoard(wordtoPlay);}
+
+
+                }
+
+
+        }
+    }
+*/
 
     /**
      * Resets values that the views will require between turns.
