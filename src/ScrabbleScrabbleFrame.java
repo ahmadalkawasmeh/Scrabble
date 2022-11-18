@@ -252,21 +252,31 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameModel.intializeGamePlay();
     }
 
-    private void blankPrompt(){
+    private String blankPrompt(){
         String letters[] = new String[26];
         for(int i = 0; i < 26; i++){
-            char c = (char) (i+97);
+            char c = (char) (i+65);
             letters[i] = Character.toString(c);
         }
-        JOptionPane.showInputDialog(this,"Select a letter",
-                "Input", JOptionPane.QUESTION_MESSAGE,null,letters,"Titan");
+
+        Object input = (String) JOptionPane.showInputDialog(this,"Select a letter",
+                "Input", JOptionPane.QUESTION_MESSAGE,null,letters,"a");
+
+        if(input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)){
+            return (String) input;
+        }
+        return null;
+
     }
     @Override
     public void update(GameEvent e) {
-        if(e.getCurrentSelectedTrayValue().equals(" ")){
-            blankPrompt();
+        if(e.getCurrentSelectedTrayValue().equals("__") && (e.getCurrentSelectedBoardValue() != null)){
+            String input = blankPrompt();
+            if (input != null){
+                gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(input);
+            }
         }
-        if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
+        else if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
         }
         else{

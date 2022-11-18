@@ -38,7 +38,6 @@ public class LetterBag {
 
         int randIndex = new Random().nextInt(keyList.size());
         letter = keyList.get(randIndex);
-
         decreaseLetterQuantity(letter);
 
         return letter;
