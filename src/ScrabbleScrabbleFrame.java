@@ -252,11 +252,19 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameModel.intializeGamePlay();
     }
 
-
+    private void blankPrompt(){
+        String letters[] = new String[26];
+        for(int i = 0; i < 26; i++){
+            char c = (char) (i+97);
+            letters[i] = Character.toString(c);
+        }
+        JOptionPane.showInputDialog(this,"Select a letter",
+                "Input", JOptionPane.QUESTION_MESSAGE,null,letters,"Titan");
+    }
     @Override
     public void update(GameEvent e) {
         if(e.getCurrentSelectedTrayValue().equals(" ")){
-
+            blankPrompt();
         }
         if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
