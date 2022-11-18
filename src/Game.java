@@ -140,7 +140,19 @@ public class Game {
         {swap(move.getSecondCommandWord());}
 
          else { // Place a word on the board
-            processWord(move);
+
+             /*
+             if (currentPlayer.isAIPlayer()) {
+                 processWordForAI(move);
+             } else {
+                 processWord(move);
+             }
+
+              */
+
+             processWord(move);
+
+
         }
     }
 
@@ -156,6 +168,10 @@ public class Game {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
 
+        System.out.println("get word: " + word.getWord());
+        System.out.println("get word: " + word.getLetterPositions());
+        System.out.println("Check word: " + checkWord(word));
+
 
         if (this.checkWord(word))
         {
@@ -169,6 +185,24 @@ public class Game {
         }
         return word;
     }
+
+    /*
+    private Word processWordForAI(Move move) {
+
+        Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
+
+        zeroScoreTurns = 0; // Reset counter if a word is placed
+
+        board.addWordToBoard(word);
+
+        currentPlayer.updateScore(word.wordScore());  //updates score
+        currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split("")))); //removes used letters from the players tray
+        currentPlayer.fillTray();  //fills player tray
+
+        return word;
+    }
+
+     */
 
 
     /**
