@@ -18,7 +18,6 @@ public class Player
     private Tray tray;
 
     boolean isAIPlayer;
-    Board board;
 
 
     /**
@@ -29,12 +28,12 @@ public class Player
      *
      * @param name The name of the player.
      */
-    public Player(String name)
+    public Player(String name, boolean isAI)
     {
         this.name = name;
         score = 0;
         tray = new Tray();
-        isAIPlayer = false;
+        isAIPlayer = isAI;
     }
 
 
@@ -117,7 +116,7 @@ public class Player
     public boolean checkInTray(ArrayList<String> lettersList)
     {
         for(String letter: lettersList){
-            if (!tray.checkLetterInTray(letter) || !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) { // need to add condition to check board for letters not in tray
+            if (!tray.checkLetterInTray(letter) || !(tray.checkInTrayFrequency(letter) >= Collections.frequency(lettersList, letter))) {
                 return false;
             }
         }
@@ -170,42 +169,42 @@ public class Player
         return isAIPlayer;
     }
 
-    public Move getNextAIMove() {
+    public String getNextAIMove() {
+        boolean wordPlaced = false;
 
+        int x = 0;
+        int y = 0;
+        while (!wordPlaced && x < Board.SIZE && y < Board.SIZE) {
 
+            // Find a position with space to add 2+ tiles right or down
+            String wordPosition = Game.getPossibleWordPosition(x, y);
 
-        // Find position with space to add 2+ tiles right or down
-        Move move = null;
-        String wordPosition;
-        wordPosition = board.getPossibleWordPosition();
+            System.out.println("word position = " + wordPosition);
 
-        // Get that letter
-        String letter;
-        letter = board.getLetterFromPosition(wordPosition);
+            // Get that letter
+            String letter = Game.getLetterFromPosition(wordPosition);
+            System.out.println("letter = " + letter);
 
+            // Generate words based on player tray + letter
+            ArrayList<String> possibleWords = Game.dictionary.generateWords(this.tray, letter);
 
-        // Generate words based on player tray + letter
-        ArrayList<String> possibleWords = Game.dictionary.generateWords(tray, letter); // need to update to add letter on board parameter
+            System.out.println("# of possible words = " + possibleWords.size());
 
-        // Select a word to place
-
-        String word = "";
-        boolean wordSelected = false;
-        while (!wordSelected) {
+            // Select a word to place
             for (String possibleWord : possibleWords) {
-                if (possibleWord.length() > 2 && possibleWord.length() < 5) { // select word if 3 or 4 letters
-                    return new Move(wordPosition, possibleWord);
-                }
+                return possibleWord.toUpperCase() + " " + wordPosition;
             }
+            x += 3;
+            y += 3;
         }
 
         // If placing a word was unsuccessful after 3 attempts, swap some letters instead
-        if (!wordSelected && tray.remainingNumberOfLettersInTray() > 0) {
+        if (tray.remainingNumberOfLettersInTray() > 0) {
             String lettersToSwap = tray.AIgetLettersToSwap();
-            return new Move("SWAP", lettersToSwap);
+            return "SWAP " + lettersToSwap;
         }
 
-        return new Move("PASS", "");
+        return "PASS";
     }
 
 }

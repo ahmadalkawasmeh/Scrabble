@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -34,7 +35,12 @@ public class Dictionary
 
                 String s = scanner.nextLine();
 
-			    legalWords.add(s);
+                if (s.length() <= Tray.SIZE) {
+                    legalWords.add(s);
+                }
+                if (s.length() <= Tray.SIZE - 2 && s.length() > 1) {
+                    AILegalWords.add(s);
+                }
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
@@ -57,15 +63,38 @@ public class Dictionary
 
 
     /**
-     * Generates a possible list of legal words found in the dictionary based on a player's tray.
-     * @param tray The Player's Tray
+     * Generates a possible list of legal words found in the dictionary based on an AI player's tray.
+     * @param tray The AI Player's tray representing the possible letters
+     * @param letter The currently selected letter on the board to build a word off of
      * @return The list of legal words found in the tray
      */
     public ArrayList<String> generateWords(Tray tray, String letter) {
         ArrayList<String> possibleWords = new ArrayList<>();
+
         for (String s : AILegalWords) {
-            if (tray.checkWordInTray(s.substring(1)) && s.substring(0,0).equals(letter)) {
-                possibleWords.add(s);
+
+            String[] strSplit = s.split("");
+
+            String original = s;
+            ArrayList<String> currentWord = new ArrayList<>(Arrays.asList(strSplit));
+
+            String firstLetter = currentWord.get(0);
+            firstLetter = firstLetter.toUpperCase();
+            currentWord.remove(0);
+
+            if (firstLetter.equals(letter)) {
+                boolean lettersPresent = true;
+
+                for (int i = 0; i < currentWord.size(); i++) {
+                    if (!tray.checkLetterInTray(currentWord.get(i).toUpperCase())) {
+                        lettersPresent = false;
+                    }
+                }
+
+                if (lettersPresent) {
+                    System.out.println(s);
+                    possibleWords.add(s);
+                }
             }
         }
         return possibleWords;

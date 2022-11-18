@@ -14,7 +14,7 @@ public class Board {
 
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
-    private String[][] usedSquares; // Squares that have letters placed on them
+    private static String[][] usedSquares; // Squares that have letters placed on them
     public Enum[][] specialSquares; // Squares with special scoring modifiers
     private HashMap<String, String> boardValues;
 
@@ -401,13 +401,11 @@ public class Board {
      *
      * @return the String coordinate of the word.
      */
-    public String getPossibleWordPosition() {
-        int x = 0;
-        int y = 0;
+    public String getPossibleWordPosition(int i, int j) {
         boolean positionFound = false;
 
-        for (x = 0; x < SIZE; x++) {
-            for (y = 0; y < SIZE; y++) {
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
                 if (!positionFound) { // if we haven't found a position yet
 
                     // find letter
@@ -453,18 +451,119 @@ public class Board {
     }
 
 
-    public String getLetterFromPosition(String position) {
-        ArrayList<Integer> coordinates = Word.numCoordinate(position);
-        int x = coordinates.get(0);
-        int y = coordinates.get(1);
+
+    public static String getNextCoordinateString(int i, int j) {
+        String s = "";
+        i++;
+        j++;
+
+        boolean horizontalFirst = Character.isDigit(i);
+
+        if (horizontalFirst) {
+            i++;
+            s += i;
+            s += String.valueOf((char) (j + 64));
+        }
+        else {
+            j++;
+            s += String.valueOf((char) (j + 64));
+            s += i;
+        }
+        return s;
+    }
+
+
+
+    public static String getLetterFromPosition(String position) {
+        String positionAlpha = "";
+        String positionNumber = "";
+
+        for (int i = 0; i < position.length(); i++) {
+            if(Character.isDigit(position.charAt(i))) {
+                positionNumber += position.charAt(i);
+            } else {
+                positionAlpha += position.charAt(i);
+            }
+        }
+
+        System.out.println("positionNumber = " + positionNumber);
+        System.out.println("positionAlpha = " + positionAlpha);
+
+        int y = Integer.parseInt(positionNumber) - 1;
+        System.out.println("here is y --> " + y);
+
+        int x = Letters.getOrdinal("" + positionAlpha);
+
+        System.out.println("here is x --> " + x);
+
+        System.out.println(usedSquares[x][y]);
+
+
         return usedSquares[x][y];
     }
 
 
-    public static void main(String[] args) {
+    public static String incrementCoordinateString(String position) {
+        String positionAlpha = "";
+        String positionNumber = "";
 
-        String string = getCoordinateString(14, 14, true);
-        System.out.println(string);
+        for (int i = 0; i < position.length(); i++) {
+            if(Character.isDigit(position.charAt(i))) {
+                positionNumber += position.charAt(i);
+            } else {
+                positionAlpha += position.charAt(i);
+            }
+        }
+
+        System.out.println("positionNumber = " + positionNumber);
+        System.out.println("positionAlpha = " + positionAlpha);
+
+        int y = Integer.parseInt(positionNumber) - 1;
+        System.out.println("here is y --> " + y);
+
+        int x = Letters.getOrdinal("" + positionAlpha);
+
+        System.out.println("here is x --> " + x);
+
+        System.out.println(usedSquares[x + 1][y]);
+
+
+        return usedSquares[x][y];
+    }
+
+
+
+    /*
+    public static String getNextAICoordinateString(int i, int j, boolean horizontalFirst) {
+        String s = "";
+        i++;
+        j++;
+
+        if (horizontalFirst) {
+            j++;
+        } else {
+            i++;
+        }
+
+        if (horizontalFirst) {
+            s += String.valueOf((char) (j + 64));
+            s += i;
+        }
+        else {
+            s += i;
+            s += String.valueOf((char) (j + 64));
+        }
+        return s;
+    }
+
+     */
+
+
+
+
+
+
+    public static void main(String[] args) {
 
 
 

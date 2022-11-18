@@ -143,8 +143,10 @@ public class Tray
             }
         }
 
-        // If there are no letters selected for swapping above, then swap all letters in the tray
-        if (lettersToSwap.length() == 0) {
+        // If there are less than 2 letters selected for swapping above, then swap all letters in the tray
+        if (lettersToSwap.length() < 2) {
+
+            lettersToSwap = ""; // clear lettersToSwap and add all letters
             for (String letter: letters) {
                 lettersToSwap += letter;
             }

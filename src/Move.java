@@ -51,4 +51,9 @@ public class Move {
     public String getSecondCommandWord() {
         return secondWord;
     }
+
+    @Override
+    public String toString() {
+        return firstWord + " " + secondWord;
+    }
 }

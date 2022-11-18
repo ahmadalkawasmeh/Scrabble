@@ -17,7 +17,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JButton[] letterTrayButtons;
     private JLabel[] playerNamesAndScores; // indices 0, 2, 4, 6 are player names, indices 1, 3, 5, 7 are player scores
     private JLabel currentPlayerLabel;
-    private JButton placeWordButton, swapButton, passButton, goButton, resetButton;
+    private JButton placeWordButton, swapButton, passButton, goButton, resetButton, playAIMoveButton;
     private JLabel gameStatusMessage;
 
 
@@ -225,6 +225,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         playerInputPanel.add(goButton);
         goButton.setMaximumSize(new Dimension(200, 175));
 
+        playAIMoveButton = new JButton("Play AI Move");
+        playAIMoveButton.addActionListener(gameController);
+        playAIMoveButton.setActionCommand("AI");
+        playAIMoveButton.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        playAIMoveButton.setMaximumSize(new Dimension(200, 50));
+        playAIMoveButton.setBackground(new Color(92, 206, 128));
+        playAIMoveButton.setEnabled(false);
+        playerInputPanel.add(playAIMoveButton);
+
 
         // letterTrayPanel
 
@@ -264,6 +273,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             updateBoard(e.getUsedSquares());
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
+            updateGameButtons(e.getCurrentPlayer());
         }
     }
 
@@ -310,6 +320,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * @param currentPlayer the player whose turn it is.
      */
     private void updateCurrentPlayer(String currentPlayer) {
+
         currentPlayerLabel.setText(currentPlayer);
     }
 
@@ -331,6 +342,25 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             }
         }
 
+    }
+
+    private void updateGameButtons(Player currentPlayer) {
+        if (currentPlayer.isAIPlayer) {
+            playAIMoveButton.setEnabled(true);
+            placeWordButton.setEnabled(false);
+            swapButton.setEnabled(false);
+            passButton.setEnabled(false);
+            resetButton.setEnabled(false);
+            goButton.setEnabled(false);
+        }
+        else {
+            playAIMoveButton.setEnabled(false);
+            placeWordButton.setEnabled(true);
+            swapButton.setEnabled(true);
+            passButton.setEnabled(true);
+            resetButton.setEnabled(true);
+            goButton.setEnabled(true);
+        }
     }
 
     public static void main(String[] args) {

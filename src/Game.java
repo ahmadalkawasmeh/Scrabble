@@ -11,7 +11,7 @@ import java.util.List;
 public class Game {
 
     private ArrayList<ScrabbleScrabbleView> views;
-    private Board board;
+    private static Board board;
     public static ArrayList<Player> players;
     private Player currentPlayer;
     // private Round currentRound; // will be used in the future
@@ -69,8 +69,14 @@ public class Game {
         lettersToSwap = "";
     }
 
-    public Board getBoard() {
-        return this.board;
+
+    public static String getPossibleWordPosition(int x, int y) {
+        return board.getPossibleWordPosition(x, y);
+    }
+
+
+    public static String getLetterFromPosition(String wordPosition) {
+        return board.getLetterFromPosition(wordPosition);
     }
 
 
@@ -100,8 +106,10 @@ public class Game {
 
             Move move;
             if (currentPlayer.isAIPlayer()) {
-                move = currentPlayer.getNextAIMove();
+                String nextMove = currentPlayer.getNextAIMove();
+                move = parser.getInput(nextMove);
             } else { move = parser.getInput(moveToPlay); }
+            if (currentPlayer.isAIPlayer()) { System.out.println("\n\n" + move.toString()); }
             processMove(move);
             nextPlayer();
             resetViewValues();
@@ -147,6 +155,7 @@ public class Game {
     public Word processWord(Move move) {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
+
 
         if (this.checkWord(word))
         {
@@ -226,10 +235,21 @@ public class Game {
      * @param numPlayers the number of Players in the game.
      */
     private void initializePlayers(int numPlayers){
+        /*
         for(int i = 0; i < numPlayers; i++){
-            Player player = new Player("Player " + (i + 1));
+
+            Player player = new Player("Player " + (i + 1), false);
             players.add(player);
         }
+        */
+
+        ///*
+        Player player = new Player("Player 1", false);
+        Player player2 = new Player("Player 2", true);
+        players.add(player);
+        players.add(player2);
+        //*/
+
     }
 
 
@@ -321,7 +341,6 @@ public class Game {
      * @param buttonNum the position of the selected letter in the Tray (i.e. position 3)
      */
     public void selectTrayValue(String trayValue, int buttonNum){
-        System.out.print(swapState + "");
         if (swapState) {
             lettersToSwap += trayValue;
 

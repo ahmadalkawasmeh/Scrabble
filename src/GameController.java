@@ -39,5 +39,9 @@ public class GameController implements ActionListener {
             // System.out.println("GO HIT");
             model.swapNoParameters(false);
         }
+        if(e.getActionCommand().equals("AI")){
+            // System.out.println("AI HIT");
+            model.play("test");
+        }
     }
 }

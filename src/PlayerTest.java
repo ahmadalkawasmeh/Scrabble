@@ -12,9 +12,9 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        p = new Player("Weird Al");
-        p2 = new Player("P2");
-        p3 = new Player("James");
+        p = new Player("Weird Al", false);
+        p2 = new Player("P2", false);
+        p3 = new Player("James", false);
     }
 
 
