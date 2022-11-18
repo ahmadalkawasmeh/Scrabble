@@ -267,13 +267,14 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
         if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
+            letterTrayButtons[e.getTrayNumPos()].setEnabled(false);
         }
         else{
             updateTray(e.getTrayValues());
             updateBoard(e.getUsedSquares());
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
-            updateGameButtons(e.getCurrentPlayer());
+            updateGameButtons(e.getCurrentPlayer(), e.getSwapState());
         }
     }
 
@@ -286,6 +287,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         String[] tray =  trayValues.split(" ");
         for(int i = 0; i < 7; i++){
             letterTrayButtons[i].setText(tray[i]);
+            letterTrayButtons[i].setEnabled(true);
         }
 
     }
@@ -344,22 +346,31 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     }
 
-    private void updateGameButtons(Player currentPlayer) {
-        if (currentPlayer.isAIPlayer) {
-            playAIMoveButton.setEnabled(true);
+    private void updateGameButtons(Player currentPlayer, boolean swapState) {
+        if (swapState) {
+            playAIMoveButton.setEnabled(false);
             placeWordButton.setEnabled(false);
             swapButton.setEnabled(false);
             passButton.setEnabled(false);
             resetButton.setEnabled(false);
-            goButton.setEnabled(false);
-        }
-        else {
-            playAIMoveButton.setEnabled(false);
-            placeWordButton.setEnabled(true);
-            swapButton.setEnabled(true);
-            passButton.setEnabled(true);
-            resetButton.setEnabled(true);
             goButton.setEnabled(true);
+       } else {
+            if (currentPlayer.isAIPlayer) {
+                playAIMoveButton.setEnabled(true);
+                placeWordButton.setEnabled(false);
+                swapButton.setEnabled(false);
+                passButton.setEnabled(false);
+                resetButton.setEnabled(false);
+                goButton.setEnabled(false);
+            }
+            else {
+                playAIMoveButton.setEnabled(false);
+                placeWordButton.setEnabled(true);
+                swapButton.setEnabled(true);
+                passButton.setEnabled(true);
+                resetButton.setEnabled(true);
+                goButton.setEnabled(true);
+            }
         }
     }
 

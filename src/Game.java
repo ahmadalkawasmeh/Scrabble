@@ -363,7 +363,7 @@ public class Game {
      */
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
+            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt, swapState));
         }
     }
 

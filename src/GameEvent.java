@@ -4,6 +4,7 @@ import java.util.List;
 
 public class GameEvent extends EventObject {
 
+
     private Game source;
 
     private Player currentPlayer;
@@ -24,6 +25,8 @@ public class GameEvent extends EventObject {
 
     private int lengthOfWordBeingBuilt;
 
+    private boolean swapState;
+
 
     private ArrayList<Player> playerList;
 
@@ -42,7 +45,10 @@ public class GameEvent extends EventObject {
      * @param lengthOfWordBeingBuilt    the length of the word being built
      * @throws IllegalArgumentException if source is null
      */
-    public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
+    public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues,
+                     String[][] usedSquares, String currentSelectedTrayValue,
+                     ArrayList<Integer> currentSelectedBoardValue,  int trayNumPos, boolean placeCurrentBuildingWord,
+                     ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt, boolean swapState) {
         
         super(source);
         this.currentPlayer = currentPlayer;
@@ -55,6 +61,7 @@ public class GameEvent extends EventObject {
         this.startingWordPos = startingWordPos;
         this.lengthOfWordBeingBuilt = lengthOfWordBeingBuilt;
         this.playerList = playerList;
+        this.swapState = swapState;
     }
 
     public String[][] getUsedSquares() {
@@ -78,6 +85,14 @@ public class GameEvent extends EventObject {
 
     public ArrayList<Integer> getCurrentSelectedBoardValue(){
         return currentSelectedBoardValue;
+    }
+
+    public boolean getSwapState() {
+        return swapState;
+    }
+
+    public int getTrayNumPos() {
+        return trayNumPos;
     }
 
 
