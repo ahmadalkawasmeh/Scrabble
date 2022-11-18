@@ -255,7 +255,9 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     @Override
     public void update(GameEvent e) {
+        if(e.getCurrentSelectedTrayValue().equals(" ")){
 
+        }
         if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
         }
