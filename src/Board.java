@@ -520,14 +520,14 @@ public class Board {
         System.out.println("positionNumber = " + positionNumber);
         System.out.println("positionAlpha = " + positionAlpha);
 
-        int y = Integer.parseInt(positionNumber) - 1;
+        int y = Integer.parseInt(positionNumber);
         System.out.println("here is y --> " + y);
 
         int x = Letters.getOrdinal("" + positionAlpha);
 
         System.out.println("here is x --> " + x);
 
-        System.out.println(usedSquares[x + 1][y]);
+        System.out.println(usedSquares[x][y]);
 
 
         return usedSquares[x][y];
