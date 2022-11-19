@@ -1,7 +1,6 @@
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class WordScoreTest {
 
@@ -78,71 +77,106 @@ public class WordScoreTest {
         assertEquals(5, word1.wordScore());
     }
 
-    /*
+
     @Test
     public void testDoubleLetterScore() {
-        Word word1 = new Word("DOG", "8E");
+        Word word1 = new Word("CAT", "H6");
+        Word word2 = new Word("CAR", "6H"); // double letter at R
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(6, word2.wordScore());
     }
 
     @Test
     public void testTripleLetterScore() {
-        Word word1 = new Word("DOG", "8E");
+        Word word1 = new Word("THANK", "8H");// Triple letter at K
         board.addWordToBoard(word1);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(22, word1.wordScore());
     }
 
     @Test
     public void testDoubleWordScore() {
-        Word word1 = new Word("DOG", "8E");
+        Word word1 = new Word("THANK", "8H");
+        Word word2 = new Word("NICE", "K8"); // double word at E
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(12, word2.wordScore());
     }
 
     @Test
     public void testTripleWordScore() {
-        Word word1 = new Word("DOG", "8E");
+        Word word1 = new Word("THANK", "8H");
+        Word word2 = new Word("NICE", "K8");
+        Word word3 = new Word("EAGLE", "11K");
+        Word word4 = new Word("LIVE", "O8"); // Triple word at L
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
+        board.addWordToBoard(word3);
+        board.addWordToBoard(word4);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(21, word4.wordScore());
     }
 
     @Test
     public void testTwoDifferentLettersScoreMultipliers() {
-        Word word1 = new Word("DOG", "8E");
+        Word word1 = new Word("THANKS", "8H");
+        Word word2 = new Word("LIST", "M6"); // triple letter at I and T
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(8, word2.wordScore());
     }
 
     @Test
-    public void testTwoDifferentWordScoreMultipliers() {
-        Word word1 = new Word("DOG", "8E");
+    public void testTwoWordScoreAndOneLetterScoreMultipliers() {
+        Word word1 = new Word("ORANGE", "8H");
+        Word word2 = new Word("BIN", "7M");
+        Word word3 = new Word("AIRPLANE", "O1"); // triple word at first A, and E, and triple letter at P
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
+        board.addWordToBoard(word3);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(48, word3.wordScore());
     }
 
     @Test
-    public void testWordScoreWithLetterScoreMultipliers() {
-        Word word1 = new Word("DOG", "8E");
+    public void testOneWordScoreAndTwoLetterScoreMultipliers() {
+        Word word1 = new Word("LIGHTER", "8H");
+        Word word2 = new Word("LETTERS", "M3"); // double word at L, triple letter at 2nd E, and S
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
 
-        assertEquals(5, word1.wordScore());
+        assertEquals(22, word2.wordScore());
+    }
+
+    /*
+    @Test
+    public void testBlankScoreIs0OnRegularSquare() {
+
     }
 
     @Test
-    public void testBlankScoreIs0() {
-        Word word1 = new Word("A", "8E"); ///// make this blank once blank tiles are implemented
-        board.addWordToBoard(word1);
+    public void testBlankScoreIs0OnDoubleLetterScore() {
 
-        assertEquals(5, word1.wordScore());
     }
 
+    @Test
+    public void testBlankScoreIs0OnTripleLetterScore() {
+
+    }
+
+    @Test
+    public void testBlankScoreIs0OnDoubleWordScore() {
+
+    }
+
+    @Test
+    public void testBlankScoreIs0OnTripleWordScore() {
+
+    }
      */
 
 
@@ -154,18 +188,15 @@ public class WordScoreTest {
         assertEquals(60, word1.wordScore());
     }
 
-    /*
+
     @Test
-    public void test50PointsForPlacingEntireTrayNotOnFirstWord() { // need to wait for special squares
-        Word word1 = new Word("LABELED", "8E");
+    public void test50PointsForPlacingEntireTrayNotOnFirstWord() {
+        Word word1 = new Word("LIGHT", "H8");
+        Word word2 = new Word("LIMITING", "10A"); // double letter at 1st and 3rd I
         board.addWordToBoard(word1);
+        board.addWordToBoard(word2);
 
-        assertEquals(60, word1.wordScore());
+        assertEquals(63, word2.wordScore());
     }
-
-     */
-
-
-
 
 }
