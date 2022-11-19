@@ -10,6 +10,8 @@ import java.util.List;
 public class Board {
 
 
+
+
     enum scores{DL, TL, DW, TW}
 
 
