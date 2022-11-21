@@ -288,6 +288,10 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
     }
 
+
+    /**
+     * Provides the letter the player selected the blank to be.
+     */
     @Override
     public String getBlankState() {
         return blankPrompt();
