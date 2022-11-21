@@ -44,6 +44,8 @@ public class Game {
     private boolean swapState;
 
     private String lettersToSwap;
+    private boolean blankPlaced;
+
 
 
     /**
@@ -248,6 +250,7 @@ public class Game {
      * Developed by Daniel
      */
     public void nextPlayer(){
+        blankPlaced = false;
         for (int i = 0; i < players.size(); i++){
             if(i == players.size() - 1){
                 currentPlayer = players.get(0);
@@ -331,6 +334,9 @@ public class Game {
      * @param boardValue The letter to place on the board.
      */
     public void selectBoardValue(ArrayList<Integer> boardValue){
+        if(currentSelectedTrayValue.equals("__")){
+            currentSelectedTrayValue = fetchBlankState();
+        }
         if(!currentSelectedTrayValue.equals(" ")){
             currentWord += currentSelectedTrayValue;
             currentSelectedBoardValue = boardValue;
@@ -341,7 +347,15 @@ public class Game {
         }
     }
 
-
+    private String fetchBlankState(){
+        String letter = "";
+        for(ScrabbleScrabbleView view: views){
+            letter = view.getBlankState();
+            if(letter != null)
+                return letter;
+        }
+        return letter;
+    }
     /**
      * Places a word on the board.
      */

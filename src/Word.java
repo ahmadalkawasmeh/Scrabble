@@ -178,12 +178,12 @@ public class Word {
      */
     public static ArrayList<Integer> numCoordinate(String coordinate){
         StringBuilder sb = new StringBuilder(coordinate);
-        ArrayList<Integer> numericCooridnate = new ArrayList<>();
-        numericCooridnate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
+        ArrayList<Integer> numericCoordinate = new ArrayList<>();
+        numericCoordinate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
         sb.deleteCharAt(0);
         coordinate = sb.toString();
-        numericCooridnate.add(Integer.parseInt(coordinate));
+        numericCoordinate.add(Integer.parseInt(coordinate));
 
-        return numericCooridnate;
+        return numericCoordinate;
     }
 }

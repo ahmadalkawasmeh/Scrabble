@@ -54,4 +54,5 @@ public enum Letters {
     * @return the default quantity of a letter.
     */
    public int getQuantity(){return this.defaultQuantity;}
+
 }

@@ -19,6 +19,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel currentPlayerLabel;
     private JButton placeWordButton, swapButton, passButton, goButton, resetButton;
     private JLabel gameStatusMessage;
+    private Game gameModel;
 
 
     /**
@@ -252,7 +253,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameModel.intializeGamePlay();
     }
 
-    private String blankPrompt(){
+    public String blankPrompt(){
         String letters[] = new String[26];
         for(int i = 0; i < 26; i++){
             char c = (char) (i+65);
@@ -285,6 +286,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
         }
+    }
+
+    @Override
+    public String getBlankState() {
+        return blankPrompt();
     }
 
 
