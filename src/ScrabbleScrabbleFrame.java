@@ -32,15 +32,24 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         this.setLayout(new BorderLayout());
 
 
+        // Prompt the user for the total number of user and AI players
+        String[] optionsForNumberOfPlayers = {"2", "3", "4"};
+        Object input = JOptionPane.showInputDialog(this,"Select the total number of players (user and AI):",
+                "Player Selection", JOptionPane.QUESTION_MESSAGE,null, optionsForNumberOfPlayers,"2");
+        int numPlayers = Integer.parseInt((String)input);
 
-        Game gameModel = new Game(2, 1);
+        // Prompt the user for the number of AI players
+        String[] optionsForNumberOfAIPlayers = {"0", "1", "2", "3"};
+        input = JOptionPane.showInputDialog(this,"Select the number of AI players:",
+                "AI Selection", JOptionPane.QUESTION_MESSAGE,null, optionsForNumberOfAIPlayers,"1");
+        int numAIPlayers = Integer.parseInt((String)input);
+
+        Game gameModel = new Game(numPlayers, numAIPlayers);
         BoardController boardController = new BoardController(gameModel);
         TrayController trayController = new TrayController(gameModel);
         GameController gameController = new GameController(gameModel);
         MenuController menuController = new MenuController(gameModel, this);
         gameModel.addView(this);
-
-
 
         pane = this.getContentPane();
 
@@ -344,7 +353,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * @param namesAndScores the list of players and scores
      */
     private void updateScoreBoard(ArrayList<Player> namesAndScores) {
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < (playerNamesAndScores.length / 2); i++) {
             Player p = namesAndScores.get(i);
             playerNamesAndScores[(i * 2)].setText(p.toString() + ":   ");
             playerNamesAndScores[(i * 2) + 1].setText(p.stringScore());

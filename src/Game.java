@@ -62,7 +62,7 @@ public class Game {
         dictionary = new Dictionary();
 
         initializeBoard();
-        initializePlayers(numPlayers);
+        initializePlayers(numPlayers, numAIPlayers);
 
         finished = false;
 
@@ -264,26 +264,40 @@ public class Game {
 
     /**
      * Initializes the Players of the Game.
-     * Developed by Daniel
+     * Players will either be user players or AI players.  The total number of
+     * players may be between 2 and 4.  The total number of AI players may
+     * be between 0 and the total number of players - 1.
      *
-     * @param numPlayers the number of Players in the game.
+     * Developed by Daniel (Milestone 1) and updated by James (Milestone 3)
+     *
+     * @param numPlayers the total number of desired Players (both user and AI)
+     * @param numAIPlayers the desired number of AI players
      */
-    private void initializePlayers(int numPlayers){
-        /*
-        for(int i = 0; i < numPlayers; i++){
+    private void initializePlayers(int numPlayers, int numAIPlayers){
 
+        // Set to 2 total players if the user has input an invalid number of players
+        if (numPlayers < 2 || numPlayers > 4) {
+            numPlayers = 2;
+        }
+
+        // At least one player must be a user
+        if (numAIPlayers >= numPlayers) {
+            numAIPlayers = numPlayers - 1;
+        }
+
+        int numUserPlayers = numPlayers - numAIPlayers;
+
+        // Initialize user players
+        for (int i = 0; i < numUserPlayers; i++) {
             Player player = new Player("Player " + (i + 1), false);
             players.add(player);
         }
-        */
 
-        ///*
-        Player player = new Player("Player 1", false);
-        Player player2 = new Player("Player 2", true);
-        players.add(player);
-        players.add(player2);
-        //*/
-
+        // Initialize AI players
+        for (int i = 0; i < numAIPlayers; i++) {
+            Player player = new Player("Player " + (i + 1 + numUserPlayers) + " (AI)", true);
+            players.add(player);
+        }
     }
 
 
