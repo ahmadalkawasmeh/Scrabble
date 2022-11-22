@@ -5,9 +5,11 @@ import java.util.List;
 public class GameEvent extends EventObject {
 
 
+
     private Game source;
 
     private Player currentPlayer;
+    private final boolean currentPlayerIsAI;
 
     private String trayValues;
 
@@ -52,6 +54,7 @@ public class GameEvent extends EventObject {
         
         super(source);
         this.currentPlayer = currentPlayer;
+        this.currentPlayerIsAI = currentPlayer.isAIPlayer();
         this.trayValues = trayValues;
         this.usedSquares = usedSquares;
         this.currentSelectedTrayValue = currentSelectedTrayValue;
@@ -94,6 +97,7 @@ public class GameEvent extends EventObject {
     public int getTrayNumPos() {
         return trayNumPos;
     }
-
-
+    public boolean getCurrentPlayerIsAI() {
+        return currentPlayerIsAI;
+    }
 }

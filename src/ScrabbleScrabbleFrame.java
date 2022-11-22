@@ -290,7 +290,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             letterTrayButtons[e.getTrayNumPos()].setEnabled(false);
         }
         else{
-            updateTray(e.getTrayValues());
+            updateTray(e.getTrayValues(), e.getCurrentPlayerIsAI());
             updateBoard(e.getUsedSquares());
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
@@ -303,11 +303,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * Updates the current player's tray.
      * @param trayValues The values of this player's tray.
      */
-    private void updateTray(String trayValues){
+    private void updateTray(String trayValues, boolean currentPlayerIsAI){
         String[] tray =  trayValues.split(" ");
         for(int i = 0; i < 7; i++){
             letterTrayButtons[i].setText(tray[i]);
-            letterTrayButtons[i].setEnabled(true);
+            if (currentPlayerIsAI) {
+                letterTrayButtons[i].setEnabled(false);
+            } else {
+                letterTrayButtons[i].setEnabled(true);
+            }
         }
     }
 
