@@ -1,27 +1,43 @@
 import java.util.ArrayList;
 
+/**
+ * AIHelper represents the logic for AI Players in scrabblescrabble.
+ *
+ * AIHelper provides methods that allows AI Players to search for a letter
+ * on the game board, then search for a word in the Dictionary that uses
+ * that letter and the letters remaining in their Tray.  AIHelper also
+ * contains the logic for an AI Player to decide when to place a word, when to
+ * swap letters, or when to pass their turn.
+ */
 public class AIHelper {
 
-    private static Board board;
-    private static String[][] squares;
+    private static Board board; // The board for this game
+    private static String[][] squares; // the squares on the board
 
 
-
-
+    /**
+     * Constructor for class AIHelper.
+     *
+     * @param board The Board used in the currently running game.
+     */
     public AIHelper(Board board) {
-        this.board = board;
         squares = board.getUsedSquares();
     }
 
+    /**
+     * Updates the squares variable based on the current state of
+     * letters on the Board.
+     */
     public static void updateSquares() {
         squares = board.getUsedSquares();
     }
 
 
     /**
-     * Searches for a possible letter on the board that an AI player can build a word off of.
-     * Returns a String coordinate that is equivalent to what a user would input by text. i.e. 1A
-     * is used to place a word horizontally starting at coordinate 1A.
+     * Searches for a possible letter on the board that an AI player can
+     * build a word off of.  Returns a String coordinate that is equivalent
+     * to what a user would input by text. i.e. 1A is used to place a word
+     * horizontally starting at coordinate 1A.
      *
      * @return the String coordinate of the word.
      */
@@ -63,6 +79,17 @@ public class AIHelper {
     }
 
 
+    /**
+     * Creates a coordinate string that would be equivalent to user input via the keyboard.
+     *
+     * For example, H8 or 8H represent the centre tile of the game board in horizontal and
+     * vertical formats.
+     *
+     * @param i The row of the board
+     * @param j The column of the board
+     * @param horizontalFirst true if the word will be placed horizontally, false otherwise
+     * @return The String representation of a coordinate on the game board
+     */
     private static String getCoordinateString(int i, int j, boolean horizontalFirst) {
         String s = "";
         i++;
@@ -82,6 +109,12 @@ public class AIHelper {
     }
 
 
+    /**
+     * Gets the letter placed on the game board at the specified position.
+     *
+     * @param position The position on the board to check
+     * @return A String representation of the letter placed at position
+     */
     public static String getLetterFromPosition(String position) {
         updateSquares();
         String positionAlpha = "";
@@ -94,24 +127,28 @@ public class AIHelper {
                 positionAlpha += position.charAt(i);
             }
         }
-
-        System.out.println("positionNumber = " + positionNumber);
-        System.out.println("positionAlpha = " + positionAlpha);
-
         int y = Integer.parseInt(positionNumber) - 1;
-        System.out.println("here is y --> " + y);
-
         int x = Letters.getOrdinal("" + positionAlpha);
-
-        System.out.println("here is x --> " + x);
-
-        System.out.println(squares[x][y]);
-
 
         return squares[x][y];
     }
 
 
+    /**
+     * The core decision-making logic for AI Players.
+     * The AI Player will first try to place a word (if a word has already been placed
+     * on the board), otherwise the Player will try to swap letters.  If the player
+     * has no available letters to swap, they will pass their turn.
+     *
+     * Potential output Strings from this method include:
+     *
+     * SWAP ADJBC   // To swap the specified letters
+     * WORD H8      // To place a word at a specific position
+     * PASS         // To pass the turn to the next player
+     *
+     * @param tray The AI Player's Tray of letters
+     * @return An input String that may be used to create a Move Object
+     */
     public String getNextAIMove(Tray tray) {
 
         // Pass if a word has not been placed on the board yet
@@ -147,7 +184,8 @@ public class AIHelper {
             return "SWAP " + tray.AIgetLettersToSwap();
         }
 
-        return "PASS"; // If player has no tiles to swap, pass
+        // If player has no tiles to swap, pass
+        return "PASS";
     }
 
 
