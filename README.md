@@ -10,8 +10,9 @@ SYSC 3110 Group Project (Fall 2022)
 
 # Introduction
 
-scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  In its current iteration, each of the 2 players has a tray with 7 letters drawn from a bag of pre-set letters.  Points are awarded based on the words placed, determined by the score of each letter used.  This second iteration of scrabblescrabble accepts user input via the mouse.
+scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  In its current iteration, the game supports 2 - 4 players.  The game also supports basic AI functionalities.  This third iteration accepts user input via the mouse, using a graphical user interface.
 
+Each of the players has a tray with 7 letters drawn from a bag of pre-set letters.  Points are awarded based on the words placed, determined by the score of each letter used, and any "special squares" that are point multipliers based on the word or the letter placed.  The game also features blank tiles which award 0 points, but can be used as any letter of the alphabet.
 
 # Game Instructions
 
@@ -41,16 +42,33 @@ This iteration of the game does not currently implement the game-ending conditio
 - src folder
 	- This folder contains all of the source code for the scrabblescrabble game.
 - legalWordsList.txt
-	-  This file contains the list of all legal words that can be played in the scrabblescrabble game.  Each line of this file contains one legal word.
-- UML Diagram M1 Submission FINAL.png
-	- This UML diagram outlines the current class structure of the program.
+	-  This file contains the list of all legal words that may be played in the scrabblescrabble game.  Each line of this file contains one legal word.
+- UMLDiagrams folder
+	- UML Diagram M3 Submission FINAL.png
+		- This UML diagram outlines the current class structure of the program
+	- Sequence Diagram 1: gameInitializationSequence.png
+		- Demonstrates how the scrabblescrabble Game class is initialized
+	- Sequence Diagram 2: placeWord.png
+		- Demonstrates how a Word object is placed on the board
+	- Sequence Diagram 3: swapLetter.png
+		- Demonstrates how a Player is able to swap a letter from their tray for a new letter from the shared LetterBag
+	- Sequence Diagram 4: scoreCalculation.png
+		- Demonstrates how the score is calculated for a Word placed on the board
+	- Sequence Diagram 5: AIDecisionMaking.png
+		- Demonstrates how the AI chooses to either place a word, swap, or pass to progress the game forward
 - ChangeLog.PDF
 	- This document outlines the rationale of design decisions for the current implementation of the program.
 
 
 # New Updates
 
-N/A.  This iteration represents milestone 1 of 4.  All of the current program functionalities have been introduced in this milestone.
+This iteration represents milestone 3 of 4.  Newly introduced features for this version include:
+
+- "Special squares" that allow for boosting a player's score depending on which squares they place their letters/words on
+	- Includes: Double Letter, Double Word, Triple Letter, and Triple Word score multipliers
+- Blank tiles, earning the player zero points but allowing the player to select any letter from the alphabet to place on the board 
+- AI functionality that allows an AI player to place a word, swap letters, or pass their turn
+- The menu bar above the game currently includes functionality to start a new game, or to quit the current game
 
 
 # Known Issues
@@ -71,17 +89,7 @@ N/A.  This iteration represents milestone 1 of 4.  All of the current program fu
 
 # Future Milestones
 
-The project is currently in milestone 2 of 4.  Future milestones are scheduled to include the following features:
-
-- Milestone 2:
-	- A GUI-based version of scrabblescrabble
-	- Will accept game input via the user's mouse
-	- Unit tests for the underlying game logic of the scrabblescrabble model
-	
-- Milestone 3: 
-	- Blank tiles
-	- Premium squares (including double letter, triple letter, double word and triple word squares)
-	- The option to use 1 or more AI players
+The project is currently in milestone 3 of 4.  Future milestones are scheduled to include the following features:
 	
 - Milestone 4: 
 	- Undo/Redo buttons that work over multiple turns

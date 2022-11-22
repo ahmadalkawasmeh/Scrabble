@@ -250,7 +250,7 @@ public class BoardTest {
 
 
     @Test
-    public void testPlaceWordSurroundedByLetters() {
+    public void testPlaceWordSurroundedByLetters() {    //PEP was not a word so it initally failed !!!!!!!
         Word word1 = new Word("PEP", "D6");
         Word word2 = new Word("PEP","8D");
         Word word3 = new Word("PEP", "6D");
@@ -262,6 +262,7 @@ public class BoardTest {
         board.addWordToBoard(word3);
         board.addWordToBoard(word4);
         board.addWordToBoard(word5);
+
 
         assertTrue(board.checkWordOnBoard(word5));
     }

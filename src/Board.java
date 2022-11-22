@@ -10,11 +10,13 @@ import java.util.List;
 public class Board {
 
 
+
+
     enum scores{DL, TL, DW, TW}
 
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
-    private String[][] usedSquares; // Squares that have letters placed on them
+    private static String[][] usedSquares; // Squares that have letters placed on them
     public Enum[][] specialSquares; // Squares with special scoring modifiers
     private HashMap<String, String> boardValues;
 
@@ -187,13 +189,47 @@ public class Board {
 
         while(runCheck){
 
-            if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0)][coordinate.get(1) + count].equals(" ")) {
+            if(coordinate.get(1) + count < SIZE && !usedSquares[coordinate.get(0)][coordinate.get(1) + count].equals(" ")) { //remove -1
+
                 wordFormed = wordFormed + usedSquares[coordinate.get(0)][coordinate.get(1) + count];
 
-                if((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) + count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) + count].equals(" ")) && secondScan) {
-                    if(!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) + count)), false)){
-                        return false;
+
+                if(coordinate.get(0) + 1 > SIZE - 1) {
+
+                    if ((!usedSquares[coordinate.get(0) - 1][coordinate.get(1) + count].equals(" ")) && secondScan) {
+
+                        if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) + count)), false)) {
+
+                            return false;
+
+                        }
+
                     }
+                }
+
+
+                else if(coordinate.get(0) - 1 < 0) {
+
+                    if (!(usedSquares[coordinate.get(0) + 1][coordinate.get(1) + count].equals(" ")) && secondScan) {
+
+                        if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) + count)), false)) {
+
+                            return false;
+
+                        }
+
+                    }
+                }
+
+
+                else if ((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) + count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) + count].equals(" ")) && secondScan) {
+
+                    if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) + count)), false)) {
+
+                        return false;
+
+                    }
+
                 }
 
                 count += 1;
@@ -208,16 +244,42 @@ public class Board {
         count  = 1;
 
         while (runCheck){
-            if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0)][coordinate.get(1) - count].equals(" ")) {
+            if(coordinate.get(1) - count >= 0 && !usedSquares[coordinate.get(0)][coordinate.get(1) - count].equals(" ")) { // should it be get (0) ?
+
                 wordFormed = usedSquares[coordinate.get(0)][coordinate.get(1) - count] + wordFormed;
 
-                if((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
-                    if(!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)){
+
+                if(coordinate.get(0) + 1 > SIZE - 1) {
+
+                    if ((!usedSquares[coordinate.get(0) - 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
+                        if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)) {
+                            return false;
+                        }
+                    }
+
+                }
+
+
+
+                else if(coordinate.get(0) - 1 < 0) {
+
+                    if ((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
+                        if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)) {
+                            return false;
+                        }
+                    }
+
+                }
+
+
+                else if ((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
+                    if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)) {
                         return false;
                     }
                 }
 
-                count += 1;
+
+            count += 1;
             }
             else {
                 runCheck = false;
@@ -243,12 +305,29 @@ public class Board {
 
             while(runCheck){
 
-                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {    //FIX SIZE ERROR
+                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {    //FIX SIZE ERROR //check for -1 too not just size -1
                     wordFormed = wordFormed + usedSquares[coordinate.get(0) + count][coordinate.get(1)];
 
 
-                    if((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
-                        if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)){
+                    if(coordinate.get(1) - 1 < 0) {
+                        if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                            if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
+                                return false;
+                            }
+                        }
+                    }
+
+
+                    else if(coordinate.get(1) + 1 > SIZE - 1) {
+                        if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
+                            if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    else if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                        if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
                             return false;
                         }
                     }
@@ -260,6 +339,7 @@ public class Board {
                 }
             }
 
+
             System.out.println(wordFormed);
             runCheck = true;
             count  = 1;
@@ -267,11 +347,33 @@ public class Board {
                 if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0) - count][coordinate.get(1)].equals(" ")) {
                     wordFormed = usedSquares[coordinate.get(0) - count][coordinate.get(1)] + wordFormed;
 
-                    if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+
+                    if(coordinate.get(1) - 1 < 0) {
+                        if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                            if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
+                                return false;
+                            }
+                        }
+
+                    }
+
+                    else if(coordinate.get(1) + 1 > SIZE - 1) {
+                        if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
+                            if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
+                                return false;
+                            }
+                        }
+
+                    }
+
+
+                    else if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
                         if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
                             return false;
                         }
                     }
+
+
                     count += 1;
                 }
                 else {
@@ -292,4 +394,22 @@ public class Board {
     public String[][] getUsedSquares(){
         return usedSquares;
     }
+
+
+    public static boolean centreSquareIsClear() {
+        return usedSquares[7][7].equals(" ");
+    }
+
+
+    public String getLetterFromPosition(String wordPosition) {
+        return AIHelper.getLetterFromPosition(wordPosition);
+    }
+
+
+    public String getPossibleWordPosition(int x, int y) {
+        return AIHelper.getPossibleWordPosition(x, y);
+    }
+
 }
+
+

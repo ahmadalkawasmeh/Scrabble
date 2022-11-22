@@ -170,11 +170,20 @@ public class Word {
         return  (this.findWordPosition().get(1) + word.length() <= Board.SIZE);
     }
 
-    public static ArrayList<Integer> numCoordinate(String coordinate){
-        ArrayList<Integer> numericCooridnate = new ArrayList<>();
-        numericCooridnate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
-        numericCooridnate.add(Character.getNumericValue(coordinate.charAt(1)));
 
-        return numericCooridnate;
+    /**
+     *
+     * @param coordinate
+     * @return
+     */
+    public static ArrayList<Integer> numCoordinate(String coordinate){
+        StringBuilder sb = new StringBuilder(coordinate);
+        ArrayList<Integer> numericCoordinate = new ArrayList<>();
+        numericCoordinate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
+        sb.deleteCharAt(0);
+        coordinate = sb.toString();
+        numericCoordinate.add(Integer.parseInt(coordinate));
+
+        return numericCoordinate;
     }
 }

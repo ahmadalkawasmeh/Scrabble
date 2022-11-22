@@ -1,7 +1,6 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack; // for milestone 3
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -12,13 +11,13 @@ import java.util.Stack; // for milestone 3
 public class Game {
 
     private ArrayList<ScrabbleScrabbleView> views;
-    private Board board;
+    private static Board board;
     public static ArrayList<Player> players;
     private Player currentPlayer;
     // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
     //private Stack<Round> roundHistory; // will be used for undo/redo in the future
-    private Dictionary dictionary;
+    public static Dictionary dictionary;
     private Parser parser = new Parser();
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
@@ -45,6 +44,8 @@ public class Game {
 
     private String lettersToSwap;
 
+    private AIHelper AI;
+
 
     /**
      * Initializes all aspects and then starts the game.
@@ -54,16 +55,16 @@ public class Game {
      *
      * @param numPlayers The number of Players in this game.
      */
-    public Game(int numPlayers){
+    public Game(int numPlayers, int numAIPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         players = new ArrayList<Player>();
         views = new ArrayList<>();
         // roundHistory = new Stack<Round>(); // for the future
         dictionary = new Dictionary();
-
         initializeBoard();
-        initializePlayers(numPlayers);
+        AI = new AIHelper(board);
+        initializePlayers(numPlayers, numAIPlayers);
 
         finished = false;
 
@@ -94,7 +95,14 @@ public class Game {
     public void play(String moveToPlay){
 
             this.output();
-            Move move = parser.getInput(moveToPlay);
+
+            Move move;
+            if (currentPlayer.isAIPlayer()) {
+                String nextMove = currentPlayer.getNextAIMove();
+                move = parser.getInput(nextMove);
+                System.out.println("move AI is playing: " + move);
+            } else { move = parser.getInput(moveToPlay); }
+            if (currentPlayer.isAIPlayer()) { System.out.println("\n\n" + move.toString()); }
             processMove(move);
             nextPlayer();
             resetViewValues();
@@ -125,7 +133,19 @@ public class Game {
         {swap(move.getSecondCommandWord());}
 
          else { // Place a word on the board
-            processWord(move);
+
+
+             if (currentPlayer.isAIPlayer()) {
+                 processWordForAI(move);
+             } else {
+                 processWord(move);
+             }
+
+
+
+             processWord(move);
+
+
         }
     }
 
@@ -141,6 +161,11 @@ public class Game {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
 
+        System.out.println("get word: " + word.getWord());
+        System.out.println("get word: " + word.getLetterPositions());
+        System.out.println("Check word: " + checkWord(word));
+
+
         if (this.checkWord(word))
         {
             zeroScoreTurns = 0; // Reset counter if a word is placed
@@ -153,6 +178,24 @@ public class Game {
         }
         return word;
     }
+
+
+    private Word processWordForAI(Move move) {
+
+        Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
+
+        zeroScoreTurns = 0; // Reset counter if a word is placed
+
+        board.addWordToBoard(word);
+
+        currentPlayer.updateScore(word.wordScore());  //updates score
+        currentPlayer.removeLetters( new ArrayList<>( List.of(word.getWord().split("")))); //removes used letters from the players tray
+        currentPlayer.fillTray();  //fills player tray
+
+        return word;
+    }
+
+
 
 
     /**
@@ -214,13 +257,38 @@ public class Game {
 
     /**
      * Initializes the Players of the Game.
-     * Developed by Daniel
+     * Players will either be user players or AI players.  The total number of
+     * players may be between 2 and 4.  The total number of AI players may
+     * be between 0 and the total number of players - 1.
      *
-     * @param numPlayers the number of Players in the game.
+     * Developed by Daniel (Milestone 1) and updated by James (Milestone 3)
+     *
+     * @param numPlayers the total number of desired Players (both user and AI)
+     * @param numAIPlayers the desired number of AI players
      */
-    private void initializePlayers(int numPlayers){
-        for(int i = 0; i < numPlayers; i++){
-            Player player = new Player("Player " + (i + 1));
+    private void initializePlayers(int numPlayers, int numAIPlayers){
+
+        // Set to 2 total players if the user has input an invalid number of players
+        if (numPlayers < 2 || numPlayers > 4) {
+            numPlayers = 2;
+        }
+
+        // At least one player must be a user
+        if (numAIPlayers >= numPlayers) {
+            numAIPlayers = numPlayers - 1;
+        }
+
+        int numUserPlayers = numPlayers - numAIPlayers;
+
+        // Initialize user players
+        for (int i = 0; i < numUserPlayers; i++) {
+            Player player = new Player("Player " + (i + 1), false);
+            players.add(player);
+        }
+
+        // Initialize AI players
+        for (int i = 0; i < numAIPlayers; i++) {
+            Player player = new Player("Player " + (i + 1 + numUserPlayers) + " (AI)", true);
             players.add(player);
         }
     }
@@ -302,9 +370,10 @@ public class Game {
      */
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt));
+            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt, swapState));
         }
     }
+
 
     /**
      * Updates the ongoing move based on the selected tray button.
@@ -314,7 +383,6 @@ public class Game {
      * @param buttonNum the position of the selected letter in the Tray (i.e. position 3)
      */
     public void selectTrayValue(String trayValue, int buttonNum){
-        System.out.print(swapState + "");
         if (swapState) {
             lettersToSwap += trayValue;
 
@@ -408,5 +476,14 @@ public class Game {
             this.play("SWAP " + lettersToSwap);
         }
         updateViews();
+    }
+
+    public static String getPossibleWordPosition(int x, int y) {
+        return board.getPossibleWordPosition(x, y);
+    }
+
+
+    public static Board getBoard() {
+        return board;
     }
 }

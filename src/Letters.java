@@ -34,8 +34,12 @@ public enum Letters {
       this.letterScore = letterScore;
       this.defaultQuantity = quantity;
    }
-   
-   
+
+   public static int getOrdinal(String s) {
+      return valueOf(s).ordinal();
+   }
+
+
    /**
     * Gets the letterScore of this letter.
     * Developed by: James Grieder

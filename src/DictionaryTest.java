@@ -20,15 +20,12 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryConstructor() {
-
         assertTrue(d != null);
     }
 
 
     @Test
     public void testDictionaryContainsALegalWord1() {
-        // Assert that d contains "StringOfALegalWord"
-
         String word1 = "car";
         assertTrue(d.lookupDictionary(word1));
     }
@@ -36,8 +33,6 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryContainsALegalWord2() {
-        // Assert that d contains "StringOfALegalWord"
-
         String word2 = "ace";
         assertTrue(d.lookupDictionary(word2));
     }
@@ -45,8 +40,6 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryDoesNotContainAnIllegalWord1() {
-        // AssertFalse that d contains "StringOfAIllegalWord"
-
         String word1 = "absx";
         assertFalse(d.lookupDictionary(word1));
     }
@@ -54,8 +47,6 @@ public class DictionaryTest {
 
     @Test
     public void testDictionaryDoesNotContainAnIllegalWord2() {
-        // AssertFalse that d contains "StringOfAIllegalWord"
-
         String word2 = "milde";
         assertFalse(d.lookupDictionary(word2));
 

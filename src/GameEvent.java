@@ -4,9 +4,12 @@ import java.util.List;
 
 public class GameEvent extends EventObject {
 
+
+
     private Game source;
 
     private Player currentPlayer;
+    private final boolean currentPlayerIsAI;
 
     private String trayValues;
 
@@ -24,6 +27,8 @@ public class GameEvent extends EventObject {
 
     private int lengthOfWordBeingBuilt;
 
+    private boolean swapState;
+
 
     private ArrayList<Player> playerList;
 
@@ -31,21 +36,25 @@ public class GameEvent extends EventObject {
      * Constructs a prototypical Event.
      *
      * @param source                    the object on which the Event initially occurred
-     * @param currentPlayer
-     * @param trayValues
-     * @param usedSquares
-     * @param currentSelectedTrayValue
-     * @param currentSelectedBoardValue
-     * @param trayNumPos
-     * @param placeCurrentBuildingWord
-     * @param startingWordPos
-     * @param lengthOfWordBeingBuilt
+     * @param currentPlayer             the player that initiated the event
+     * @param trayValues                the tray values of the player
+     * @param usedSquares               the squares used
+     * @param currentSelectedTrayValue  the currently selected letter from the player tray
+     * @param currentSelectedBoardValue the currently selected board coordinate
+     * @param trayNumPos                the position in the player tray of the current letter selected
+     * @param placeCurrentBuildingWord  the status of building a word or not
+     * @param startingWordPos           the starting position of the word to be placed
+     * @param lengthOfWordBeingBuilt    the length of the word being built
      * @throws IllegalArgumentException if source is null
      */
-    public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues, String[][] usedSquares, String currentSelectedTrayValue, ArrayList<Integer> currentSelectedBoardValue, int trayNumPos, boolean placeCurrentBuildingWord, ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt) {
+    public GameEvent(Object source, Player currentPlayer, ArrayList<Player> playerList, String trayValues,
+                     String[][] usedSquares, String currentSelectedTrayValue,
+                     ArrayList<Integer> currentSelectedBoardValue,  int trayNumPos, boolean placeCurrentBuildingWord,
+                     ArrayList<Integer> startingWordPos, int lengthOfWordBeingBuilt, boolean swapState) {
         
         super(source);
         this.currentPlayer = currentPlayer;
+        this.currentPlayerIsAI = currentPlayer.isAIPlayer();
         this.trayValues = trayValues;
         this.usedSquares = usedSquares;
         this.currentSelectedTrayValue = currentSelectedTrayValue;
@@ -55,6 +64,7 @@ public class GameEvent extends EventObject {
         this.startingWordPos = startingWordPos;
         this.lengthOfWordBeingBuilt = lengthOfWordBeingBuilt;
         this.playerList = playerList;
+        this.swapState = swapState;
     }
 
     public String[][] getUsedSquares() {
@@ -80,22 +90,14 @@ public class GameEvent extends EventObject {
         return currentSelectedBoardValue;
     }
 
+    public boolean getSwapState() {
+        return swapState;
+    }
+
     public int getTrayNumPos() {
         return trayNumPos;
     }
-
-    public boolean isPlaceCurrentBuildingWord() {
-        return placeCurrentBuildingWord;
+    public boolean getCurrentPlayerIsAI() {
+        return currentPlayerIsAI;
     }
-
-    public ArrayList<Integer> getStartingWordPos() {
-        return startingWordPos;
-    }
-
-    public int getLengthOfWordBeingBuilt() {
-        return lengthOfWordBeingBuilt;
-    }
-
-
-
 }

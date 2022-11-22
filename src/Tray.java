@@ -12,9 +12,11 @@ import java.util.Collections;
  */
 public class Tray
 {
-    private static final int SIZE = 7; // The maximum number of letters a tray can hold
+    public static final int SIZE = 7; // The maximum number of letters a tray can hold
+    public static final int SWAP_CONSTANT = 4;
 
     private ArrayList<String> letters; // The letters in this tray
+
     private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
 
 
@@ -50,7 +52,20 @@ public class Tray
      * @param letter The letter to check for.
      * @return  true if letter is in this Tray, otherwise returns false.
      */
-    public boolean checkInTray(String letter)
+    public boolean checkLetterInTray(String letter)
+    {
+        return letters.contains(letter);
+    }
+
+
+    /**
+     * Checks if an individual letter is in this Tray.
+     * Developed by: Ibtasam Rasool & James Grieder
+     *
+     * @param letter The letter to check for.
+     * @return  true if letter is in this Tray, otherwise returns false.
+     */
+    public boolean checkWordInTray(String letter)
     {
         return letters.contains(letter);
     }
@@ -78,6 +93,7 @@ public class Tray
     public void removeLetter(String letter) {
                 this.letters.remove(letter);
     }
+
 
     /**
      * returns a letter back to the letter bag
@@ -107,5 +123,40 @@ public class Tray
             stringBuffer.append(" ");
         }
         return  stringBuffer.toString();
+    }
+
+    public ArrayList<String> getLetters() {
+        return letters;
+    }
+
+    public LetterBag getLetterBag() {
+        return letterBag;
+    }
+
+    public String AIgetLettersToSwap() {
+        String lettersToSwap = "";
+
+        // Swap any letters that are greater than or equal to the SWAP_CONSTANT in point value
+        for (String letter: letters) {
+            if (Letters.valueOf(letter).getLetterScore() >= SWAP_CONSTANT) {
+                lettersToSwap += letter;
+            }
+        }
+
+        // If there are less than 2 letters selected for swapping above, then swap all letters in the tray
+        if (lettersToSwap.length() < 2) {
+
+            lettersToSwap = ""; // clear lettersToSwap and add all letters
+            for (String letter: letters) {
+                lettersToSwap += letter;
+            }
+        }
+
+        return lettersToSwap;
+    }
+
+
+    public int remainingNumberOfLettersInTray() {
+        return letters.size();
     }
 }
