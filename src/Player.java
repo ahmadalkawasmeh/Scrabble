@@ -18,6 +18,7 @@ public class Player
     private Tray tray;
 
     boolean isAIPlayer;
+    private AIHelper AI;
 
 
     /**
@@ -34,6 +35,7 @@ public class Player
         score = 0;
         tray = new Tray();
         isAIPlayer = isAI;
+        AI = new AIHelper(Game.getBoard());
     }
 
 
@@ -169,48 +171,8 @@ public class Player
         return isAIPlayer;
     }
 
+
     public String getNextAIMove() {
-
-        // Pass if a word has not been placed on the board yet
-        if (Board.isClear()) {
-            return "SWAP " + tray.AIgetLettersToSwap();
-        }
-
-        boolean wordPlaced = false;
-
-        int x = 0;
-        int y = 0;
-        while (!wordPlaced && x < Board.SIZE && y < Board.SIZE) {
-
-            // Find a position with space to add 2+ tiles right or down
-            String wordPosition = Game.getPossibleWordPosition(x, y);
-
-            System.out.println("word position = " + wordPosition);
-
-            // Get that letter
-            String letter = Game.getLetterFromPosition(wordPosition);
-            System.out.println("letter = " + letter);
-
-            // Generate words based on player tray + letter
-            ArrayList<String> possibleWords = Game.dictionary.generateWords(this.tray, letter);
-
-            System.out.println("# of possible words = " + possibleWords.size());
-
-            // Select a word to place
-            for (String possibleWord : possibleWords) {
-                return possibleWord.toUpperCase() + " " + wordPosition;
-            }
-            x += 3;
-            y += 3;
-        }
-
-        // If placing a word was unsuccessful after 3 attempts, swap some letters instead
-        if (tray.remainingNumberOfLettersInTray() > 0) {
-            //String lettersToSwap = tray.AIgetLettersToSwap();
-            return "SWAP " + tray.AIgetLettersToSwap();
-        }
-
-        return "PASS";
+        return AI.getNextAIMove(tray);
     }
-
 }

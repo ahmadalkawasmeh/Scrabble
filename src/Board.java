@@ -396,189 +396,20 @@ public class Board {
     }
 
 
-    /**
-     * Searches for a possible letter on the board that an AI player can build a word off of.
-     * Returns a String coordinate that is equivalent to what a user would input by text. i.e. 1A
-     * is used to place a word horizontally starting at coordinate 1A.
-     *
-     * @return the String coordinate of the word.
-     */
-    public String getPossibleWordPosition(int i, int j) {
-        boolean positionFound = false;
-
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
-                if (!positionFound) { // if we haven't found a position yet
-
-                    // find letter
-                    if (!usedSquares[x][y].equals(" ")) {
-
-                        // check for 3 empty spaces to the right of the letter
-                        if (x + 3 < SIZE) {
-                            if (usedSquares[x + 1][y].equals(" ") && usedSquares[x + 2][y].equals(" ") && usedSquares[x + 3][y].equals(" ")) {
-                                if (x == 0 || (x > 0 && usedSquares[x - 1][y].equals(" "))) {
-                                    // return coordinate of letter
-                                    return getCoordinateString(x, y, true);
-                                }
-                            }
-                        }
-                        // if less than 3 empty spaces, then check for 3 empty spaces down from the letter
-                        if (y + 3 < SIZE) {
-                            if (usedSquares[x][y + 1].equals(" ") && usedSquares[x][y + 2].equals(" ") && usedSquares[x][y + 3].equals(" ")) {
-                                if (y == 0 || (y > 0 && usedSquares[x][y - 1].equals(" "))) {
-
-                                    // return coordinate of letter
-                                    return getCoordinateString(y, x, false);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    private static String getCoordinateString(int i, int j, boolean horizontalFirst) {
-        String s = "";
-        i++;
-        j++;
-
-        if (horizontalFirst) {
-            s += i;
-            s += String.valueOf((char) (j + 64));
-        }
-        else {
-            s += String.valueOf((char) (j + 64));
-            s += i;
-        }
-        System.out.println("S = " + s);
-        return s;
-
-    }
-
-
-
-    public static String getNextCoordinateString(int i, int j) {
-        String s = "";
-        i++;
-        j++;
-
-        boolean horizontalFirst = Character.isDigit(i);
-
-        if (horizontalFirst) {
-            i++;
-            s += i;
-            s += String.valueOf((char) (j + 64));
-        }
-        else {
-            j++;
-            s += String.valueOf((char) (j + 64));
-            s += i;
-        }
-        return s;
-    }
-
-
-
-    public static String getLetterFromPosition(String position) {
-        String positionAlpha = "";
-        String positionNumber = "";
-
-        for (int i = 0; i < position.length(); i++) {
-            if(Character.isDigit(position.charAt(i))) {
-                positionNumber += position.charAt(i);
-            } else {
-                positionAlpha += position.charAt(i);
-            }
-        }
-
-        System.out.println("positionNumber = " + positionNumber);
-        System.out.println("positionAlpha = " + positionAlpha);
-
-        int y = Integer.parseInt(positionNumber) - 1;
-        System.out.println("here is y --> " + y);
-
-        int x = Letters.getOrdinal("" + positionAlpha);
-
-        System.out.println("here is x --> " + x);
-
-        System.out.println(usedSquares[x][y]);
-
-
-        return usedSquares[x][y];
-    }
-
-
-    public static String incrementCoordinateString(String position) {
-        String positionAlpha = "";
-        String positionNumber = "";
-
-        for (int i = 0; i < position.length(); i++) {
-            if(Character.isDigit(position.charAt(i))) {
-                positionNumber += position.charAt(i);
-            } else {
-                positionAlpha += position.charAt(i);
-            }
-        }
-
-        System.out.println("positionNumber = " + positionNumber);
-        System.out.println("positionAlpha = " + positionAlpha);
-
-        int y = Integer.parseInt(positionNumber);
-        System.out.println("here is y --> " + y);
-
-        int x = Letters.getOrdinal("" + positionAlpha);
-
-        System.out.println("here is x --> " + x);
-
-        System.out.println("usedSquares[x][y] = " + usedSquares[x][y]);
-
-
-        return usedSquares[x][y];
-    }
-
-
-
-    /*
-    public static String getNextAICoordinateString(int i, int j) {
-        String s = "";
-        i++;
-        j++;
-
-        if (horizontalFirst) {
-            j++;
-        } else {
-            i++;
-        }
-
-        if (horizontalFirst) {
-            s += String.valueOf((char) (j + 64));
-            s += i;
-        }
-        else {
-            s += i;
-            s += String.valueOf((char) (j + 64));
-        }
-        return s;
-    }
-
-     */
-
-    public static boolean isClear() {
+    public static boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
     }
 
 
-
-
-
-    public static void main(String[] args) {
-
-
-
-        }
-
+    public String getLetterFromPosition(String wordPosition) {
+        return AIHelper.getLetterFromPosition(wordPosition);
     }
+
+
+    public String getPossibleWordPosition(int x, int y) {
+        return AIHelper.getPossibleWordPosition(x, y);
+    }
+
+}
 
 

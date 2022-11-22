@@ -44,6 +44,8 @@ public class Game {
 
     private String lettersToSwap;
 
+    private AIHelper AI;
+
 
     /**
      * Initializes all aspects and then starts the game.
@@ -60,23 +62,13 @@ public class Game {
         views = new ArrayList<>();
         // roundHistory = new Stack<Round>(); // for the future
         dictionary = new Dictionary();
-
         initializeBoard();
+        AI = new AIHelper(board);
         initializePlayers(numPlayers, numAIPlayers);
 
         finished = false;
 
         lettersToSwap = "";
-    }
-
-
-    public static String getPossibleWordPosition(int x, int y) {
-        return board.getPossibleWordPosition(x, y);
-    }
-
-
-    public static String getLetterFromPosition(String wordPosition) {
-        return board.getLetterFromPosition(wordPosition);
     }
 
 
@@ -484,5 +476,14 @@ public class Game {
             this.play("SWAP " + lettersToSwap);
         }
         updateViews();
+    }
+
+    public static String getPossibleWordPosition(int x, int y) {
+        return board.getPossibleWordPosition(x, y);
+    }
+
+
+    public static Board getBoard() {
+        return board;
     }
 }
