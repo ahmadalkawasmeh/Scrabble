@@ -396,7 +396,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
-    public static void main(String[] args) {
+    public static void main(string[] args) {
 
         ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
 
