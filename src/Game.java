@@ -1,7 +1,7 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Stack; // for milestone 3
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -33,6 +33,8 @@ public class Game {
 
     private ArrayList<Integer> startingWordPos;
 
+    private ArrayList<Integer> endingWordPos;
+
     private String currentWord;
 
     private int lengthOfWordBeingBuilt;
@@ -44,6 +46,9 @@ public class Game {
     private boolean swapState;
 
     private String lettersToSwap;
+
+    private HashMap<Integer, String> coordinatesOfWordToPlace;
+
     private boolean blankPlaced;
 
 
@@ -81,6 +86,7 @@ public class Game {
      */
     public void intializeGamePlay(){
         currentPlayer = players.get(0);
+        coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
         updateViews();
     }
@@ -189,7 +195,7 @@ public class Game {
     private boolean checkWord(Word word) {
         ArrayList<String> letters = new ArrayList<>(List.of(word.getWord().split("")));
 
-        return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase()) && word.hasValidBounds();
+        return /*currentPlayer.checkInTray(letters) &&*/ dictionary.lookupDictionary(word.getWord().toLowerCase()) && word.hasValidBounds();
     }
 
 
@@ -338,11 +344,23 @@ public class Game {
             currentSelectedTrayValue = fetchBlankState();
         }
         if(!currentSelectedTrayValue.equals(" ")){
-            currentWord += currentSelectedTrayValue;
+            //currentWord += currentSelectedTrayValue; //address this
             currentSelectedBoardValue = boardValue;
             if(startingWordPos == null){
                 startingWordPos = currentSelectedBoardValue;
+                endingWordPos = currentSelectedBoardValue;
             }
+
+            coordinatesOfWordToPlace.put((currentSelectedBoardValue.get(0) * 10 + currentSelectedBoardValue.get(1)), currentSelectedTrayValue);
+
+            if(startingWordPos.get(0) > currentSelectedBoardValue.get(0) || startingWordPos.get(1) > currentSelectedBoardValue.get(1)){
+                startingWordPos = currentSelectedBoardValue;
+            }
+
+            if( endingWordPos.get(0) < currentSelectedBoardValue.get(0) || endingWordPos.get(1) < currentSelectedBoardValue.get(1)){
+                endingWordPos = currentSelectedBoardValue;
+            }
+
             updateViews();
         }
     }
@@ -359,6 +377,8 @@ public class Game {
     /**
      * Places a word on the board.
      */
+
+    /*
     public void placeWord (){
         String wordCoordinate;
         Integer y = startingWordPos.get(0) + 1;
@@ -375,42 +395,50 @@ public class Game {
             }
         }
     }
+*/
 
-    /*
     public void placeWord (){
         Word wordtoPlay;
+        Word wordToRemove;
 
         Integer y = startingWordPos.get(0) + 1;
+        ArrayList<String> removableAndPlayableWordList = board.formWordUsingBoardValues(startingWordPos, endingWordPos, coordinatesOfWordToPlace);
+        String currentWord = removableAndPlayableWordList.get(0);
+        String wordToRemoveString = removableAndPlayableWordList.get(1);
 
         if(!currentSelectedTrayValue.equals(" ")){
 
 
 
-                if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
+                if (startingWordPos.get(0) ==  endingWordPos.get(0)){
 
                     wordtoPlay = new Word(currentWord, (y + Letters.values()[startingWordPos.get(1)].toString()));
+                    wordToRemove = new Word(wordToRemoveString, (y + Letters.values()[startingWordPos.get(1)].toString()));
                     board.addWordToBoard(wordtoPlay);
 
                     if(board.checkWordOnBoard(wordtoPlay)){
 
-                        board.removeWordFromBoard(wordtoPlay);
+                        board.removeLettersFromBoard(wordToRemove);
                         play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
 
-                    }else{ board.removeWordFromBoard(wordtoPlay);}
+                    }else{ board.removeLettersFromBoard(wordToRemove);}
 
 
                 }
 
-                else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+                else if(startingWordPos.get(1) == endingWordPos.get(1)){
                     wordtoPlay = new Word(currentWord, Letters.values()[startingWordPos.get(1)].toString() + y);
+                    wordToRemove = new Word(wordToRemoveString, Letters.values()[startingWordPos.get(1)].toString() + y);
+
                     board.addWordToBoard(wordtoPlay);
 
                     if(board.checkWordOnBoard(wordtoPlay)){
 
-                        board.removeWordFromBoard(wordtoPlay);
+                        board.removeLettersFromBoard(wordToRemove);
+                        System.out.println(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
                         play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
 
-                    }else{board.removeWordFromBoard(wordtoPlay);}
+                    }else{board.removeLettersFromBoard(wordToRemove);}
 
 
                 }
@@ -418,7 +446,7 @@ public class Game {
 
         }
     }
-*/
+
 
     /**
      * Resets values that the views will require between turns.
@@ -429,6 +457,8 @@ public class Game {
         currentSelectedBoardValue = null;
         startingWordPos = null;
         currentWord = "";
+        endingWordPos = null;
+        coordinatesOfWordToPlace.clear();
         lengthOfWordBeingBuilt = 0;
         lettersToSwap = "";
         swapState = false;
@@ -466,4 +496,12 @@ public class Game {
         }
         updateViews();
     }
+
+
+    public static void main(String[] args) {
+        ArrayList<String> test = new ArrayList<>();
+        ArrayList<String> test2;
+
+    }
+
 }

@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class Board {
 
-
     enum scores{DL, TL, DW, TW}
 
 
@@ -88,23 +87,30 @@ public class Board {
         this.boardValues.putAll(word.getLetterPositions());
     }
 
-    public void removeWordFromBoard(Word word){
+    public void removeLettersFromBoard(Word word){
         ArrayList<Integer> numPos = word.findWordPosition();
 
         if(word.isHorizontal()) {
             for (int i = 0; i < word.length(); i++) {
 
-                usedSquares[numPos.get(1) + i][numPos.get(0)] = " ";
+                if(!word.getLetterPositions().get((Letters.values()[numPos.get(1) + i].toString() + numPos.get(0)) ).equals(" ")) {
+                    usedSquares[numPos.get(1) + i][numPos.get(0)] = " ";
+                }
             }
         } else{
 
             for (int i = 0; i < word.length(); i++) {
 
-                usedSquares[numPos.get(0)][numPos.get(1) + i] = " ";
+                if(!word.getLetterPositions().get((Letters.values()[numPos.get(0)].toString() + (numPos.get(1) + i)) ).equals(" ")){
+                    usedSquares[numPos.get(0)][numPos.get(1) + i] = " ";
+                }
+
             }
         }
         for(String key: word.getLetterPositions().keySet()){
-            this.boardValues.remove(key);
+            if(!(word.getLetterPositions().get(key) == " ")) {
+                this.boardValues.remove(key);
+            }
         }
 
     }
@@ -414,26 +420,78 @@ public class Board {
         return usedSquares;
     }
 
-    /*
-    public static void main(String[] args) {
 
-        Word word1 = new Word("fee", "H8");
-        Board board = new Board();
-        board.addWordToBoard(word1);
-        Word word2 = new Word("SA", "H12");
-        word2.getLetterPositions();
-        board.addWordToBoard(word2);
-        System.out.println(board.checkWordOnBoard(word2));
-        System.out.println(board);
-        board.removeWordFromBoard(word1);
-        System.out.println(board);
-        System.out.println(board.boardValues);
-        ArrayList<String> list = new ArrayList<>();
-        int i = 1;
-        if(i == 0 && list.get(2).equals("s")){
-            System.out.println("test");
+    public ArrayList<String> formWordUsingBoardValues(ArrayList<Integer> startingWordPos, ArrayList<Integer> endingWordPos, HashMap<Integer, String> coordinatesOfWordToPlace) {
+        int startY  = startingWordPos.get(0);
+        int startX = startingWordPos.get(1);
+        int endY  = endingWordPos.get(0);
+        int endX = endingWordPos.get(1);
+        String wordToBuild = "";
+        String wordWithEmptySpots = "";
+
+
+        if(startY == endY){
+            for(int i = 0; i < (endX - startX) + 1; i++){
+
+                if(usedSquares[startY][startX + i].equals(" ") && coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
+
+                {
+                    wordToBuild += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
+                    wordWithEmptySpots += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
+                }
+
+                else
+                {
+                    wordToBuild += usedSquares[startX + i][startY];
+                    wordWithEmptySpots += " ";
+                }
+
+            }
         }
 
+        else if(startX == endX){
+
+            for(int i = 0; i < (endY - startY) + 1; i++){
+
+                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey((startY + i) * 10 + startX))
+
+                {
+                    wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
+                    wordWithEmptySpots += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
+                }
+
+                else
+                {
+
+                    wordToBuild += usedSquares[startX][startY + i];
+                    wordWithEmptySpots += " ";
+                }
+
+            }
+        }
+
+        ArrayList returnList = new ArrayList<String>();
+        returnList.add(wordToBuild);
+        returnList.add(wordWithEmptySpots);
+        return returnList;
+
     }
-    */
+
+
+    public static void main(String[] args) {
+
+        /*
+        Word word1 = new Word("A", "H7");
+        Board board = new Board();
+        board.addWordToBoard(word1);
+        Word word2 = new Word("CAD", "H6");
+        board.addWordToBoard(word2);
+        //board.removeLettersFromBoard(word2);
+        System.out.println(board.checkWordOnBoard(word2));
+        System.out.println(board);
+
+        */
+
+    }
+
 }
