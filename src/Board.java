@@ -10,8 +10,6 @@ import java.util.List;
 public class Board {
 
 
-
-
     enum scores{DL, TL, DW, TW}
 
 
@@ -416,17 +414,20 @@ public class Board {
                         // check for 3 empty spaces to the right of the letter
                         if (x + 3 < SIZE) {
                             if (usedSquares[x + 1][y].equals(" ") && usedSquares[x + 2][y].equals(" ") && usedSquares[x + 3][y].equals(" ")) {
-
-                                // return coordinate of letter
-                                return getCoordinateString(x, y, true);
+                                if (x == 0 || (x > 0 && usedSquares[x - 1][y].equals(" "))) {
+                                    // return coordinate of letter
+                                    return getCoordinateString(x, y, true);
+                                }
                             }
                         }
                         // if less than 3 empty spaces, then check for 3 empty spaces down from the letter
                         if (y + 3 < SIZE) {
                             if (usedSquares[x][y + 1].equals(" ") && usedSquares[x][y + 2].equals(" ") && usedSquares[x][y + 3].equals(" ")) {
+                                if (y == 0 || (y > 0 && usedSquares[x][y - 1].equals(" "))) {
 
-                                // return coordinate of letter
-                                return getCoordinateString(y, x, false);
+                                    // return coordinate of letter
+                                    return getCoordinateString(y, x, false);
+                                }
                             }
                         }
                     }
@@ -449,7 +450,9 @@ public class Board {
             s += String.valueOf((char) (j + 64));
             s += i;
         }
+        System.out.println("S = " + s);
         return s;
+
     }
 
 
@@ -527,7 +530,7 @@ public class Board {
 
         System.out.println("here is x --> " + x);
 
-        System.out.println(usedSquares[x][y]);
+        System.out.println("usedSquares[x][y] = " + usedSquares[x][y]);
 
 
         return usedSquares[x][y];
@@ -536,7 +539,7 @@ public class Board {
 
 
     /*
-    public static String getNextAICoordinateString(int i, int j, boolean horizontalFirst) {
+    public static String getNextAICoordinateString(int i, int j) {
         String s = "";
         i++;
         j++;
@@ -559,6 +562,7 @@ public class Board {
     }
 
      */
+
 
 
 

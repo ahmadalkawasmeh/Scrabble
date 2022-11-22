@@ -8,5 +8,5 @@ public interface ScrabbleScrabbleView {
 
     public void update(GameEvent e);
 
-    void quitView();
+    public void quitView();
 }

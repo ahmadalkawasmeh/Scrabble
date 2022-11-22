@@ -108,6 +108,7 @@ public class Game {
             if (currentPlayer.isAIPlayer()) {
                 String nextMove = currentPlayer.getNextAIMove();
                 move = parser.getInput(nextMove);
+                System.out.println("move AI is playing: " + move);
             } else { move = parser.getInput(moveToPlay); }
             if (currentPlayer.isAIPlayer()) { System.out.println("\n\n" + move.toString()); }
             processMove(move);
@@ -141,14 +142,14 @@ public class Game {
 
          else { // Place a word on the board
 
-             /*
+
              if (currentPlayer.isAIPlayer()) {
                  processWordForAI(move);
              } else {
                  processWord(move);
              }
 
-              */
+
 
              processWord(move);
 
@@ -186,7 +187,7 @@ public class Game {
         return word;
     }
 
-    /*
+
     private Word processWordForAI(Move move) {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
@@ -202,7 +203,7 @@ public class Game {
         return word;
     }
 
-     */
+
 
 
     /**
@@ -380,6 +381,7 @@ public class Game {
             view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt, swapState));
         }
     }
+
 
     /**
      * Updates the ongoing move based on the selected tray button.

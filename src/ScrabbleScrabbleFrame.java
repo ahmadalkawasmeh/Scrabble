@@ -136,13 +136,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         for (int i = 0; i < 8; i++) {
             JLabel l;
             if (i % 2 == 0) {
-                //l = new JLabel("Player name: ");
-                l = new JLabel("");
+                l = new JLabel(""); // label for player name
                 l.setFont(new Font(Font.SERIF, Font.BOLD, 20));
                 playerNameListPanel.add(l);
             } else {
-                //l = new JLabel("score");
-                l = new JLabel("");
+                l = new JLabel(""); // label for player score
                 l.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
                 playerScoreListPanel.add(l);
             }
@@ -287,7 +285,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     @Override
     public void update(GameEvent e) {
-
         if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
             letterTrayButtons[e.getTrayNumPos()].setEnabled(false);
@@ -312,7 +309,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             letterTrayButtons[i].setText(tray[i]);
             letterTrayButtons[i].setEnabled(true);
         }
-
     }
 
     /**
