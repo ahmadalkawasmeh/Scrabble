@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  */
 public class MenuController implements ActionListener {
 
-    private final ScrabbleScrabbleView view;
+    private ScrabbleScrabbleView view;
     private Game model;
 
     /**
@@ -26,7 +26,8 @@ public class MenuController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("NEW")){
-
+            view.quitView();
+            ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
         }
 
         /* FOR MILESTONE 4

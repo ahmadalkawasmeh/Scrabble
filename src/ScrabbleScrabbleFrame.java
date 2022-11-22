@@ -358,12 +358,16 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             playerNamesAndScores[(i * 2)].setText(p.toString() + ":   ");
             playerNamesAndScores[(i * 2) + 1].setText(p.stringScore());
         }
-        for(int i = 0; i < playerNamesAndScores.length; i++) {
+        /*
+        for(int i = 0; i < (playerNamesAndScores.length / 2); i++) {
             String text = playerNamesAndScores[i].getText();
             if (text.equalsIgnoreCase("Player name: ") || text.equalsIgnoreCase("score")) {
                 playerNamesAndScores[i].setText("");
             }
         }
+
+         */
+
 
     }
 
@@ -398,7 +402,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     public void quitView() {
         this.dispose();
-        System.exit(0);
     }
 
     public static void main(String[] args) {
