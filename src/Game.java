@@ -53,7 +53,7 @@ public class Game {
      *
      * @param numPlayers The number of Players in this game.
      */
-    public Game(int numPlayers){
+    public Game(int numPlayers, int numAIPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         players = new ArrayList<Player>();

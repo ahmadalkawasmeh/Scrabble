@@ -31,12 +31,16 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLayout(new BorderLayout());
 
-        Game gameModel = new Game(2);
+
+
+        Game gameModel = new Game(2, 1);
         BoardController boardController = new BoardController(gameModel);
         TrayController trayController = new TrayController(gameModel);
+        GameController gameController = new GameController(gameModel);
+        MenuController menuController = new MenuController(gameModel, this);
         gameModel.addView(this);
 
-        GameController gameController = new GameController(gameModel);
+
 
         pane = this.getContentPane();
 
@@ -47,12 +51,20 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         menuBar.add(fileMenu);
 
         JMenuItem newGame = new JMenuItem("New Game");
+        newGame.addActionListener(menuController);
+        newGame.setActionCommand("NEW");
         fileMenu.add(newGame);
         JMenuItem saveGame = new JMenuItem("Save Game");
+        saveGame.addActionListener(menuController);
+        saveGame.setActionCommand("SAVE");
         fileMenu.add(saveGame);
         JMenuItem loadGame = new JMenuItem("Load Game");
+        loadGame.addActionListener(menuController);
+        loadGame.setActionCommand("LOAD");
         fileMenu.add(loadGame);
         JMenuItem quitGame = new JMenuItem("Quit Game");
+        quitGame.addActionListener(menuController);
+        quitGame.setActionCommand("QUIT");
         fileMenu.add(quitGame);
 
         JMenu gameHistoryOptions = new JMenu("Game History Options");
@@ -372,6 +384,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                 goButton.setEnabled(true);
             }
         }
+    }
+
+
+    public void quitView() {
+        this.dispose();
+        System.exit(0);
     }
 
     public static void main(String[] args) {
