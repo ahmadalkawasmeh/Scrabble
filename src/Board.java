@@ -10,6 +10,8 @@ import java.util.List;
 public class Board {
 
 
+
+
     enum scores{DL, TL, DW, TW}
 
 
@@ -563,7 +565,9 @@ public class Board {
 
      */
 
-
+    public static boolean isClear() {
+        return usedSquares[7][7].equals(" ");
+    }
 
 
 

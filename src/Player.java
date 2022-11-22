@@ -170,6 +170,12 @@ public class Player
     }
 
     public String getNextAIMove() {
+
+        // Pass if a word has not been placed on the board yet
+        if (Board.isClear()) {
+            return "SWAP " + tray.AIgetLettersToSwap();
+        }
+
         boolean wordPlaced = false;
 
         int x = 0;
@@ -200,8 +206,8 @@ public class Player
 
         // If placing a word was unsuccessful after 3 attempts, swap some letters instead
         if (tray.remainingNumberOfLettersInTray() > 0) {
-            String lettersToSwap = tray.AIgetLettersToSwap();
-            return "SWAP " + lettersToSwap;
+            //String lettersToSwap = tray.AIgetLettersToSwap();
+            return "SWAP " + tray.AIgetLettersToSwap();
         }
 
         return "PASS";
