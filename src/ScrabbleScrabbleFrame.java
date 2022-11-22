@@ -136,11 +136,13 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         for (int i = 0; i < 8; i++) {
             JLabel l;
             if (i % 2 == 0) {
-                l = new JLabel("Player name: ");
+                //l = new JLabel("Player name: ");
+                l = new JLabel("");
                 l.setFont(new Font(Font.SERIF, Font.BOLD, 20));
                 playerNameListPanel.add(l);
             } else {
-                l = new JLabel("score");
+                //l = new JLabel("score");
+                l = new JLabel("");
                 l.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
                 playerScoreListPanel.add(l);
             }
@@ -353,11 +355,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * @param namesAndScores the list of players and scores
      */
     private void updateScoreBoard(ArrayList<Player> namesAndScores) {
-        for(int i = 0; i < (playerNamesAndScores.length / 2); i++) {
+        for(int i = 0; i < (namesAndScores.size()); i++) {
             Player p = namesAndScores.get(i);
             playerNamesAndScores[(i * 2)].setText(p.toString() + ":   ");
             playerNamesAndScores[(i * 2) + 1].setText(p.stringScore());
         }
+
         /*
         for(int i = 0; i < (playerNamesAndScores.length / 2); i++) {
             String text = playerNamesAndScores[i].getText();
