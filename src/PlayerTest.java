@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 
+/**
+ * A test class for the Player class.
+ */
 public class PlayerTest {
 
     Player p, p2, p3;

@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.*;
 
+/**
+ * A test class for the Dictionary class.
+ */
 public class DictionaryTest {
 
     Dictionary d;

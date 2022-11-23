@@ -32,7 +32,4 @@ public class BoardController implements ActionListener {
         numCoordinates.add(Integer.parseInt(coordinates[1]));
         gameModel.selectBoardValue(numCoordinates);
     }
-
-
-
 }

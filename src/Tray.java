@@ -125,14 +125,35 @@ public class Tray
         return  stringBuffer.toString();
     }
 
+
+    /**
+     * Gets the list of letters in this tray.
+     *
+     * @return The list of letters in this tray.
+     */
     public ArrayList<String> getLetters() {
         return letters;
     }
 
+
+    /**
+     * Gets the letterBag this Tray draws letters from
+     * @return The LetterBag of letters.
+     */
     public LetterBag getLetterBag() {
         return letterBag;
     }
 
+
+    /**
+     * Selects a series of letters from this Tray for an AI Player to swap.
+     * The AI will swap letters that are greater than or equal to a specified
+     * swap constant, to reduce the number of rare letters in the tray.  If there
+     * are no letters greater than or equal to the swap constant in point value,
+     * the method will return a String to swap all letters in the tray.
+     *
+     * @return
+     */
     public String AIgetLettersToSwap() {
         String lettersToSwap = "";
 
@@ -156,6 +177,11 @@ public class Tray
     }
 
 
+    /**
+     * Gets the number of letters left in this Tray.
+     *
+     * @return The number of letters in the Tray.
+     */
     public int remainingNumberOfLettersInTray() {
         return letters.size();
     }

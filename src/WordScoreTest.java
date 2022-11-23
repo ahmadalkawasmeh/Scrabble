@@ -2,6 +2,9 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
+/**
+ * A test class for the Word class that tests the scoring of Words.
+ */
 public class WordScoreTest {
 
     Board board, board2;
