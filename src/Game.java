@@ -404,6 +404,7 @@ public class Game {
         Integer y = startingWordPos.get(0) + 1;
         ArrayList<String> removableAndPlayableWordList = board.formWordUsingBoardValues(startingWordPos, endingWordPos, coordinatesOfWordToPlace);
         String currentWord = removableAndPlayableWordList.get(0);
+
         String wordToRemoveString = removableAndPlayableWordList.get(1);
 
         if(!currentSelectedTrayValue.equals(" ")){
@@ -414,9 +415,10 @@ public class Game {
 
                     wordtoPlay = new Word(currentWord, (y + Letters.values()[startingWordPos.get(1)].toString()));
                     wordToRemove = new Word(wordToRemoveString, (y + Letters.values()[startingWordPos.get(1)].toString()));
+
                     board.addWordToBoard(wordtoPlay);
 
-                    if(board.checkWordOnBoard(wordtoPlay)){
+                    if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
 
                         board.removeLettersFromBoard(wordToRemove);
                         play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
@@ -432,10 +434,9 @@ public class Game {
 
                     board.addWordToBoard(wordtoPlay);
 
-                    if(board.checkWordOnBoard(wordtoPlay)){
+                    if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
 
                         board.removeLettersFromBoard(wordToRemove);
-                        System.out.println(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
                         play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
 
                     }else{board.removeLettersFromBoard(wordToRemove);}

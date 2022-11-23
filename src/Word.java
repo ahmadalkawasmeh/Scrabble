@@ -102,6 +102,7 @@ public class Word {
             y = Integer.parseInt(String.join("", coordinates)) - 1;
         }
 
+
         numPos.add(x);
         numPos.add(y);
         return (numPos);
@@ -186,4 +187,7 @@ public class Word {
 
         return numericCoordinate;
     }
+
+
+
 }

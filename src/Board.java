@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -423,9 +421,10 @@ public class Board {
 
     public ArrayList<String> formWordUsingBoardValues(ArrayList<Integer> startingWordPos, ArrayList<Integer> endingWordPos, HashMap<Integer, String> coordinatesOfWordToPlace) {
         int startY  = startingWordPos.get(0);
-        int startX = startingWordPos.get(1);
-        int endY  = endingWordPos.get(0);
-        int endX = endingWordPos.get(1);
+        int startX = startingWordPos.get(1) ;
+        int endY  = endingWordPos.get(0) ;
+        int endX = endingWordPos.get(1) ;
+
         String wordToBuild = "";
         String wordWithEmptySpots = "";
 
@@ -453,7 +452,7 @@ public class Board {
 
             for(int i = 0; i < (endY - startY) + 1; i++){
 
-                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey((startY + i) * 10 + startX))
+                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
 
                 {
                     wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
@@ -472,25 +471,104 @@ public class Board {
 
         ArrayList returnList = new ArrayList<String>();
         returnList.add(wordToBuild);
+
+
         returnList.add(wordWithEmptySpots);
         return returnList;
 
     }
 
 
+    public boolean isWordConnectedToCenter(Word word){
+        HashMap<String, String> letterPositions = word.getLetterPositions();
+        ArrayList<Integer> startingPos =  Word.numCoordinate(letterPositions.keySet().iterator().next());
+
+        int rowSize = SIZE;
+        int columnSize = SIZE;
+
+        int rows;
+        int column;
+
+        int startingRow = startingPos.get(0);
+        int startingCol = startingPos.get(1);
+
+        Queue<Integer> rowQ = new LinkedList<>();
+        Queue<Integer> columnQ = new LinkedList<>();
+
+        int moveCount = 0;
+        int nodesLeft = 1;
+        int nodesNext = 0;
+
+        boolean reachedEnd = false;
+
+        boolean[][] visited = new boolean[SIZE][SIZE];
+
+        int[] dr = {-1, +1, 0, 0};
+        int[] dc = {0, 0, +1, -1};
+
+        rowQ.add(startingRow);
+        columnQ.add(startingCol);
+        visited[startingRow][startingCol] = true;
+
+        while (rowQ.size() > 0){
+            rows = rowQ.poll();
+            column = columnQ.poll();
+            if((!(usedSquares[rows][column] == " "))&&(rows == 7 && column == 7)){
+                reachedEnd = true;
+                break;
+            }
+            for(int i = 0; i < 4; i++){
+                int rr = rows + dr[i];
+                int cc = column + dc[i];
+
+                if(  ( (!(rr < 0 || cc < 0))  && (!(rr >= rowSize || cc >= columnSize)) ) &&   ( (!visited[rr][cc]) && (!usedSquares[rr][cc].equals(" ")) ) ){
+                    rowQ.add(rr);
+                    columnQ.add(cc);
+                    visited[rr][cc] = true;
+                    nodesNext++;
+                }
+            }
+            nodesLeft -= 1;
+            if(nodesLeft == 0){
+                nodesLeft = nodesNext;
+                nodesNext = 0;
+                moveCount += 1;
+            }
+
+        }
+        if (reachedEnd){
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
 
         /*
-        Word word1 = new Word("A", "H7");
+
+        Word word2 = new Word("S", "H8");
+        Word word1 = new Word("Apple", "G8");
+        Word word3 = new Word("Slime", "A3");
+
         Board board = new Board();
+
         board.addWordToBoard(word1);
-        Word word2 = new Word("CAD", "H6");
         board.addWordToBoard(word2);
-        //board.removeLettersFromBoard(word2);
-        System.out.println(board.checkWordOnBoard(word2));
+        board.addWordToBoard(word3);
+
         System.out.println(board);
 
+        System.out.println(board.usedSquares[7][7]);
+
+        System.out.println(board.isWordConnectedToCenter(word3));
         */
+
 
     }
 
