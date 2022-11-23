@@ -543,4 +543,20 @@ public class Game {
     public Board.scores getSquareSpecialty(int x, int y){
         return (Board.scores) board.getSquareScore(x,y);
     }
+
+
+    public void addBlankToTray(){
+        currentPlayer.addLetter(Letters.__);
+    }
+
+
+    public void playBlank(String letter,ArrayList<Integer> coordinates){
+        ArrayList<String> blank = new ArrayList<String>();
+        blank.add("");
+        if(currentPlayer.checkInTray(blank)){
+            currentSelectedTrayValue = letter;
+            currentSelectedBoardValue = coordinates;
+            selectBoardValue(coordinates);
+        }
+    }
 }
