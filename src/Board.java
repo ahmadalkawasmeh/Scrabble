@@ -13,7 +13,7 @@ public class Board {
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
     private static String[][] usedSquares; // Squares that have letters placed on them
-    public Enum[][] specialSquares; // Squares with special scoring modifiers
+    public static Enum[][] specialSquares; // Squares with special scoring modifiers
     private HashMap<String, String> boardValues;
 
 
@@ -27,6 +27,7 @@ public class Board {
         specialSquares = new scores[SIZE][SIZE];
 
         this.initializeBoard();
+        setSpecialSquaresStandard();
     }
 
 
@@ -138,7 +139,7 @@ public class Board {
      * score).
      * Developed by: Daniel Kuchanski
      */
-     /* public void setSpecialSquaresStandard(){
+    public void setSpecialSquaresStandard(){
         specialSquares[0][0] = specialSquares[0][7] = specialSquares[0][14] = specialSquares[7][0] =
                 specialSquares[7][7] = specialSquares[7][14] = specialSquares[14][0] =
                 specialSquares[14][7] = specialSquares[14][14] = scores.TW;
@@ -163,7 +164,7 @@ public class Board {
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
                                                                 specialSquares[11][14] = scores.DW;
-    } */
+    }
 
 
     /**
@@ -263,7 +264,6 @@ public class Board {
             }
         }
 
-        //System.out.println(wordFormed);
         runCheck = true;
         count  = 1;
 
@@ -280,11 +280,7 @@ public class Board {
                             return false;
                         }
                     }
-
                 }
-
-
-
                 else if(coordinate.get(0) - 1 < 0) {
 
                     if ((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
@@ -292,25 +288,18 @@ public class Board {
                             return false;
                         }
                     }
-
                 }
-
-
                 else if ((!usedSquares[coordinate.get(0) + 1][coordinate.get(1) - count].equals(" ") || !usedSquares[coordinate.get(0) - 1][coordinate.get(1) - count].equals(" ")) && secondScan) {
                     if (!checkHorizontal(new ArrayList<>(List.of(coordinate.get(0), coordinate.get(1) - count)), false)) {
                         return false;
                     }
                 }
-
-
                 count += 1;
             }
             else {
                 runCheck = false;
             }
         }
-        //System.out.println(wordFormed);
-        //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
 
         return dictionary.lookupDictionary(wordFormed.toLowerCase());
     }
@@ -417,6 +406,10 @@ public class Board {
      * */
     public String[][] getUsedSquares(){
         return usedSquares;
+    }
+
+    public Enum getSquareScore(int x, int y){
+        return specialSquares[x][y];
     }
 
 

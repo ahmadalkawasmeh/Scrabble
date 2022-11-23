@@ -15,9 +15,9 @@ public class Game {
     private static Board board;
     public static ArrayList<Player> players;
     private Player currentPlayer;
-    // private Round currentRound; // will be used in the future
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
-    //private Stack<Round> roundHistory; // will be used for undo/redo in the future
+    // private Round currentRound;
+    // will be used in the future//private Stack<Round> roundHistory; // will be used for undo/redo in the future
     public static Dictionary dictionary;
     private Parser parser = new Parser();
     private boolean finished;
@@ -538,5 +538,9 @@ public class Game {
      */
     public static Board getBoard() {
         return board;
+    }
+
+    public Board.scores getSquareSpecialty(int x, int y){
+        return (Board.scores) board.getSquareScore(x,y);
     }
 }
