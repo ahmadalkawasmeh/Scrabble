@@ -173,9 +173,11 @@ public class Word {
 
 
     /**
+     * calculates numeric x and y coordinates from a string coordinate
+     * Developed by Ibtasam
      *
      * @param coordinate
-     * @return
+     * @return List containing X and Y values of word in numeric form
      */
     public static ArrayList<Integer> numCoordinate(String coordinate){
         StringBuilder sb = new StringBuilder(coordinate);

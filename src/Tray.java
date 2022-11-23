@@ -179,6 +179,7 @@ public class Tray
 
     /**
      * Gets the number of letters left in this Tray.
+     * Developed by James
      *
      * @return The number of letters in the Tray.
      */
@@ -188,7 +189,11 @@ public class Tray
 
 
     /**
-     * @param letter
+     * Adds a letter to this player’s tray by swapping with the last letter
+     *
+     * Developed by Daniel
+     *
+     * @param letter to be added
      */
     public void addLetter(String letter){
         letters.add(letter);

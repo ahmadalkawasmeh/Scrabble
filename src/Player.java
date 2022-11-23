@@ -200,6 +200,13 @@ public class Player
     }
 
 
+    /**
+     * Adds a letter to this tray
+     *
+     * Developed by Daniel
+     *
+     * @param letter  to be added
+     */
     public void addLetter(Letters letter)
     {
         String remove = tray.getLetters().get(6);

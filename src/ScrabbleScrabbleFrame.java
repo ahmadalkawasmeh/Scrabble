@@ -287,10 +287,14 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         centrePanel.setVisible(true);
 
         this.setVisible(true);
-        gameModel.intializeGamePlay();
+        gameModel.initializeGamePlay();
     }
 
 
+    /**
+     * Prompts the player for a letter value for the blank tile.
+     * If the player closes the prompt or presses CANCEL the action is cancelled
+     */
     public String blankPrompt() {
         String letters[] = new String[26];
         for (int i = 0; i < 26; i++) {
@@ -442,6 +446,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
+    /**
+     * Updates the button’s color on the board to match the specialty of the square
+     *
+     * @param score the score type to be assigned to the square
+     * @param b the button whose background will be updated
+     */
     private void setSquareScore(Board.scores score, JButton b) {
         if (score == null) return;
         b.setBackground(
