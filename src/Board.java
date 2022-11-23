@@ -87,6 +87,14 @@ public class Board {
     }
 
 
+    /**
+     * Removes word from board and removes the respective values of the letters of the
+     * word from the hashmap only if the letter values are not empty strings
+     *
+     * Developed by Ibtasam
+     *
+     * @param word to be removed from board
+     */
     public void removeLettersFromBoard(Word word){
         ArrayList<Integer> numPos = word.findWordPosition();
 
@@ -203,7 +211,7 @@ public class Board {
      * Checks the list of coordinates for word conflicts in the vertical direction.
      *
      * @param coordinate The coordinate to check.
-     * @param secondScan
+     * @param secondScan If another scan is to be initiated off of the current scan (used to initiate checks in opposite direction of word direction)
      * @return true if the coordinates have no conflicts in the vertical direction, false otherwise.
      */
     private boolean checkVertical(ArrayList<Integer> coordinate, boolean secondScan) {
@@ -307,7 +315,7 @@ public class Board {
 
     /**Checks the list of coordinates for word conflicts in the horizontal direction.
      * @param coordinate The coordinate to check.
-     * @param secondScan
+     * @param secondScan If another scan is to be initiated off of the current scan (used to initiate checks in opposite direction of word direction)
      * @return true if the coordinates have no conflicts in the horizontal direction, false otherwise.
      **/
     private boolean checkHorizontal(ArrayList<Integer> coordinate, boolean secondScan){
@@ -408,16 +416,31 @@ public class Board {
         return usedSquares;
     }
 
+    /**
+     * Returns the speciality of this square
+     *
+     *  Developed by Daniel
+     *
+     * @param x coordinate of square
+     * @param y coordinate of square
+     * @return the special enum of this square (eg. Double word score)
+     */
     public Enum getSquareScore(int x, int y){
         return specialSquares[x][y];
     }
 
 
     /**
-     * @param startingWordPos
-     * @param endingWordPos
-     * @param coordinatesOfWordToPlace
-     * @return
+     * Calculates two words using board values - one with letter values placed on board in current turn other containing
+     * word formed from start and end position of current word to be built
+     *
+     * Developed by Ibtasam
+     *
+     * @param startingWordPos starting word position
+     * @param endingWordPos ending word position
+     * @param coordinatesOfWordToPlace position where the word is to be placed
+     * @returns ArrayList containing two words, one with letter values placed on board in current turn other containing
+     * word formed from start and end position of current word to be built
      */
     public ArrayList<String> formWordUsingBoardValues(ArrayList<Integer> startingWordPos, ArrayList<Integer> endingWordPos, HashMap<Integer, String> coordinatesOfWordToPlace) {
         int startY  = startingWordPos.get(0);
@@ -479,6 +502,13 @@ public class Board {
     }
 
 
+    /**
+     * traces a word back to the center square via breadth first search
+     * Developed by Ibtasam
+     *
+     * @param word word to check connection off of
+     * @return if word can be traced back to center
+     */
     public boolean isWordConnectedToCenter(Word word){
         HashMap<String, String> letterPositions = word.getLetterPositions();
         ArrayList<Integer> startingPos =  Word.numCoordinate(letterPositions.keySet().iterator().next());

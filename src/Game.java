@@ -70,7 +70,7 @@ public class Game {
      * end of each turn.
      * Developed by Ibtasam
      */
-    public void intializeGamePlay(){
+    public void initializeGamePlay(){
         currentPlayer = players.get(0);
         coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
@@ -167,6 +167,12 @@ public class Game {
     }
 
 
+    /**
+     * Converts an AI Player input Move into a word object
+     *
+     * @param move The move to convert
+     * @return The Word object to be placed on the board
+     */
     private Word processWordForAI(Move move) {
 
         Word word = new Word(move.getFirstCommandWord(), move.getSecondCommandWord());
@@ -412,6 +418,12 @@ public class Game {
     }
 
 
+    /**
+     * Returns the user-assigned value of the blank tile
+     * Developed by Daniel
+     *
+     * @return value assigned by the frame
+     */
     private String fetchBlankState(){
         String letter = "";
         for(ScrabbleScrabbleView view: views){
@@ -540,16 +552,34 @@ public class Game {
         return board;
     }
 
+    /**
+     * Returns the speciality of this square
+     *
+     * Developed by Daniel
+     *
+     * @param x coordinate of square
+     * @param y coordinate of square
+     * @return the special enum of this square (eg. Double word score)
+     */
     public Board.scores getSquareSpecialty(int x, int y){
         return (Board.scores) board.getSquareScore(x,y);
     }
 
 
+    /**
+     * Adds a blank tile to the current player’s tray
+     *
+     * Developed by Daniel
+     */
     public void addBlankToTray(){
         currentPlayer.addLetter(Letters.__);
     }
 
 
+    /**
+     * @param letter
+     * @param coordinates
+     */
     public void playBlank(String letter,ArrayList<Integer> coordinates){
         ArrayList<String> blank = new ArrayList<String>();
         blank.add("");
