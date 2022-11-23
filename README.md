@@ -26,7 +26,7 @@ Upon opening the game, you are first prompted to choose the total number of play
 			- "Load Game" loads a previously saved game
 			- "Quit Game" closes and terminates the current game
 			
-		- "Game History Options" contains the following:
+		- "Game History Options" (not currently implemented) contains the following:
 			- "Undo" retracts your last move
 			- "Redo" reinstates your undon move, basically a Undo for your Undo
 			
@@ -59,7 +59,7 @@ Upon opening the game, you are first prompted to choose the total number of play
 			- This button allows you to reset your letter placements for that round by retracting your letters from the board back to the tray
 		
 		- "Play AI Move"
-			- This button prompts the AI to make a move, wether to place a word, swap or pass their turn.
+			- This button prompts the AI to make a move, whether to place a word, swap, or pass their turn.
 			
 			
 # Included Files
@@ -70,18 +70,19 @@ Upon opening the game, you are first prompted to choose the total number of play
 - legalWordsList.txt
 	-  This file contains the list of all legal words that may be played in the scrabblescrabble game.  Each line of this file contains one legal word.
 	
-- UMLDiagrams folder
-	- UML Diagram M3 Submission FINAL.png
-		- This UML diagram outlines the current class structure of the program
+- UMLDiagrams
+	- Group 40 M3 UML - All Classes Included
+		- This UML diagram outlines the current class structure of the program, including all classes and test classes
+	- Group 40 M3 UML - Not Including Test Classes
+		- This UML diagram outlines the current class structure of the program, but is a condensed version of the above file that does not include the test classes
+		- 
 	- Sequence Diagram 1: gameInitializationSequence.png
-		- Demonstrates how the scrabblescrabble Game class is initialized
+		- Demonstrates how the scrabblescrabble Game class is initialized at the beginning of the game
 	- Sequence Diagram 2: placeWord.png
 		- Demonstrates how a Word object is placed on the board
 	- Sequence Diagram 3: swapLetter.png
 		- Demonstrates how a Player is able to swap a letter from their tray for a new letter from the shared LetterBag
-	- Sequence Diagram 4: scoreCalculation.png
-		- Demonstrates how the score is calculated for a Word placed on the board
-	- Sequence Diagram 5: AIDecisionMaking.png
+	- Sequence Diagram 4: AIDecisionMaking.png
 		- Demonstrates how the AI chooses to either place a word, swap, or pass to progress the game forward
 
 - ChangeLog.PDF
@@ -97,6 +98,7 @@ This iteration represents milestone 3 of 4.  Newly introduced features for this 
 - Blank tiles, earning the player zero points but allowing the player to select any letter from the alphabet to place on the board 
 - AI functionality that allows an AI player to place a word, swap letters, or pass their turn
 - The menu bar above the game currently includes functionality to start a new game, or to quit the current game
+- The number of players is now an option selected at the beginning of the game (supports 2-4 players)
 
 
 # Known Issues
@@ -104,23 +106,8 @@ This iteration represents milestone 3 of 4.  Newly introduced features for this 
 - AI can currently overwrite letters on the board
 - AI does not currently check for conflicts with surrounding letters (i.e. an AI Player can place a legal word which has conflicts with the letters around it)
 - AI will currently not place the first word
-
-
-
-
-- Letters on the board can currently be overwritten by other players
-
-- Placing a word with shared letters is not functional (players can only currently use letters in their tray)
-
-- Adjacent words do not currently need to be legal
-	- Preliminary code and data structures are present, but not fully implemented
-
-- If a player places a word unsuccessfully (i.e. using a word not valid in the dictionary) the turn is skipped to the next player
-
-- Illegal coordinates can be used by the user
-	- out of bound letter coordinates raise an exception
-	- out of bound numerical coordinates cause the player to lose the letters used (points awarded, but the word is placed off of the board)
-
+- Word placement does not function correctly when crossing over (letters on both sides of a letter on the board) a letter that exists on the main diagonal (i.e. usedSquares[0][0], or usedSquares[7][7]
+- Points are not earned for letters that are already on the board before the Player places a word
 
 # Future Milestones
 
