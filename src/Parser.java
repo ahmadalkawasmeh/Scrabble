@@ -31,6 +31,8 @@ public class Parser {
 
 
     /**
+     * NOTE: THIS METHOD IS USED FOR USER INPUT VIA SYSTEM.IN
+     *
      * Accepts a line of text input from the user, and creates a
      * Word object by separating the input into two Strings (the
      * word, and the starting position).
@@ -64,6 +66,16 @@ public class Parser {
     }
 
 
+    /**
+     * NOTE: THIS METHOD IS USED FOR INPUT VIA THE MOUSE
+     *
+     * Accepts a line of text input from the user (which is constructed
+     * via mouse input), and creates a Word object by separating the input
+     * into two Strings (the word, and the starting position).
+     *
+     * @param input The input String created from mouse input
+     * @return A Move object based on the user input.
+     */
     public Move getInput(String input) {
         String command, location;
         String inputText[] = input.split(" ", 2);
@@ -79,55 +91,6 @@ public class Parser {
         }
 
         Move move = new Move(command, location);
-
-        return move;
-    }
-
-    public Move getAIInput(String input) {
-        String command, location, newLocation;
-        boolean numFirst;
-        String inputText[] = input.split(" ", 2);
-
-        command = inputText[0]; // Get the first word of the input (the command)
-        command = command.toUpperCase();
-
-        if (inputText.length > 1) {
-            location = inputText[1]; // Get the second word of the input (coordinates for the board)
-            location = location.toUpperCase();
-
-            if (Character.isDigit(location.charAt(0))) {
-                numFirst = true;
-            } else {
-                numFirst = false;
-            }
-
-            newLocation = "";
-            String alphaPosition = "";
-            String numPosition = "";
-
-            for (int i = 0; i < location.length(); i++) {
-                if (Character.isDigit(location.charAt(i))) {
-                    numPosition += location.charAt(i);
-                } else {
-                    alphaPosition += location.charAt(i);
-                }
-            }
-
-            int numberPosition = parseInt(numPosition);
-
-            if (numFirst) {
-                newLocation += (numberPosition + 1);
-                newLocation += alphaPosition;
-            } else {
-                newLocation += alphaPosition;
-                newLocation += (numberPosition + 1);
-            }
-
-        } else {
-            newLocation = null;
-        }
-
-        Move move = new Move(command, newLocation); // update this to newLocation
 
         return move;
     }

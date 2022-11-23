@@ -24,10 +24,12 @@ public class Player
     /**
      * Constructor for objects of class Player.  Initializes the player's name,
      * and an initial score of 0.  Initializes an empty Tray for the player
-     * that will hold their letters.
+     * that will hold their letters.  If the Player is an AI player, an AIHelper
+     * will be initialized allowing the AI Player to make decisions on each turn.
      * Developed by: James Grieder
      *
      * @param name The name of the player.
+     * @param isAI true if the Player is AI, false if the Player is a user
      */
     public Player(String name, boolean isAI)
     {
@@ -63,11 +65,21 @@ public class Player
     }
 
 
+    /**
+     * Gets the letters from this Player's tray.
+     *
+     * @return A list of the letters in this Player's tray.
+     */
     public ArrayList<String> getLetters() {
         return tray.getLetters();
     }
 
 
+    /**
+     * Get this Player's score as a text String.
+     *
+     * @return The Player's Score represented in a String format.
+     */
     public String stringScore() {
         return score.toString();
     }
@@ -158,6 +170,12 @@ public class Player
         fillTray();
     }
 
+    /**
+     * Gets the number of letters in this Player's Tray.
+     * The number will be between 0 and Tray.SIZE inclusively.
+     *
+     * @return The number of letters left in this Player's tray.
+     */
     public int numberOfLettersLeftInTray() {
         return tray.remainingNumberOfLettersInTray();
     }
@@ -172,6 +190,11 @@ public class Player
     }
 
 
+    /**
+     * Gets an AI Player's next move using the AIHelper.
+     *
+     * @return A string representing an AI Player's next move
+     */
     public String getNextAIMove() {
         return AI.getNextAIMove(tray);
     }

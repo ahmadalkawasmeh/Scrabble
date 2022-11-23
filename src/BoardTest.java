@@ -2,6 +2,10 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
+
+/**
+ * A test class for the Board class, that tests the legality of Word placement on the Board.
+ */
 public class BoardTest {
 
     Board board, board2;
@@ -59,16 +63,11 @@ public class BoardTest {
     }
 
 
-    /* MILESTONE 3
+
     @Test
     public void testFirstWordCannotBePlacedOffCentreEvenOnASpecialSquare() {}
-     */
 
 
-    /* May need to test in GUI
-    @Test
-    public void testCannotPlaceDiagonalWord() {
-    }*/
 
 
     @Test
@@ -343,6 +342,7 @@ public class BoardTest {
 
         assertTrue(board.checkWordOnBoard(word2));
     }
+
 
     @Test
     public void testBoundsCanReuseLetterOnBottomRowOfBoard() {

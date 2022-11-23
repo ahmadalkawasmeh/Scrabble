@@ -21,29 +21,19 @@ public class Game {
     private Parser parser = new Parser();
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
-
     private String currentSelectedTrayValue;
-
     private ArrayList<Integer> currentSelectedBoardValue;
-
     private int trayNumPos;
-
     private boolean placeCurrentBuildingWord;
-
     private ArrayList<Integer> startingWordPos;
-
     private String currentWord;
-
     private int lengthOfWordBeingBuilt;
 
     private String input;
 
     private boolean resetBoard = true;
-
     private boolean swapState;
-
     private String lettersToSwap;
-
     private AIHelper AI;
 
 
@@ -134,18 +124,12 @@ public class Game {
 
          else { // Place a word on the board
 
-
              if (currentPlayer.isAIPlayer()) {
                  processWordForAI(move);
              } else {
                  processWord(move);
              }
-
-
-
              processWord(move);
-
-
         }
     }
 
@@ -194,8 +178,6 @@ public class Game {
 
         return word;
     }
-
-
 
 
     /**
@@ -370,7 +352,9 @@ public class Game {
      */
     public void updateViews(){
         for(ScrabbleScrabbleView view: views){
-            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(), board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue, trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt, swapState));
+            view.update(new GameEvent(this, currentPlayer, players, currentPlayer.stringTray(),
+                    board.getUsedSquares(), currentSelectedTrayValue, currentSelectedBoardValue,
+                    trayNumPos, placeCurrentBuildingWord, startingWordPos, lengthOfWordBeingBuilt, swapState));
         }
     }
 
@@ -478,11 +462,12 @@ public class Game {
         updateViews();
     }
 
-    public static String getPossibleWordPosition(int x, int y) {
-        return board.getPossibleWordPosition(x, y);
-    }
 
-
+    /**
+     * Gets the board for the current Game.
+     *
+     * @return The board being used for this Game.
+     */
     public static Board getBoard() {
         return board;
     }

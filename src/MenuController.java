@@ -19,7 +19,6 @@ public class MenuController implements ActionListener {
     public MenuController(Game model, ScrabbleScrabbleView view) {
         this.model = model;
         this.view = view;
-
     }
 
 
@@ -45,7 +44,5 @@ public class MenuController implements ActionListener {
         if(e.getActionCommand().equals("UNDO")){}
         if(e.getActionCommand().equals("REDO")){}
          */
-
-
     }
 }

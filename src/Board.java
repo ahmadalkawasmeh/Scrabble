@@ -10,8 +10,6 @@ import java.util.List;
 public class Board {
 
 
-
-
     enum scores{DL, TL, DW, TW}
 
 
@@ -396,16 +394,44 @@ public class Board {
     }
 
 
+    /**
+     * Returns whether or not the centre square is clear.
+     * The square is clear if there is not currently a letter placed on it.
+     *
+     * @return true if the centre square does not have a letter placed on it, false otherwise
+     */
     public static boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
     }
 
 
+    /**
+     * Gets the letter that is placed at a specific position on the board.
+     *
+     * @param wordPosition The position on the board
+     * @return The letter located at position
+     */
     public String getLetterFromPosition(String wordPosition) {
         return AIHelper.getLetterFromPosition(wordPosition);
     }
 
 
+    /**
+     * Asks the AI to conduct a search of the board for a possible position
+     * that a word can be placed on.  A word can be placed on a position if
+     * there is a letter in that position, and if there is enough space for
+     * at least 3 letters.
+     *
+     * Example strings returned from this method may include:
+     *
+     * "H8"
+     * "1A"
+     * "F12"
+     *
+     * @param x The row on the board
+     * @param y The column on the board
+     * @return A String representation of the letter to build a word off of.
+     */
     public String getPossibleWordPosition(int x, int y) {
         return AIHelper.getPossibleWordPosition(x, y);
     }

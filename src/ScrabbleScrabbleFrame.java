@@ -301,7 +301,9 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     /**
      * Updates the current player's tray.
+     *
      * @param trayValues The values of this player's tray.
+     * @param currentPlayerIsAI true if the current player is AI, false otherwise.
      */
     private void updateTray(String trayValues, boolean currentPlayerIsAI){
         String[] tray =  trayValues.split(" ");
@@ -362,6 +364,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
     }
 
+    /**
+     * Enables and disables the buttons to the right of the game board,
+     * depending on what the current Player's input should be.  For example,
+     * an AIPlayer will have access to the Play AI Move buttton, and a user
+     * player will have access to the SWAP button.
+     *
+     * @param currentPlayer The current Player
+     * @param swapState true if the current Player is a user, and is swapping letters, false otherwise.
+     */
     private void updateGameButtons(Player currentPlayer, boolean swapState) {
         if (swapState) {
             playAIMoveButton.setEnabled(false);
@@ -391,6 +402,9 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
+    /**
+     * Quits the game and closes this view.
+     */
     public void quitView() {
         this.dispose();
     }

@@ -1,6 +1,9 @@
 import static org.junit.Assert.*;
 import org.junit.*;
 
+/**
+ * A test class for the LetterBag class.
+ */
 public class LetterBagTest {
 
     private LetterBag bag;

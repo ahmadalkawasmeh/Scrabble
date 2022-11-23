@@ -14,35 +14,62 @@ scrabblescrabble is a mock "Scrabble" game played on a 15 x 15 grid.  In its cur
 
 Each of the players has a tray with 7 letters drawn from a bag of pre-set letters.  Points are awarded based on the words placed, determined by the score of each letter used, and any "special squares" that are point multipliers based on the word or the letter placed.  The game also features blank tiles which award 0 points, but can be used as any letter of the alphabet.
 
+
 # Game Instructions
 
-Upon opening the game, the game is already initialized for 2 players and begins with the first player's turn.  The players alternate taking turns.  On each turn the player chooses from the following options:
-
-- Place a word on the game board by typing in the following format:
-	- WORD COORDINATE
-	- For example: "TREE 10H" to place horizontally, or "TREE H10" to place vertically
-	- The direction is determined by the first coordinate
-	- Coordinates range from 1 to 15 and A to O
-
-- Pass their turn with no points
-
-- Return one or more letters to the letterbag and draw new letters by typing the following format:
-	- SWAP LETTERS
-	- For example: "SWAP ABC" will swap the letters ABC if they are present in the tray
-
-If a player attempts to place a word that is an invalid input, their turn is passed to the next player.  Invalid inputs include:
-- A word that goes out of position on the board
-- A word not present in the dictionary
-
-This iteration of the game does not currently implement the game-ending conditions.  Future iterations will end the game upon the letterbag and the current player running out of letters, or upon the occurrence of 6 consecutive turns where no player earns a score.
-
-
+Upon opening the game, you are first prompted to choose the total number of players in the first pop up window and press "OK" to confirm selection, in the second pop up window you choose the number of AI players followed by pressing "OK" to confirm selection, then the game will be opened. 
+- User Interface
+	- Menu
+		- "File" contains the following:
+			- "New Game" creates a new game and will take you back to the initial prompt pop ups where you choose the total number of players and the 			     number of AI players.
+			- "Save Game" saves the current game progress to be loaded later and continued
+			- "Load Game" loads a previously saved game
+			- "Quit Game" closes and terminates the current game
+			
+		- "Game History Options" contains the following:
+			- "Undo" retracts your last move
+			- "Redo" reinstates your undon move, basically a Undo for your Undo
+			
+		- "Help" contains the following:
+			- "View Game Instructions" lets you view the game instructions
+			- "View ReadMe" lets you see the ReadMe file 
+		
+	- Game Board
+		- In the middle of the screen you will see all the squares for the game board where you will place your letters to form words.
+		
+	- Scoreboard
+		- On the left side of the board you will see the scoreboard which keeps track of points earned per player. 
+		
+	- Letter Tray
+		- On the bottom of the screen you will see your letter tray 
+		
+	- Buttons
+		- On the right side of the board you will see the player moves' buttons
+		
+		- "Place Word"
+			- This button confirms your letters placement on the board and lets the next player tkae their turn to play.
+			
+		- "Swap" and "GO"
+			- This button allows you to swap your letters with another set of letters, in order to swap letters you first press "Swap" then you select 			     1-7 letters you'd like to swap then press "GO" button in order to confirm the swap.
+			
+		- "Pass"
+			- This allows you to pass your turn to the next player if you're unable to place a word with your letters or can't make any moves.
+			
+		- "Reset"
+			- This button allows you to reset your letter placements for that round by retracting your letters from the board back to the tray
+		
+		- "Play AI Move"
+			- This button prompts the AI to make a move, wether to place a word, swap or pass their turn.
+			
+			
 # Included Files
 
 - src folder
 	- This folder contains all of the source code for the scrabblescrabble game.
+	
 - legalWordsList.txt
 	-  This file contains the list of all legal words that may be played in the scrabblescrabble game.  Each line of this file contains one legal word.
+	
 - UMLDiagrams folder
 	- UML Diagram M3 Submission FINAL.png
 		- This UML diagram outlines the current class structure of the program
@@ -56,6 +83,7 @@ This iteration of the game does not currently implement the game-ending conditio
 		- Demonstrates how the score is calculated for a Word placed on the board
 	- Sequence Diagram 5: AIDecisionMaking.png
 		- Demonstrates how the AI chooses to either place a word, swap, or pass to progress the game forward
+
 - ChangeLog.PDF
 	- This document outlines the rationale of design decisions for the current implementation of the program.
 

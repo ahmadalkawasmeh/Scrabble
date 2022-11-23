@@ -17,7 +17,6 @@ public class Dictionary
     private HashSet<String> AILegalWords; // A dictionary used to construct words for AI players
 
 
-
     /**
      * Initializes the Dictionary using an input file.
      * Reads each line of the input file, and adds that String to the
@@ -64,6 +63,8 @@ public class Dictionary
 
     /**
      * Generates a possible list of legal words found in the dictionary based on an AI player's tray.
+     * An AI Player invokes this method to determine what words may be played on a specific turn.
+     *
      * @param tray The AI Player's tray representing the possible letters
      * @param letter The currently selected letter on the board to build a word off of
      * @return The list of legal words found in the tray
