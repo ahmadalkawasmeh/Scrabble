@@ -21,6 +21,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel gameStatusMessage;
     private Game gameModel;
 
+    private static final Color DOUBLE_WORD = new Color(234, 113, 227);
+    private static final Color TRIPLE_WORD = new Color(229, 7, 7);
+    private static final Color DOUBLE_LETTER = new Color(43, 160, 186);
+    private static final Color TRIPLE_LETTER = new Color(1, 29, 208);
+    private static final Color PLAIN = new Color(228, 201, 128);
+
 
     /**
      * Constructor for ScrabbleScrabbleFrame.
@@ -35,15 +41,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
         // Prompt the user for the total number of user and AI players
         String[] optionsForNumberOfPlayers = {"2", "3", "4"};
-        Object input = JOptionPane.showInputDialog(this,"Select the total number of players (user and AI):",
-                "Player Selection", JOptionPane.QUESTION_MESSAGE,null, optionsForNumberOfPlayers,"2");
-        int numPlayers = Integer.parseInt((String)input);
+        Object input = JOptionPane.showInputDialog(this, "Select the total number of players (user and AI):",
+                "Player Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfPlayers, "2");
+        int numPlayers = Integer.parseInt((String) input);
 
         // Prompt the user for the number of AI players
         String[] optionsForNumberOfAIPlayers = {"0", "1", "2", "3"};
-        input = JOptionPane.showInputDialog(this,"Select the number of AI players:",
-                "AI Selection", JOptionPane.QUESTION_MESSAGE,null, optionsForNumberOfAIPlayers,"1");
-        int numAIPlayers = Integer.parseInt((String)input);
+        input = JOptionPane.showInputDialog(this, "Select the number of AI players:",
+                "AI Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfAIPlayers, "1");
+        int numAIPlayers = Integer.parseInt((String) input);
 
         Game gameModel = new Game(numPlayers, numAIPlayers);
         BoardController boardController = new BoardController(gameModel);
@@ -152,11 +158,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         playerScoresPanel.add(playerNameListPanel);
         playerScoresPanel.add(playerScoreListPanel);
 
-        scoreBoardPanel.setBackground(new Color(168,186,169));
-        playerInputPanel.setBackground(new Color(168,186,169));
-        playerScoresPanel.setBackground(new Color(168,186,169));
-        playerNameListPanel.setBackground(new Color(168,186,169));
-        playerScoreListPanel.setBackground(new Color(168,186,169));
+        scoreBoardPanel.setBackground(new Color(168, 186, 169));
+        playerInputPanel.setBackground(new Color(168, 186, 169));
+        playerScoresPanel.setBackground(new Color(168, 186, 169));
+        playerNameListPanel.setBackground(new Color(168, 186, 169));
+        playerScoreListPanel.setBackground(new Color(168, 186, 169));
 
         playerNameListPanel.setVisible(true);
         playerScoreListPanel.setVisible(true);
@@ -166,7 +172,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         // gameBoardPanel
 
         gameBoardPanel.setLayout(new GridLayout(Board.SIZE, Board.SIZE));
-        gameBoardPanel.setBackground(new Color(168,186,169));
+        gameBoardPanel.setBackground(new Color(168, 186, 169));
         gameBoardButtons = new JButton[Board.SIZE][Board.SIZE]; // should add variable
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
@@ -178,7 +184,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                 gameBoardPanel.add(b);
 
                 // remove click mechanism (colour changing)
-                b.setBackground(new Color(228, 201, 128));
+                b.setBackground(PLAIN);
+                setSquareScore(gameModel.getSquareSpecialty(i, j), b);
                 b.setFont(new Font(Font.SERIF, Font.BOLD, 20));
             }
         }
@@ -190,7 +197,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameStatusMessage.setFont(new Font(Font.SERIF, Font.PLAIN, 28));
         gameStatusMessage.setHorizontalAlignment(SwingConstants.CENTER);
 
-        gameStatusPane.setLayout(new GridLayout(1,1));
+        gameStatusPane.setLayout(new GridLayout(1, 1));
         gameStatusPane.setBackground(new Color(162, 129, 40));
         gameStatusPane.setBorder(new BevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY));
 
@@ -260,7 +267,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         // letterTrayPanel
 
         letterTrayPanel.setLayout(new GridLayout(1, 7));
-        letterTrayPanel.setBackground(new Color(168,186,169));
+        letterTrayPanel.setBackground(new Color(168, 186, 169));
         letterTrayPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.GRAY));
 
         letterTrayButtons = new JButton[7];
@@ -284,17 +291,17 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
-    public String blankPrompt(){
+    public String blankPrompt() {
         String letters[] = new String[26];
-        for(int i = 0; i < 26; i++){
-            char c = (char) (i+65);
+        for (int i = 0; i < 26; i++) {
+            char c = (char) (i + 65);
             letters[i] = Character.toString(c);
         }
 
-        Object input = (String) JOptionPane.showInputDialog(this,"Select a letter",
-                "Input", JOptionPane.QUESTION_MESSAGE,null,letters,"a");
+        Object input = (String) JOptionPane.showInputDialog(this, "Select a letter",
+                "Input", JOptionPane.QUESTION_MESSAGE, null, letters, "a");
 
-        if(input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)){
+        if (input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)) {
             return (String) input;
         }
         return null;
@@ -304,17 +311,15 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     @Override
     public void update(GameEvent e) {
-        if(e.getCurrentSelectedTrayValue().equals("__") && (e.getCurrentSelectedBoardValue() != null)){
+        if (e.getCurrentSelectedTrayValue().equals("__") && (e.getCurrentSelectedBoardValue() != null)) {
             String input = blankPrompt();
-            if (input != null){
+            if (input != null) {
                 gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(input);
             }
-        }
-        else if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
+        } else if (!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null)) {
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
             letterTrayButtons[e.getTrayNumPos()].setEnabled(false);
-        }
-        else {
+        } else {
             updateTray(e.getTrayValues(), e.getCurrentPlayerIsAI());
             updateBoard(e.getUsedSquares());
             updateCurrentPlayer(e.getCurrentPlayer().toString());
@@ -336,12 +341,12 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     /**
      * Updates the current player's tray.
      *
-     * @param trayValues The values of this player's tray.
+     * @param trayValues        The values of this player's tray.
      * @param currentPlayerIsAI true if the current player is AI, false otherwise.
      */
-    private void updateTray(String trayValues, boolean currentPlayerIsAI){
-        String[] tray =  trayValues.split(" ");
-        for(int i = 0; i < 7; i++){
+    private void updateTray(String trayValues, boolean currentPlayerIsAI) {
+        String[] tray = trayValues.split(" ");
+        for (int i = 0; i < 7; i++) {
             letterTrayButtons[i].setText(tray[i]);
             if (currentPlayerIsAI) {
                 letterTrayButtons[i].setEnabled(false);
@@ -356,16 +361,16 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      *
      * @param boardValues The values of the board grid.
      */
-    private void updateBoard(String[][] boardValues){
+    private void updateBoard(String[][] boardValues) {
 
-        for(int i = 0; i < Board.SIZE; i++){
-            for(int j = 0; j < Board.SIZE; j++) {
+        for (int i = 0; i < Board.SIZE; i++) {
+            for (int j = 0; j < Board.SIZE; j++) {
 
                 gameBoardButtons[j][i].setText(boardValues[i][j]);
-                if(!gameBoardButtons[j][i].getText().equals(" ")){
+                if (!gameBoardButtons[j][i].getText().equals(" ")) {
                     gameBoardButtons[j][i].setEnabled(false);
                 }
-                if(gameBoardButtons[j][i].isEnabled()) {
+                if (gameBoardButtons[j][i].isEnabled()) {
 
                     gameBoardButtons[j][i].setText(" ");
                 }
@@ -378,6 +383,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     /**
      * Updates the currentPlayer label to the right of the game board.
+     *
      * @param currentPlayer the player whose turn it is.
      */
     private void updateCurrentPlayer(String currentPlayer) {
@@ -388,10 +394,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
     /**
      * Updates the player scores on the ScoreBoard to the left of the game board.
+     *
      * @param namesAndScores the list of players and scores
      */
     private void updateScoreBoard(ArrayList<Player> namesAndScores) {
-        for(int i = 0; i < (namesAndScores.size()); i++) {
+        for (int i = 0; i < (namesAndScores.size()); i++) {
             Player p = namesAndScores.get(i);
             playerNamesAndScores[(i * 2)].setText(p.toString() + ":   ");
             playerNamesAndScores[(i * 2) + 1].setText(p.stringScore());
@@ -405,7 +412,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * player will have access to the SWAP button.
      *
      * @param currentPlayer The current Player
-     * @param swapState true if the current Player is a user, and is swapping letters, false otherwise.
+     * @param swapState     true if the current Player is a user, and is swapping letters, false otherwise.
      */
     private void updateGameButtons(Player currentPlayer, boolean swapState) {
         if (swapState) {
@@ -415,7 +422,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             passButton.setEnabled(false);
             resetButton.setEnabled(false);
             goButton.setEnabled(true);
-       } else {
+        } else {
             if (currentPlayer.isAIPlayer) {
                 playAIMoveButton.setEnabled(true);
                 placeWordButton.setEnabled(false);
@@ -423,8 +430,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                 passButton.setEnabled(false);
                 resetButton.setEnabled(false);
                 goButton.setEnabled(false);
-            }
-            else {
+            } else {
                 playAIMoveButton.setEnabled(false);
                 placeWordButton.setEnabled(true);
                 swapButton.setEnabled(true);
@@ -436,18 +442,31 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
-    /**
-     * Quits the game and closes this view.
-     */
-    public void quitView() {
-        this.dispose();
+    private void setSquareScore(Board.scores score, JButton b) {
+        if (score == null) return;
+        b.setBackground(
+                switch (score) {
+                    case DL -> DOUBLE_LETTER;
+                    case TL -> TRIPLE_LETTER;
+                    case DW -> DOUBLE_WORD;
+                    case TW -> TRIPLE_WORD;
+                });
     }
 
 
-    public static void main(String[] args) {
+        /**
+         * Quits the game and closes this view.
+         */
+        public void quitView () {
+            this.dispose();
+        }
 
-        ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
 
-    }
+        public static void main (String[]args){
+
+            ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+
+        }
+
 
 }

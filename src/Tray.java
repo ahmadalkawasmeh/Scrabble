@@ -185,4 +185,12 @@ public class Tray
     public int remainingNumberOfLettersInTray() {
         return letters.size();
     }
+
+
+    /**
+     * @param letter
+     */
+    public void addLetter(String letter){
+        letters.add(letter);
+    }
 }

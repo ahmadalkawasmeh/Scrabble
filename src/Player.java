@@ -198,4 +198,12 @@ public class Player
     public String getNextAIMove() {
         return AI.getNextAIMove(tray);
     }
+
+
+    public void addLetter(Letters letter)
+    {
+        String remove = tray.getLetters().get(6);
+        tray.removeLetter(remove);
+        tray.addLetter(String.valueOf(Letters.__));
+    }
 }
