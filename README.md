@@ -101,6 +101,13 @@ This iteration represents milestone 3 of 4.  Newly introduced features for this 
 
 # Known Issues
 
+- AI can currently overwrite letters on the board
+- AI does not currently check for conflicts with surrounding letters (i.e. an AI Player can place a legal word which has conflicts with the letters around it)
+- AI will currently not place the first word
+
+
+
+
 - Letters on the board can currently be overwritten by other players
 
 - Placing a word with shared letters is not functional (players can only currently use letters in their tray)
