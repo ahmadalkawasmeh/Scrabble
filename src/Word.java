@@ -159,6 +159,7 @@ public class Word {
         return letterPositions;
     }
 
+
     /**
      * checks if word falls within board bounds
      * Developed by: Ibtasam Rasool

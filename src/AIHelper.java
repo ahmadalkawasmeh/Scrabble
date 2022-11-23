@@ -21,6 +21,7 @@ public class AIHelper {
      * @param board The Board used in the currently running game.
      */
     public AIHelper(Board board) {
+        this.board = board;
         squares = board.getUsedSquares();
     }
 
