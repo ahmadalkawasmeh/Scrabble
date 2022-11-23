@@ -15,7 +15,7 @@ public enum Letters {
    M(3, 2), N(1, 6), O(1, 8), P(3, 2),
    Q(10, 1), R(1, 6), S(1, 4), T(1, 6),
    U(1, 4), V(4, 2), W(4, 2), X(8, 1),
-   Y(4, 2), Z(10, 1);
+   Y(4, 2), Z(10, 1), __(0, 2);
 
 
    private int letterScore; // The score associated with a letter

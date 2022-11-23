@@ -1,5 +1,6 @@
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,14 +27,15 @@ public class Game {
     private int trayNumPos;
     private boolean placeCurrentBuildingWord;
     private ArrayList<Integer> startingWordPos;
+    private ArrayList<Integer> endingWordPos;
     private String currentWord;
     private int lengthOfWordBeingBuilt;
-
     private String input;
-
     private boolean resetBoard = true;
     private boolean swapState;
     private String lettersToSwap;
+    private HashMap<Integer, String> coordinatesOfWordToPlace;
+    private boolean blankPlaced;
     private AIHelper AI;
 
 
@@ -70,6 +72,7 @@ public class Game {
      */
     public void intializeGamePlay(){
         currentPlayer = players.get(0);
+        coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
         updateViews();
     }
@@ -212,7 +215,7 @@ public class Game {
     private boolean checkWord(Word word) {
         ArrayList<String> letters = new ArrayList<>(List.of(word.getWord().split("")));
 
-        return currentPlayer.checkInTray(letters) && dictionary.lookupDictionary(word.getWord().toLowerCase()) && word.hasValidBounds();
+        return /* currentPlayer.checkInTray(letters) &&*/ dictionary.lookupDictionary(word.getWord().toLowerCase()) && word.hasValidBounds();
     }
 
 
@@ -383,14 +386,40 @@ public class Game {
      * @param boardValue The letter to place on the board.
      */
     public void selectBoardValue(ArrayList<Integer> boardValue){
+        if(currentSelectedTrayValue.equals("__")){
+            currentSelectedTrayValue = fetchBlankState();
+        }
         if(!currentSelectedTrayValue.equals(" ")){
-            currentWord += currentSelectedTrayValue;
+            //currentWord += currentSelectedTrayValue; //address this
             currentSelectedBoardValue = boardValue;
             if(startingWordPos == null){
                 startingWordPos = currentSelectedBoardValue;
+                endingWordPos = currentSelectedBoardValue;
             }
+
+            coordinatesOfWordToPlace.put((currentSelectedBoardValue.get(0) * 10 + currentSelectedBoardValue.get(1)), currentSelectedTrayValue);
+
+            if(startingWordPos.get(0) > currentSelectedBoardValue.get(0) || startingWordPos.get(1) > currentSelectedBoardValue.get(1)){
+                startingWordPos = currentSelectedBoardValue;
+            }
+
+            if( endingWordPos.get(0) < currentSelectedBoardValue.get(0) || endingWordPos.get(1) < currentSelectedBoardValue.get(1)){
+                endingWordPos = currentSelectedBoardValue;
+            }
+
             updateViews();
         }
+    }
+
+
+    private String fetchBlankState(){
+        String letter = "";
+        for(ScrabbleScrabbleView view: views){
+            letter = view.getBlankState();
+            if(letter != null)
+                return letter;
+        }
+        return letter;
     }
 
 
@@ -398,21 +427,56 @@ public class Game {
      * Places a word on the board.
      */
     public void placeWord (){
-        String wordCoordinate;
-        Integer y = startingWordPos.get(0) + 1;
-        if(!currentSelectedTrayValue.equals(" ")){
-            if(dictionary.lookupDictionary(currentWord.toLowerCase())){
-                if (startingWordPos.get(0) == currentSelectedBoardValue.get(0)){
-                    //System.out.println(currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
-                     play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
-                }
-                else if(startingWordPos.get(1) == currentSelectedBoardValue.get(1)){
+        Word wordtoPlay;
+        Word wordToRemove;
 
-                     play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
-                }
+        Integer y = startingWordPos.get(0) + 1;
+        ArrayList<String> removableAndPlayableWordList = board.formWordUsingBoardValues(startingWordPos, endingWordPos, coordinatesOfWordToPlace);
+        String currentWord = removableAndPlayableWordList.get(0);
+
+        String wordToRemoveString = removableAndPlayableWordList.get(1);
+
+        if(!currentSelectedTrayValue.equals(" ")){
+
+
+
+            if (startingWordPos.get(0) ==  endingWordPos.get(0)){
+
+                wordtoPlay = new Word(currentWord, (y + Letters.values()[startingWordPos.get(1)].toString()));
+                wordToRemove = new Word(wordToRemoveString, (y + Letters.values()[startingWordPos.get(1)].toString()));
+
+                board.addWordToBoard(wordtoPlay);
+
+                if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
+
+                    board.removeLettersFromBoard(wordToRemove);
+                    play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
+
+                }else{ board.removeLettersFromBoard(wordToRemove);}
+
+
             }
+
+            else if(startingWordPos.get(1) == endingWordPos.get(1)){
+                wordtoPlay = new Word(currentWord, Letters.values()[startingWordPos.get(1)].toString() + y);
+                wordToRemove = new Word(wordToRemoveString, Letters.values()[startingWordPos.get(1)].toString() + y);
+
+                board.addWordToBoard(wordtoPlay);
+
+                if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
+
+                    board.removeLettersFromBoard(wordToRemove);
+                    play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);
+
+                }else{board.removeLettersFromBoard(wordToRemove);}
+
+
+            }
+
+
         }
     }
+
 
 
     /**
@@ -424,6 +488,10 @@ public class Game {
         currentSelectedBoardValue = null;
         startingWordPos = null;
         currentWord = "";
+        endingWordPos = null;
+        if (coordinatesOfWordToPlace != null) {
+            coordinatesOfWordToPlace.clear();
+        }
         lengthOfWordBeingBuilt = 0;
         lettersToSwap = "";
         swapState = false;

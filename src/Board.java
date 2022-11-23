@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -29,7 +27,6 @@ public class Board {
         specialSquares = new scores[SIZE][SIZE];
 
         this.initializeBoard();
-        // setSpecialSquaresStandard(); // use the standard configuration of special squares (For milestone 3)
     }
 
 
@@ -86,6 +83,35 @@ public class Board {
             }
         }
         this.boardValues.putAll(word.getLetterPositions());
+    }
+
+
+    public void removeLettersFromBoard(Word word){
+        ArrayList<Integer> numPos = word.findWordPosition();
+
+        if(word.isHorizontal()) {
+            for (int i = 0; i < word.length(); i++) {
+
+                if(!word.getLetterPositions().get((Letters.values()[numPos.get(1) + i].toString() + numPos.get(0)) ).equals(" ")) {
+                    usedSquares[numPos.get(1) + i][numPos.get(0)] = " ";
+                }
+            }
+        } else{
+
+            for (int i = 0; i < word.length(); i++) {
+
+                if(!word.getLetterPositions().get((Letters.values()[numPos.get(0)].toString() + (numPos.get(1) + i)) ).equals(" ")){
+                    usedSquares[numPos.get(0)][numPos.get(1) + i] = " ";
+                }
+
+            }
+        }
+        for(String key: word.getLetterPositions().keySet()){
+            if(!(word.getLetterPositions().get(key) == " ")) {
+                this.boardValues.remove(key);
+            }
+        }
+
     }
 
 
@@ -237,7 +263,7 @@ public class Board {
             }
         }
 
-        System.out.println(wordFormed);
+        //System.out.println(wordFormed);
         runCheck = true;
         count  = 1;
 
@@ -277,13 +303,13 @@ public class Board {
                 }
 
 
-            count += 1;
+                count += 1;
             }
             else {
                 runCheck = false;
             }
         }
-        System.out.println(wordFormed);
+        //System.out.println(wordFormed);
         //System.out.println(usedSquares[coordinate.get(0)][coordinate.get(1)]);
 
         return dictionary.lookupDictionary(wordFormed.toLowerCase());
@@ -301,86 +327,86 @@ public class Board {
         String wordFormed = "";
         Dictionary dictionary = new Dictionary();
 
-            while(runCheck){
+        while(runCheck){
 
-                if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {    //FIX SIZE ERROR //check for -1 too not just size -1
-                    wordFormed = wordFormed + usedSquares[coordinate.get(0) + count][coordinate.get(1)];
-
-
-                    if(coordinate.get(1) - 1 < 0) {
-                        if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
-                            if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
-                                return false;
-                            }
-                        }
-                    }
+            if(coordinate.get(0) + count < SIZE && !usedSquares[coordinate.get(0) + count][coordinate.get(1)].equals(" ")) {    //FIX SIZE ERROR //check for -1 too not just size -1
+                wordFormed = wordFormed + usedSquares[coordinate.get(0) + count][coordinate.get(1)];
 
 
-                    else if(coordinate.get(1) + 1 > SIZE - 1) {
-                        if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
-                            if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
-                                return false;
-                            }
-                        }
-                    }
-
-                    else if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                if(coordinate.get(1) - 1 < 0) {
+                    if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
                         if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
                             return false;
                         }
                     }
+                }
 
-                    count += 1;
+
+                else if(coordinate.get(1) + 1 > SIZE - 1) {
+                    if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
+                        if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
+                            return false;
+                        }
+                    }
                 }
-                else {
-                    runCheck = false;
+
+                else if ((!usedSquares[coordinate.get(0) + count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) + count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                    if (!checkVertical(new ArrayList<>(List.of(coordinate.get(0) + count, coordinate.get(1))), false)) {
+                        return false;
+                    }
                 }
+
+                count += 1;
             }
+            else {
+                runCheck = false;
+            }
+        }
 
 
-            System.out.println(wordFormed);
-            runCheck = true;
-            count  = 1;
-            while (runCheck){
-                if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0) - count][coordinate.get(1)].equals(" ")) {
-                    wordFormed = usedSquares[coordinate.get(0) - count][coordinate.get(1)] + wordFormed;
+        //System.out.println(wordFormed);
+        runCheck = true;
+        count  = 1;
+        while (runCheck){
+            if(coordinate.get(0) - count >= 0 && !usedSquares[coordinate.get(0) - count][coordinate.get(1)].equals(" ")) {
+                wordFormed = usedSquares[coordinate.get(0) - count][coordinate.get(1)] + wordFormed;
 
 
-                    if(coordinate.get(1) - 1 < 0) {
-                        if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
-                            if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
-                                return false;
-                            }
-                        }
-
-                    }
-
-                    else if(coordinate.get(1) + 1 > SIZE - 1) {
-                        if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
-                            if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
-                                return false;
-                            }
-                        }
-
-                    }
-
-
-                    else if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                if(coordinate.get(1) - 1 < 0) {
+                    if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
                         if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
                             return false;
                         }
                     }
 
+                }
 
-                    count += 1;
+                else if(coordinate.get(1) + 1 > SIZE - 1) {
+                    if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ")) && secondScan) {
+                        if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
+                            return false;
+                        }
+                    }
+
                 }
-                else {
-                    runCheck = false;
+
+
+                else if((!usedSquares[coordinate.get(0) - count][coordinate.get(1) - 1].equals(" ") || !usedSquares[coordinate.get(0) - count][coordinate.get(1) + 1].equals(" ")) && secondScan) {
+                    if(!checkVertical(new ArrayList<>(List.of(coordinate.get(0) - count, coordinate.get(1))), false)){
+                        return false;
+                    }
                 }
+
+
+                count += 1;
             }
-            System.out.println(wordFormed);
+            else {
+                runCheck = false;
+            }
+        }
+        //System.out.println(wordFormed);
 
-            return dictionary.lookupDictionary(wordFormed.toLowerCase());
+        return dictionary.lookupDictionary(wordFormed.toLowerCase());
     }
 
 
@@ -391,6 +417,137 @@ public class Board {
      * */
     public String[][] getUsedSquares(){
         return usedSquares;
+    }
+
+
+    /**
+     * @param startingWordPos
+     * @param endingWordPos
+     * @param coordinatesOfWordToPlace
+     * @return
+     */
+    public ArrayList<String> formWordUsingBoardValues(ArrayList<Integer> startingWordPos, ArrayList<Integer> endingWordPos, HashMap<Integer, String> coordinatesOfWordToPlace) {
+        int startY  = startingWordPos.get(0);
+        int startX = startingWordPos.get(1) ;
+        int endY  = endingWordPos.get(0) ;
+        int endX = endingWordPos.get(1) ;
+
+        String wordToBuild = "";
+        String wordWithEmptySpots = "";
+
+
+        if(startY == endY){
+            for(int i = 0; i < (endX - startX) + 1; i++){
+
+                if(usedSquares[startY][startX + i].equals(" ") && coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
+
+                {
+                    wordToBuild += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
+                    wordWithEmptySpots += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
+                }
+
+                else
+                {
+                    wordToBuild += usedSquares[startX + i][startY];
+                    wordWithEmptySpots += " ";
+                }
+
+            }
+        }
+
+        else if(startX == endX){
+
+            for(int i = 0; i < (endY - startY) + 1; i++){
+
+                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
+
+                {
+                    wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
+                    wordWithEmptySpots += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
+                }
+
+                else
+                {
+
+                    wordToBuild += usedSquares[startX][startY + i];
+                    wordWithEmptySpots += " ";
+                }
+
+            }
+        }
+
+        ArrayList returnList = new ArrayList<String>();
+        returnList.add(wordToBuild);
+
+
+        returnList.add(wordWithEmptySpots);
+        return returnList;
+
+    }
+
+
+    public boolean isWordConnectedToCenter(Word word){
+        HashMap<String, String> letterPositions = word.getLetterPositions();
+        ArrayList<Integer> startingPos =  Word.numCoordinate(letterPositions.keySet().iterator().next());
+
+        int rowSize = SIZE;
+        int columnSize = SIZE;
+
+        int rows;
+        int column;
+
+        int startingRow = startingPos.get(0);
+        int startingCol = startingPos.get(1);
+
+        Queue<Integer> rowQ = new LinkedList<>();
+        Queue<Integer> columnQ = new LinkedList<>();
+
+        int moveCount = 0;
+        int nodesLeft = 1;
+        int nodesNext = 0;
+
+        boolean reachedEnd = false;
+
+        boolean[][] visited = new boolean[SIZE][SIZE];
+
+        int[] dr = {-1, +1, 0, 0};
+        int[] dc = {0, 0, +1, -1};
+
+        rowQ.add(startingRow);
+        columnQ.add(startingCol);
+        visited[startingRow][startingCol] = true;
+
+        while (rowQ.size() > 0){
+            rows = rowQ.poll();
+            column = columnQ.poll();
+            if((!(usedSquares[rows][column] == " "))&&(rows == 7 && column == 7)){
+                reachedEnd = true;
+                break;
+            }
+            for(int i = 0; i < 4; i++){
+                int rr = rows + dr[i];
+                int cc = column + dc[i];
+
+                if(  ( (!(rr < 0 || cc < 0))  && (!(rr >= rowSize || cc >= columnSize)) ) &&   ( (!visited[rr][cc]) && (!usedSquares[rr][cc].equals(" ")) ) ){
+                    rowQ.add(rr);
+                    columnQ.add(cc);
+                    visited[rr][cc] = true;
+                    nodesNext++;
+                }
+            }
+            nodesLeft -= 1;
+            if(nodesLeft == 0){
+                nodesLeft = nodesNext;
+                nodesNext = 0;
+                moveCount += 1;
+            }
+
+        }
+        if (reachedEnd){
+            return true;
+        }
+
+        return false;
     }
 
 

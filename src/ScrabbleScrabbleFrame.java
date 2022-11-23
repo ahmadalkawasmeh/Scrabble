@@ -19,6 +19,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel currentPlayerLabel;
     private JButton placeWordButton, swapButton, passButton, goButton, resetButton, playAIMoveButton;
     private JLabel gameStatusMessage;
+    private Game gameModel;
 
 
     /**
@@ -283,19 +284,52 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     }
 
 
+    public String blankPrompt(){
+        String letters[] = new String[26];
+        for(int i = 0; i < 26; i++){
+            char c = (char) (i+65);
+            letters[i] = Character.toString(c);
+        }
+
+        Object input = (String) JOptionPane.showInputDialog(this,"Select a letter",
+                "Input", JOptionPane.QUESTION_MESSAGE,null,letters,"a");
+
+        if(input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)){
+            return (String) input;
+        }
+        return null;
+
+    }
+
+
     @Override
     public void update(GameEvent e) {
-        if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
+        if(e.getCurrentSelectedTrayValue().equals("__") && (e.getCurrentSelectedBoardValue() != null)){
+            String input = blankPrompt();
+            if (input != null){
+                gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(input);
+            }
+        }
+        else if(!e.getCurrentSelectedTrayValue().equals(" ") && (e.getCurrentSelectedBoardValue() != null) ){
             gameBoardButtons[e.getCurrentSelectedBoardValue().get(0)][e.getCurrentSelectedBoardValue().get(1)].setText(e.getCurrentSelectedTrayValue());
             letterTrayButtons[e.getTrayNumPos()].setEnabled(false);
         }
-        else{
+        else {
             updateTray(e.getTrayValues(), e.getCurrentPlayerIsAI());
             updateBoard(e.getUsedSquares());
             updateCurrentPlayer(e.getCurrentPlayer().toString());
             updateScoreBoard(e.getPlayerList());
             updateGameButtons(e.getCurrentPlayer(), e.getSwapState());
         }
+    }
+
+
+    /**
+     * Provides the letter the player selected the blank to be.
+     */
+    @Override
+    public String getBlankState() {
+        return blankPrompt();
     }
 
 
