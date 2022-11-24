@@ -455,7 +455,7 @@ public class Board {
         if(startY == endY){
             for(int i = 0; i < (endX - startX) + 1; i++){
 
-                if(usedSquares[startY][startX + i].equals(" ") && coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
+                if(/*usedSquares[startY][startX + i].equals(" ") &&*/ coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
 
                 {
                     wordToBuild += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
@@ -475,7 +475,7 @@ public class Board {
 
             for(int i = 0; i < (endY - startY) + 1; i++){
 
-                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
+                if(/*usedSquares[startY + i][startX].equals(" ") &&*/ coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
 
                 {
                     wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
