@@ -101,14 +101,14 @@ public class Game {
      */
     public void play(String moveToPlay){
 
-            this.output();
+            //this.output();
             Move move = parser.getInput(moveToPlay);
             processMove(move);
             nextPlayer();
             resetViewValues();
             updateViews();
 
-            this.output();
+            //this.output();
     }
 
 
@@ -418,7 +418,7 @@ public class Game {
 
                     board.addWordToBoard(wordtoPlay);
 
-                    if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
+                    if(board.checkWordOnBoard(wordtoPlay) /*&& board.isWordConnectedToCenter(wordtoPlay) */){
 
                         board.removeLettersFromBoard(wordToRemove);
                         play( currentWord +" "+(y + Letters.values()[startingWordPos.get(1)].toString()));
@@ -434,7 +434,7 @@ public class Game {
 
                     board.addWordToBoard(wordtoPlay);
 
-                    if(board.checkWordOnBoard(wordtoPlay) && board.isWordConnectedToCenter(wordtoPlay)){
+                    if(board.checkWordOnBoard(wordtoPlay) /*&& board.isWordConnectedToCenter(wordtoPlay)*/ ){
 
                         board.removeLettersFromBoard(wordToRemove);
                         play(currentWord +" "+Letters.values()[startingWordPos.get(1)].toString() + y);

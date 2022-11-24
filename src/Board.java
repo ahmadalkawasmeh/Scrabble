@@ -449,12 +449,14 @@ public class Board {
         }
 
         else if(startX == endX){
+            System.out.println("________________________________________________________");
 
             for(int i = 0; i < (endY - startY) + 1; i++){
 
-                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
+                if(/*usedSquares[startY + i][startX].equals(" ")*/  coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX)) //CHECK CHECK CHECK AND TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT!!!!!!!!!!!!!!!!!!!!!!
 
                 {
+                    System.out.println("GOT TO FIRST COND");
                     wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
                     wordWithEmptySpots += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
                 }
@@ -472,6 +474,8 @@ public class Board {
         ArrayList returnList = new ArrayList<String>();
         returnList.add(wordToBuild);
 
+        System.out.println(wordToBuild);
+        System.out.println("________________________________________________________");
 
         returnList.add(wordWithEmptySpots);
         return returnList;
