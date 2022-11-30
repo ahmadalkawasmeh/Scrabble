@@ -171,7 +171,7 @@ public class Board {
                                                 = specialSquares[0][11] = specialSquares[7][11] =
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
-                                                                specialSquares[11][14] = scores.DW;
+                                                                specialSquares[11][14] = scores.DL;
     }
 
 

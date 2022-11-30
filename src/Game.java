@@ -166,6 +166,9 @@ public class Game {
         return word;
     }
 
+    public void importCustomBoard(){
+        
+    }
 
     /**
      * Converts an AI Player input Move into a word object
