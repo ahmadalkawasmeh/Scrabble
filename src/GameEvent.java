@@ -90,7 +90,7 @@ public class GameEvent extends EventObject {
     }
 
     /**
-     * @return
+     * @return selected board value where letter is to be placed
      */
     public ArrayList<Integer> getCurrentSelectedBoardValue(){
         return currentSelectedBoardValue;

@@ -35,6 +35,12 @@ public enum Letters {
       this.defaultQuantity = quantity;
    }
 
+   /**
+    * Gets the ordinal value of this Letter.
+    *
+    * @param s The letter
+    * @return an integer ordinal value
+    */
    public static int getOrdinal(String s) {
       return valueOf(s).ordinal();
    }

@@ -52,6 +52,11 @@ public class Move {
         return secondWord;
     }
 
+    /**
+     * Converts the Move to a String format.
+     *
+     * @return the Move in the string format "FIRSTWORD SECONDWORD"
+     */
     @Override
     public String toString() {
         return firstWord + " " + secondWord;
