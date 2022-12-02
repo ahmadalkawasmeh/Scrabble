@@ -38,7 +38,6 @@ public class LetterBag {
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
 
-        System.out.println(keyList.size());
         int randIndex = new Random().nextInt(keyList.size());
         letter = keyList.get(randIndex);
 
@@ -135,6 +134,14 @@ public class LetterBag {
         for(Letters letter: Letters.values()){
             letterQuantities.put(letter.toString(), letter.getQuantity());
         }
+    }
+
+    public int getTotalLetters() {
+        int total = 0;
+        for (Integer i : letterQuantities.values()) {
+            total += i;
+        }
+        return total;
     }
 
     @Override

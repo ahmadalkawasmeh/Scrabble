@@ -99,7 +99,7 @@ public class Tray implements Serializable
      * @param letter The letter to remove.
      */
     public void removeLetter(String letter) {
-                this.letters.remove(letter);
+        this.letters.remove(letter);
     }
 
 

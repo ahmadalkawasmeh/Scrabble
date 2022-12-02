@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 
@@ -14,6 +16,7 @@ public class TrayTest {
     @Before
     public void setUp() throws Exception {
         t = new Tray();
+        t.fillBag();
     }
 
 
@@ -63,15 +66,16 @@ public class TrayTest {
 
     @Test
     public void testFillFillsAnEmptyTray() {
-        String letters = "";
+        ArrayList<String> letters = new ArrayList<>();
+        String string = "";
         Tray testTray = t;
-        for(String letter : testTray.getLetters()){
-            letters += letter;
+        for(int i = 0; i < testTray.getLetters().size();i++){
+            letters.add(i,testTray.getLetters().get(i));
         }
-        for(int i = 0; i < letters.length(); i ++) {
-            t.removeLetter("" + letters.charAt(i));
+        for(int i = 0; i < letters.size(); i ++) {
+            t.removeLetter("" + letters.get(i));
         }
-
+        System.out.println(testTray.getLetterBag().getTotalLetters());
         assertEquals(0,t.getLetters().size());
         t.fill();
         assertEquals(Tray.SIZE,t.getLetters().size());
