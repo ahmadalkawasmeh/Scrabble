@@ -13,15 +13,8 @@ public class LetterBagTest {
 
         bag = new LetterBag();
         if (bag == null) throw new Exception("Uninitialized LetterBag");
-
-
     }
 
-    //Deliverable 3
-//    @Test
-//    public void lettersLeft() {
-//
-//    }
 
     @Test
     public void initialLettersLeft(){

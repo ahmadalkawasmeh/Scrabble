@@ -36,7 +36,7 @@ public class Tray implements Serializable
     }
 
     public void fillBag(){
-        letterBag.fillBag();
+        letterBag.fillBagForTesting();
     }
 
 

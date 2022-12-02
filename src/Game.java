@@ -603,7 +603,7 @@ public class Game implements Serializable {
      * Saves the Game using serialization
      */
     public void saveGame(File outputFileName) throws IOException {
-        letterBagContents = letterBag.getContents();
+        letterBagContents = letterBag.copyContents();
 
         FileOutputStream ostream = new FileOutputStream(outputFileName);
         ObjectOutputStream p = new ObjectOutputStream(ostream);
@@ -629,7 +629,7 @@ public class Game implements Serializable {
 
 
     public void loadGame() {
-        letterBag.updateContents(letterBagContents);
+        letterBag.loadContents(letterBagContents);
     }
 
 
