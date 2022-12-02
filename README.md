@@ -68,8 +68,9 @@ This iteration represents milestone 4 of 4.  Newly introduced features, listed b
   - 
 
 - James Grieder - 101177911
-  - AI now has the ability to place the first word
   - Implemented save/load functionality for game features included in milestone 3 (Java Serialization)
+  - AI now has the ability to place the first word
+  - Created AllTests test suite class
 
 - Daniel Kuchanski - 101182041
   - 
