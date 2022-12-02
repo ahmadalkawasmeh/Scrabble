@@ -26,12 +26,16 @@ public class TrayTest {
 
     @Test
     public void testRemoveLetterRemoves1LetterAtATimeUntilEmpty() {
+        String letters = "";
         Tray testTray = t;
-        int i = Tray.SIZE-1;
         for(String letter : testTray.getLetters()){
-            t.removeLetter(letter);
-            assertEquals(i,t.getLetters().size());
-            i -= 1;
+            letters += letter;
+        }
+        int expectedSize = Tray.SIZE;
+        for(int i = 0; i < letters.length(); i ++) {
+            t.removeLetter("" + letters.charAt(i));
+            expectedSize--;
+            assertEquals(expectedSize, t.getLetters().size());
         }
     }
 
@@ -59,10 +63,16 @@ public class TrayTest {
 
     @Test
     public void testFillFillsAnEmptyTray() {
+        String letters = "";
         Tray testTray = t;
         for(String letter : testTray.getLetters()){
-            t.removeLetter(letter);
+            letters += letter;
         }
+        for(int i = 0; i < letters.length(); i ++) {
+            t.removeLetter("" + letters.charAt(i));
+        }
+
+        assertEquals(0,t.getLetters().size());
         t.fill();
         assertEquals(Tray.SIZE,t.getLetters().size());
     }

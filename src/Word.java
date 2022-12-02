@@ -181,7 +181,7 @@ public class Word implements Serializable {
      * @return List containing X and Y values of word in numeric form
      */
     public static ArrayList<Integer> numCoordinate(String coordinate){
-        StringBuilder sb = new StringBuilder(coordinate);
+        StringBuffer sb = new StringBuffer(coordinate);
         ArrayList<Integer> numericCoordinate = new ArrayList<>();
         numericCoordinate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
         sb.deleteCharAt(0);
