@@ -58,7 +58,7 @@ public class TrayTest {
         assertEquals(1, testTray.checkInTrayFrequency(blank));
         System.out.println("before: " + testTray);
 
-        t.removeLetter(blank);
+        testTray.removeLetter("__");
         System.out.println("after: " + testTray);
 
         assertEquals(0, testTray.checkInTrayFrequency(blank));

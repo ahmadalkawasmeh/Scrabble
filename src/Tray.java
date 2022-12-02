@@ -115,6 +115,7 @@ public class Tray implements Serializable
     }
 
 
+
     /**
      * returns a letter back to the letter bag
      * @param letter to return to bag
@@ -241,8 +242,6 @@ public class Tray implements Serializable
         return Objects.equals(letters, tray.letters);
     }
 
-    public static void main(String[] args) {
-        Tray t = new Tray("A B __ D E F G");
-    }
+
 
 }
