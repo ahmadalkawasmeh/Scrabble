@@ -12,15 +12,17 @@ import java.util.List;
  */
 public class Game implements Serializable {
 
-    private ArrayList<ScrabbleScrabbleView> views;
+    private final ArrayList<ScrabbleScrabbleView> views;
     private Board board;
     public ArrayList<Player> players;
     public Player currentPlayer;
-    private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
+    final private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
+
+    public HashMap<String, Integer> letterBagContents;
     // private Round currentRound;
     // will be used in the future//private Stack<Round> roundHistory; // will be used for undo/redo in the future
     public static Dictionary dictionary;
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
     private String currentSelectedTrayValue;
@@ -32,7 +34,7 @@ public class Game implements Serializable {
     private String currentWord;
     private int lengthOfWordBeingBuilt;
     private String input;
-    private boolean resetBoard = true;
+    private final boolean resetBoard = true;
     private boolean swapState;
     private String lettersToSwap;
     private HashMap<Integer, String> coordinatesOfWordToPlace;
@@ -328,7 +330,7 @@ public class Game implements Serializable {
     public void getPlayerScores(){
         System.out.println("--------------");
         System.out.println("Player scores:");
-        System.out.println("");
+        System.out.println();
         for (Player p : players){
             System.out.println(p.toString() + ": " + p.getScore());
         }
@@ -598,6 +600,8 @@ public class Game implements Serializable {
      * Saves the Game using serialization
      */
     public void saveGame(File outputFileName) throws IOException {
+        letterBagContents = letterBag.getContents();
+
         FileOutputStream ostream = new FileOutputStream(outputFileName);
         ObjectOutputStream p = new ObjectOutputStream(ostream);
 
@@ -621,29 +625,44 @@ public class Game implements Serializable {
 
 
 
-    public static void loadGame(Game game) {
-
+    public void loadGame() {
+        letterBag.updateContents(letterBagContents);
     }
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        System.out.println("here here here");
         if (o == null || getClass() != o.getClass()) return false;
-
+        System.out.println("here here here");
         Game game = (Game) o;
 
+
         if (finished != game.finished) return false;
+        System.out.println("finished is good");
         if (zeroScoreTurns != game.zeroScoreTurns) return false;
-        if (trayNumPos != game.trayNumPos) return false;
-        if (placeCurrentBuildingWord != game.placeCurrentBuildingWord) return false;
-        if (lengthOfWordBeingBuilt != game.lengthOfWordBeingBuilt) return false;
-        if (resetBoard != game.resetBoard) return false;
-        if (swapState != game.swapState) return false;
-        if (blankPlaced != game.blankPlaced) return false;
+        System.out.println("zeroScoreTurns is good");
+        if (letterBag != game.letterBag) return false; // TODO update letterbagcontents at end of each turn
+        System.out.println("letterbag is good");
+
+        for (int i = 0; i < players.size(); i++) {
+            if (!players.get(i).equals(game.players.get(i))) {
+                System.out.println("Checking player " + i);
+                return false;
+            }
+        }
+        System.out.println("players is good");
+
+        if (!board.boardValues.equals(game.board.boardValues)) return false; // TODO delegate
+        System.out.println("board is good");
+
         if (!currentPlayer.equals(game.currentPlayer)) return false;
-        if (!currentSelectedTrayValue.equals(game.currentSelectedTrayValue)) return false;
-        return AI.equals(game.AI);
+        System.out.println("currentPlayer is good...AI is not");
+        return AI.equals(AI);
+
+
+
     }
 
 

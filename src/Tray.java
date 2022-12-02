@@ -21,7 +21,7 @@ public class Tray implements Serializable
 
     private ArrayList<String> letters; // The letters in this tray
 
-    private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
+    transient private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
 
 
     /**

@@ -6,6 +6,8 @@ public interface ScrabbleScrabbleView {
 
     public void update(GameEvent e);
 
+    public void loadView();
+
     String getBlankState();
 
     public void quitView();

@@ -9,14 +9,15 @@ import java.util.*;
 public class Board implements Serializable {
 
 
-    enum scores{DL, TL, DW, TW}
 
+
+    enum scores{DL, TL, DW, TW;}
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
-    private static String[][] usedSquares; // Squares that have letters placed on them
-    public static Enum[][] specialSquares; // Squares with special scoring modifiers
-    private HashMap<String, String> boardValues;
 
+    private String[][] usedSquares; // Squares that have letters placed on them
+    public static Enum[][] specialSquares; // Squares with special scoring modifiers
+    public HashMap<String, String> boardValues;
 
     /**
      * Initializes the scrabblescrabble game board, by setting up the board with empty values (no letters), an
@@ -581,7 +582,7 @@ public class Board implements Serializable {
      *
      * @return true if the centre square does not have a letter placed on it, false otherwise
      */
-    public static boolean centreSquareIsClear() {
+    public boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
     }
 
@@ -617,6 +618,16 @@ public class Board implements Serializable {
         return AIHelper.getPossibleWordPosition(x, y);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Board board = (Board) o;
+
+        return Objects.equals(boardValues, board.boardValues);
+    }
 }
 
 
