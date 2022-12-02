@@ -20,7 +20,6 @@ public class Player implements Serializable
     private Tray tray;
 
     boolean isAIPlayer;
-    private AIHelper AI;
 
 
     /**
