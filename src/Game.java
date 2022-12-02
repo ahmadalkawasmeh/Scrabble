@@ -169,6 +169,9 @@ public class Game implements Serializable {
         return word;
     }
 
+    public void importCustomBoard(){
+        
+    }
 
     /**
      * Converts an AI Player input Move into a word object

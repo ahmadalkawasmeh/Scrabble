@@ -143,6 +143,11 @@ public class LetterBag {
         this.letterQuantities.putAll(letterBagContents);
     }
 
+    public void fillBag() {
+        for(Letters letter: Letters.values()){
+            letterQuantities.put(letter.toString(), letter.getQuantity());
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

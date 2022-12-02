@@ -74,6 +74,17 @@ public class Player implements Serializable
         return tray.getLetters();
     }
 
+    /**
+     * Fill this Player's bag with the initial letter amounts
+     */
+    public void fillBag(){
+        tray.fillBag();
+    }
+
+    public LetterBag getLetterBag(){
+        return tray.getLetterBag();
+    }
+
 
     /**
      * Get this Player's score as a text String.
