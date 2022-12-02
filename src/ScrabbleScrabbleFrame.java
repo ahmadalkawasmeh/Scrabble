@@ -3,6 +3,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * ScrabbleScrabbleFrame is a GUI view for the game of ScrabbleScrabble.
  * This view is a part of the MVC pattern. This view displays the game title,
@@ -43,37 +45,25 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         Object input = JOptionPane.showInputDialog(this, "Select the total number of players (user and AI):",
                 "Player Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfPlayers, "2");
 
-        /*
-
-
-        if (!(input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION))) {
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
             this.quitView();
             System.exit(0);
         }
-         */
-        int numPlayers = Integer.parseInt((String) input);
 
-
-        /*
-
-
-        if (input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)) {
-            return (String) input;
-        }
-        return null;
-         */
-
-
-
-
-
+        int numPlayers = parseInt((String) input);
 
 
         // Prompt the user for the number of AI players
         String[] optionsForNumberOfAIPlayers = {"0", "1", "2", "3"};
         input = JOptionPane.showInputDialog(this, "Select the number of AI players:",
                 "AI Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfAIPlayers, "1");
-        int numAIPlayers = Integer.parseInt((String) input);
+
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
+            this.quitView();
+            System.exit(0);
+        }
+
+        int numAIPlayers = parseInt((String) input);
 
         Game gameModel = new Game(numPlayers, numAIPlayers);
         BoardController boardController = new BoardController(gameModel);
