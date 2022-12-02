@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.round;
@@ -33,6 +34,17 @@ public class Tray implements Serializable
         letters = new ArrayList<>();
         letterBag = Game.getLetterBag();
         this.fill();
+    }
+
+    /**
+     * Initializes a Tray and fills it with the specified trayValues.
+     * Used for testing purposes to force-set a tray to desired values.
+     * @param trayValues The values to set the tray to
+     */
+    public Tray(String trayValues)
+    {
+        String tray[] = trayValues.split(" ", Tray.SIZE);
+        letters = new ArrayList<>(List.of(tray));
     }
 
     public void fillBag(){
@@ -227,6 +239,10 @@ public class Tray implements Serializable
         Tray tray = (Tray) o;
 
         return Objects.equals(letters, tray.letters);
+    }
+
+    public static void main(String[] args) {
+        Tray t = new Tray("A B __ D E F G");
     }
 
 }

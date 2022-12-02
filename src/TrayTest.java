@@ -52,6 +52,20 @@ public class TrayTest {
 
 
     @Test
+    public void testRemoveBlank() {
+        Tray testTray = new Tray("A B C __ D E F");
+        String blank = "__";
+        assertEquals(1, testTray.checkInTrayFrequency(blank));
+        System.out.println("before: " + testTray);
+
+        t.removeLetter(blank);
+        System.out.println("after: " + testTray);
+
+        assertEquals(0, testTray.checkInTrayFrequency(blank));
+    }
+
+
+    @Test
     public void testReturnLetterToBag() {
         Tray testTray = t;
         String letter = t.getLetters().get(0);
@@ -71,7 +85,7 @@ public class TrayTest {
         for(int i = 0; i < letters.length(); i ++) {
             t.removeLetter("" + letters.charAt(i));
         }
-
+        System.out.println("line 74:  " + t.getLetters());
         assertEquals(0,t.getLetters().size());
         t.fill();
         assertEquals(Tray.SIZE,t.getLetters().size());
