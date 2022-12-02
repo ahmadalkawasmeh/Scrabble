@@ -153,20 +153,13 @@ public class AIHelper implements Serializable {
      * @return An input String that may be used to create a Move Object
      */
     public static String getNextAIMove(Tray tray) {
-
-        /*
-        // Pass if a word has not been placed on the board yet
-        if (board.centreSquareIsClear()) {
-            return "SWAP " + tray.AIgetLettersToSwap();
-        }
-
-         */
-
+        // Place the first word on the board if the centre square is clear
         if (board.centreSquareIsClear()) {
 
-            return tray.AIGenerateFirstWordOnBoard() + " H8";
+            return tray.AIGenerateFirstWordOnBoard() + " H8"; // TODO hardcode centre of board
         }
 
+        // Otherwise place a word using a letter already on the board
         boolean wordPlaced = false;
 
         int x = 0;

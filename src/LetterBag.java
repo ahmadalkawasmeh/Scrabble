@@ -120,14 +120,29 @@ public class LetterBag {
         }
     }
 
+
+    /**
+     * Gets a copy of the LetterBag's current contents.
+     * Used to save the LetterBag for serialization.
+     *
+     * @return the contents of this LetterBag.
+     */
     public HashMap<String, Integer> getContents() {
         return this.letterQuantities;
     }
 
+
+    /**
+     * Updates the contents of this LetterBag based on letterBagContents.
+     * Used to load the LetterBag (deserialization).
+     *
+     * @param letterBagContents the contents to load the LetterBag with.
+     */
     public void updateContents(HashMap<String, Integer> letterBagContents) {
         this.letterQuantities.clear();
         this.letterQuantities.putAll(letterBagContents);
     }
+
 
     @Override
     public boolean equals(Object o) {
