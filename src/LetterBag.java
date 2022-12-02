@@ -1,4 +1,3 @@
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -40,7 +39,6 @@ public class LetterBag {
 
         int randIndex = new Random().nextInt(keyList.size());
         letter = keyList.get(randIndex);
-
 
         decreaseLetterQuantity(letter);
 
@@ -95,7 +93,10 @@ public class LetterBag {
 
 
     /**
-     * Returns the total amount of letters remaining in this LetterBag.
+     * Returns the amount of possible letters remaining in this LetterBag.
+     * NOTE: This returns the number of unique letters, not the total number of letters.
+     * i.e. If the LetterBag contains A, A, B, this method returns 2.
+     *
      * Made Public for testing in Deliverable 2
      * Developed by: Ibtasam Rasool
      *
@@ -121,16 +122,35 @@ public class LetterBag {
         }
     }
 
-    public HashMap<String, Integer> getContents() {
+
+    /**
+     * Gets a copy of the LetterBag's current contents.
+     * Used to save the LetterBag for serialization.
+     *
+     * @return the contents of this LetterBag.
+     */
+    public HashMap<String, Integer> copyContents() {
         return this.letterQuantities;
     }
 
-    public void updateContents(HashMap<String, Integer> letterBagContents) {
+
+    /**
+     * Updates the contents of this LetterBag based on letterBagContents.
+     * Used to load the LetterBag (deserialization).
+     *
+     * @param letterBagContents the contents to load the LetterBag with.
+     */
+    public void loadContents(HashMap<String, Integer> letterBagContents) {
         this.letterQuantities.clear();
         this.letterQuantities.putAll(letterBagContents);
     }
 
-    public void fillBag() {
+
+    /**
+     * Fills the LetterBag to its default contents.
+     * Used for testing purposes.
+     */
+    public void fillBagForTesting() {
         for(Letters letter: Letters.values()){
             letterQuantities.put(letter.toString(), letter.getQuantity());
         }

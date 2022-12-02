@@ -4,7 +4,6 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-
 @RunWith(Suite.class)
 @SuiteClasses({ BoardTest.class,
                 DictionaryTest.class,
@@ -14,6 +13,11 @@ import org.junit.BeforeClass;
                 TrayTest.class,
                 WordScoreTest.class})
 
+
+/**
+ * A Test Suite class for the game of ScrabbleScrabble.
+ * Runs all unit tests in other classes.
+ */
 public class AllTests {
 
     @BeforeClass

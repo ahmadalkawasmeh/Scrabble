@@ -603,7 +603,7 @@ public class Game implements Serializable {
      * Saves the Game using serialization
      */
     public void saveGame(File outputFileName) throws IOException {
-        letterBagContents = letterBag.getContents();
+        letterBagContents = letterBag.copyContents();
 
         FileOutputStream ostream = new FileOutputStream(outputFileName);
         ObjectOutputStream p = new ObjectOutputStream(ostream);
@@ -629,16 +629,14 @@ public class Game implements Serializable {
 
 
     public void loadGame() {
-        letterBag.updateContents(letterBagContents);
+        letterBag.loadContents(letterBagContents);
     }
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        System.out.println("here here here");
         if (o == null || getClass() != o.getClass()) return false;
-        System.out.println("here here here");
         Game game = (Game) o;
 
 
@@ -646,7 +644,7 @@ public class Game implements Serializable {
         System.out.println("finished is good");
         if (zeroScoreTurns != game.zeroScoreTurns) return false;
         System.out.println("zeroScoreTurns is good");
-        if (letterBag != game.letterBag) return false; // TODO update letterbagcontents at end of each turn
+        if (letterBag != game.letterBag) return false;
         System.out.println("letterbag is good");
 
         for (int i = 0; i < players.size(); i++) {
@@ -657,7 +655,7 @@ public class Game implements Serializable {
         }
         System.out.println("players is good");
 
-        if (!board.boardValues.equals(game.board.boardValues)) return false; // TODO delegate
+        if (!board.getBoardValues().equals(game.board.getBoardValues())) return false; // TODO delegate
         System.out.println("board is good");
 
         if (!currentPlayer.equals(game.currentPlayer)) return false;
