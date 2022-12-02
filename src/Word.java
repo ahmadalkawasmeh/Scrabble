@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Ibtasam Rasool
  * @version 1.0
  */
-public class Word {
+public class Word implements Serializable {
 
     private String word; // The string representation of this Word
     private String position; // The position of the first character of this Word

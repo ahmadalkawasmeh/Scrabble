@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
-public class GameEvent extends EventObject {
+public class GameEvent extends EventObject implements Serializable {
 
     private Game source;
 

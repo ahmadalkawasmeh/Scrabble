@@ -1,4 +1,6 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * AIHelper represents the logic for AI Players in scrabblescrabble.
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  * contains the logic for an AI Player to decide when to place a word, when to
  * swap letters, or when to pass their turn.
  */
-public class AIHelper {
+public class AIHelper implements Serializable {
 
     private static Board board; // The board for this game
     private static String[][] squares; // the squares on the board
@@ -150,11 +152,19 @@ public class AIHelper {
      * @param tray The AI Player's Tray of letters
      * @return An input String that may be used to create a Move Object
      */
-    public String getNextAIMove(Tray tray) {
+    public static String getNextAIMove(Tray tray) {
 
+        /*
         // Pass if a word has not been placed on the board yet
         if (board.centreSquareIsClear()) {
             return "SWAP " + tray.AIgetLettersToSwap();
+        }
+
+         */
+
+        if (board.centreSquareIsClear()) {
+
+            return tray.AIGenerateFirstWordOnBoard() + " H8";
         }
 
         boolean wordPlaced = false;
@@ -188,4 +198,16 @@ public class AIHelper {
         // If player has no tiles to swap, pass
         return "PASS";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AIHelper AIHelper = (AIHelper) o;
+
+        if (board != AIHelper.board) return false;
+        return Objects.equals(squares, AIHelper.squares);
+    }
+
 }

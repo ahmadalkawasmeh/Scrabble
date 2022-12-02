@@ -1,5 +1,8 @@
+import org.w3c.dom.ls.LSSerializer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -8,7 +11,7 @@ import java.util.ArrayList;
  * ScrabbleScrabbleFrame view class.  This only includes the buttons that letters
  * can be placed upon.
  */
-public class BoardController implements ActionListener {
+public class BoardController implements ActionListener, Serializable {
 
     private Game gameModel;
     private String[] coordinates;
