@@ -78,6 +78,7 @@ public class TrayTest {
         assertTrue(t.getLetterBag().letterQuantity(letter) > bagFreq);
     }
 
+
     @Test
     public void testFillFillsAnEmptyTray() {
         ArrayList<String> letters = new ArrayList<>();

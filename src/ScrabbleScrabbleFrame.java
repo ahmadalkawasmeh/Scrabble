@@ -42,7 +42,32 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         String[] optionsForNumberOfPlayers = {"2", "3", "4"};
         Object input = JOptionPane.showInputDialog(this, "Select the total number of players (user and AI):",
                 "Player Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfPlayers, "2");
+
+        /*
+
+
+        if (!(input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION))) {
+            this.quitView();
+            System.exit(0);
+        }
+         */
         int numPlayers = Integer.parseInt((String) input);
+
+
+        /*
+
+
+        if (input instanceof String || !((int) input == JOptionPane.CLOSED_OPTION || (int) input == JOptionPane.CANCEL_OPTION)) {
+            return (String) input;
+        }
+        return null;
+         */
+
+
+
+
+
+
 
         // Prompt the user for the number of AI players
         String[] optionsForNumberOfAIPlayers = {"0", "1", "2", "3"};
