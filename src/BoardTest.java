@@ -153,17 +153,6 @@ public class BoardTest {
 
 
     @Test
-    public void testPlaceSecondPartOfCompoundWordPlacedIfFullWordInDictionary() {
-        Word word1 = new Word("AIR", "8H");
-        Word word2 = new Word("PLANE", "8K");
-        board.addWordToBoard(word1);
-        board.addWordToBoard(word2);
-
-        assertTrue(board.checkWordOnBoard(word2));
-    }
-
-
-    @Test
     public void testWordNotPlacedIfWordPlacedEndToEndAndNotInDictionary() {
         Word word1 = new Word("PLANE", "8H");
         Word word2 = new Word("AIR", "8M");

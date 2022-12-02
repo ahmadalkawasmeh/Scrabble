@@ -11,7 +11,7 @@ public class Board implements Serializable {
 
 
 
-    enum scores{DL, TL, DW, TW;}
+    public enum scores{DL, TL, DW, TW}
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
 

@@ -49,7 +49,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             this.quitView();
             System.exit(0);
         }
-
         int numPlayers = parseInt((String) input);
 
 
@@ -62,7 +61,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
             this.quitView();
             System.exit(0);
         }
-
         int numAIPlayers = parseInt((String) input);
 
         Game gameModel = new Game(numPlayers, numAIPlayers);
