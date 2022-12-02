@@ -35,6 +35,10 @@ public class Tray implements Serializable
         this.fill();
     }
 
+    public void fillBag(){
+        letterBag.fillBag();
+    }
+
 
     /**
      * Fills Tray with NUMLETTERS letters.

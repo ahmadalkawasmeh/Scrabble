@@ -38,8 +38,10 @@ public class LetterBag {
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
 
+        System.out.println(keyList.size());
         int randIndex = new Random().nextInt(keyList.size());
         letter = keyList.get(randIndex);
+
 
         decreaseLetterQuantity(letter);
 
@@ -124,6 +126,12 @@ public class LetterBag {
     public void updateContents(HashMap<String, Integer> letterBagContents) {
         this.letterQuantities.clear();
         this.letterQuantities.putAll(letterBagContents);
+    }
+
+    public void fillBag() {
+        for(Letters letter: Letters.values()){
+            letterQuantities.put(letter.toString(), letter.getQuantity());
+        }
     }
 
     @Override
