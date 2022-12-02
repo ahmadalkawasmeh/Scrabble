@@ -15,8 +15,13 @@ public class Board implements Serializable {
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
 
+    // The String coordinate of the centre square
+    public static final String CENTRE_SQUARE =
+            "" + Letters.getLetterFromOrdinal(((Board.SIZE) / 2)) + ((Board.SIZE + 1) / 2);
+
     private String[][] usedSquares; // Squares that have letters placed on them
     public static Enum[][] specialSquares; // Squares with special scoring modifiers
+
     public HashMap<String, String> boardValues;
 
     /**
@@ -577,7 +582,7 @@ public class Board implements Serializable {
 
 
     /**
-     * Returns whether or not the centre square is clear.
+     * Returns whether the centre square is clear.
      * The square is clear if there is not currently a letter placed on it.
      *
      * @return true if the centre square does not have a letter placed on it, false otherwise
@@ -619,6 +624,17 @@ public class Board implements Serializable {
     }
 
 
+    /**
+     * Gets the boardValues of this board.
+     * Used for Java Serialization.
+     *
+     * @return the board values of this board.
+     */
+    public HashMap<String, String> getBoardValues() {
+        return boardValues;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -628,6 +644,8 @@ public class Board implements Serializable {
 
         return Objects.equals(boardValues, board.boardValues);
     }
+
+
 }
 
 

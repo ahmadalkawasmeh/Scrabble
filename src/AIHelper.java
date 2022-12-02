@@ -153,10 +153,10 @@ public class AIHelper implements Serializable {
      * @return An input String that may be used to create a Move Object
      */
     public static String getNextAIMove(Tray tray) {
-        // Place the first word on the board if the centre square is clear
+        // Place the first word on the board if the centre square is clear (always vertical)
         if (board.centreSquareIsClear()) {
 
-            return tray.AIGenerateFirstWordOnBoard() + " H8"; // TODO hardcode centre of board
+            return tray.AIGenerateFirstWordOnBoard() + " " + Board.CENTRE_SQUARE;
         }
 
         // Otherwise place a word using a letter already on the board
