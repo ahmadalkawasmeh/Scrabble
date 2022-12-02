@@ -25,7 +25,7 @@ public class LetterBagTest {
 
     @Test
     public void initialLettersLeft(){
-        assertEquals(26,bag.lettersLeft());
+        assertEquals(27,bag.lettersLeft());
     }
 
 
@@ -49,13 +49,18 @@ public class LetterBagTest {
     }
 
     @Test
-    public void decreaseLetterQuantity(){
+    public void decreaseLetterQuantityBy1(){
+        assertEquals(9, bag.letterQuantity("A"));
         bag.decreaseLetterQuantity("A");
-        assertEquals(10, bag.letterQuantity("A"));
+        assertEquals(8, bag.letterQuantity("A"));
     }
 
     @Test
-    public void removeLetter(){
-        assertEquals(10, bag.letterQuantity("A"));
+    public void decreaseLetterQuantityUntilNoneLeft(){
+        assertEquals(2, bag.letterQuantity("B"));
+        bag.decreaseLetterQuantity("B");
+        assertEquals(1, bag.letterQuantity("B"));
+        bag.decreaseLetterQuantity("B");
+        assertEquals(0, bag.letterQuantity("B"));
     }
 }

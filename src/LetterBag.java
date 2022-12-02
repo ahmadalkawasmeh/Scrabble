@@ -88,7 +88,10 @@ public class LetterBag {
      * @return The quantity of letter in letter bag.
      */
     public int letterQuantity(String letter){
-            return letterQuantities.get(letter); // TODO need to fix the nullPointerException here.
+        if (letterQuantities.get(letter) != null) {
+            return letterQuantities.get(letter);
+        }
+        return 0;
     }
 
 
@@ -144,8 +147,4 @@ public class LetterBag {
         return Objects.equals(letterQuantities, letterBag.letterQuantities);
     }
 
-    @Override
-    public int hashCode() {
-        return letterQuantities != null ? letterQuantities.hashCode() : 0;
-    }
 }
