@@ -1,11 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 /**
  * The GameController is used in ScrabbleScrabble to control the list of possible commands.
  * These commands include PLACE WORD, SWAP, PASS, RESET, and GO (related to SWAP).
  */
-public class GameController implements ActionListener {
+public class GameController implements ActionListener, Serializable {
 
     private Game model;
 

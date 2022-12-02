@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -6,7 +7,7 @@ import java.util.*;
  * @author Ibtasam Rasool
  * @version 1.0
  */
-public class LetterBag {
+public class LetterBag implements Serializable {
 
     private HashMap<String, Integer> letterQuantities;
 

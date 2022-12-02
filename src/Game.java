@@ -1,3 +1,4 @@
+import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,12 +10,12 @@ import java.util.List;
  * Players can add words to the board, pass their turn, swap their pieces with the letterbag, and quit the game.
  * Developed by Ibtasam & James & Daniel
  */
-public class Game {
+public class Game implements Serializable {
 
     private ArrayList<ScrabbleScrabbleView> views;
-    private static Board board;
-    public static ArrayList<Player> players;
-    private Player currentPlayer;
+    private Board board;
+    public ArrayList<Player> players;
+    public Player currentPlayer;
     private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
     // private Round currentRound;
     // will be used in the future//private Stack<Round> roundHistory; // will be used for undo/redo in the future
@@ -36,7 +37,7 @@ public class Game {
     private String lettersToSwap;
     private HashMap<Integer, String> coordinatesOfWordToPlace;
     private boolean blankPlaced;
-    private AIHelper AI;
+    private static AIHelper AI;
 
 
     /**
@@ -551,9 +552,11 @@ public class Game {
      *
      * @return The board being used for this Game.
      */
-    public static Board getBoard() {
+    public Board getBoard() {
         return board;
     }
+
+
 
     /**
      * Returns the speciality of this square
@@ -591,5 +594,63 @@ public class Game {
             currentSelectedBoardValue = coordinates;
             selectBoardValue(coordinates);
         }
+    }
+
+
+    /**
+     * Saves the Game using serialization
+     */
+    public void saveGame(File outputFileName) throws IOException {
+        FileOutputStream ostream = new FileOutputStream(outputFileName);
+        ObjectOutputStream p = new ObjectOutputStream(ostream);
+
+        p.writeObject(this);
+
+        ostream.close();
+    }
+
+
+    /**
+     * Loads the Game using serialization
+     */
+    public static Game importGameFile(File inputFileName) throws IOException, ClassNotFoundException {
+        FileInputStream istream = new FileInputStream(inputFileName);
+        ObjectInputStream o = new ObjectInputStream(istream);
+
+        Game game = (Game) o.readObject();
+
+        return game;
+    }
+
+
+
+    public static void loadGame(Game game) {
+
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        if (finished != game.finished) return false;
+        if (zeroScoreTurns != game.zeroScoreTurns) return false;
+        if (trayNumPos != game.trayNumPos) return false;
+        if (placeCurrentBuildingWord != game.placeCurrentBuildingWord) return false;
+        if (lengthOfWordBeingBuilt != game.lengthOfWordBeingBuilt) return false;
+        if (resetBoard != game.resetBoard) return false;
+        if (swapState != game.swapState) return false;
+        if (blankPlaced != game.blankPlaced) return false;
+        if (!currentPlayer.equals(game.currentPlayer)) return false;
+        if (!currentSelectedTrayValue.equals(game.currentSelectedTrayValue)) return false;
+        return AI.equals(game.AI);
+    }
+
+
+    public void resetTurn() {
+        resetViewValues();
     }
 }

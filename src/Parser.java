@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -15,9 +16,9 @@ import static java.lang.Integer.parseInt;
  * @author James Grieder
  * @version 1.0
  */
-public class Parser {
+public class Parser implements Serializable {
 
-    private Scanner scanner;
+    transient private Scanner scanner;
 
 
     /**

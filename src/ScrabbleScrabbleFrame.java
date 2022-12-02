@@ -19,7 +19,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel currentPlayerLabel;
     private JButton placeWordButton, swapButton, passButton, goButton, resetButton, playAIMoveButton;
     private JLabel gameStatusMessage;
-    private Game gameModel;
 
     private static final Color DOUBLE_WORD = new Color(234, 113, 227);
     private static final Color TRIPLE_WORD = new Color(229, 7, 7);

@@ -1,5 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * Player represents an individual player in the game of scrabblescrabble.
@@ -11,7 +13,7 @@ import java.util.Collections;
  * @author James Grieder
  * @version 1.0
  */
-public class Player
+public class Player implements Serializable
 {
     private String name;
     private Integer score;
@@ -37,7 +39,6 @@ public class Player
         score = 0;
         tray = new Tray();
         isAIPlayer = isAI;
-        AI = new AIHelper(Game.getBoard());
     }
 
 
@@ -196,7 +197,7 @@ public class Player
      * @return A string representing an AI Player's next move
      */
     public String getNextAIMove() {
-        return AI.getNextAIMove(tray);
+        return AIHelper.getNextAIMove(tray);
     }
 
 
@@ -213,4 +214,19 @@ public class Player
         tray.removeLetter(remove);
         tray.addLetter(String.valueOf(Letters.__));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        if (isAIPlayer != player.isAIPlayer) return false;
+        if (!name.equals(player.name)) return false;
+        if (!score.equals(player.score)) return false;
+        return Objects.equals(tray, player.tray);
+    }
+
+
 }

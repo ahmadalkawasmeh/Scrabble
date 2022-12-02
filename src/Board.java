@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -5,7 +6,7 @@ import java.util.*;
  * The Board for scrabblescrabble.  Represents a square grid of squares, where
  * each square is able to hold one letter.
  */
-public class Board {
+public class Board implements Serializable {
 
 
     enum scores{DL, TL, DW, TW}
