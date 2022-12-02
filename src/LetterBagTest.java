@@ -23,7 +23,6 @@ public class LetterBagTest {
 //
 //    }
 
-    //Deliverable 2
     @Test
     public void initialLettersLeft(){
         assertEquals(26,bag.lettersLeft());

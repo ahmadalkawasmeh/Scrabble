@@ -26,9 +26,7 @@ public class PlayerTest {
 
     @After
     public void tearDown() throws Exception {
-        p = null;
-        p2 = null;
-        p3 = null;
+
     }
 
 

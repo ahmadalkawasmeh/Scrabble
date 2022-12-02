@@ -331,11 +331,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
     }
 
-    @Override
-    public void loadView() {
-
-    }
-
 
     /**
      * Provides the letter the player selected the blank to be.

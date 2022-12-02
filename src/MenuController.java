@@ -53,7 +53,6 @@ public class MenuController implements ActionListener, Serializable {
                 model = g;
                 model.addView(view);
                 model.updateViews();
-                view.loadView(); // TODO fix things that arent updated
 
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

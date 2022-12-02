@@ -32,7 +32,8 @@ public class LetterBag {
      *
      * @return a random letter from the LetterBag.
      */
-    public String drawRandomLetter() {
+    public String drawRandomLetter() { // TODO need to fix IllegalArgumentException
+
         String letter;
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
@@ -85,7 +86,7 @@ public class LetterBag {
      * @return The quantity of letter in letter bag.
      */
     public int letterQuantity(String letter){
-        return letterQuantities.get(letter);
+            return letterQuantities.get(letter); // TODO need to fix the nullPointerException here.
     }
 
 
