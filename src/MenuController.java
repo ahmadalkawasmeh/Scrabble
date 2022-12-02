@@ -49,6 +49,7 @@ public class MenuController implements ActionListener, Serializable {
             String fileName = JOptionPane.showInputDialog("Please input a file name to import from");
             try {
                 Game g = Game.importGameFile(new File(fileName));
+                g.loadGame();
                 model = g;
                 model.addView(view);
                 model.updateViews();

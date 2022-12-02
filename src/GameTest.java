@@ -26,6 +26,7 @@ public class GameTest {
     public void testSerialize() throws IOException, ClassNotFoundException {
         game1.saveGame(file);
         game2 = Game.importGameFile(file);
+        game2.loadGame();
 
         assertTrue(game1.equals(game2));
     }

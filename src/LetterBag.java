@@ -7,7 +7,7 @@ import java.util.*;
  * @author Ibtasam Rasool
  * @version 1.0
  */
-public class LetterBag implements Serializable {
+public class LetterBag {
 
     private HashMap<String, Integer> letterQuantities;
 
@@ -32,7 +32,8 @@ public class LetterBag implements Serializable {
      *
      * @return a random letter from the LetterBag.
      */
-    public String drawRandomLetter() {
+    public String drawRandomLetter() { // TODO need to fix IllegalArgumentException
+
         String letter;
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
@@ -85,7 +86,7 @@ public class LetterBag implements Serializable {
      * @return The quantity of letter in letter bag.
      */
     public int letterQuantity(String letter){
-        return letterQuantities.get(letter);
+            return letterQuantities.get(letter); // TODO need to fix the nullPointerException here.
     }
 
 
@@ -114,5 +115,29 @@ public class LetterBag implements Serializable {
         } else {
             letterQuantities.put(letter, 1);
         }
+    }
+
+    public HashMap<String, Integer> getContents() {
+        return this.letterQuantities;
+    }
+
+    public void updateContents(HashMap<String, Integer> letterBagContents) {
+        this.letterQuantities.clear();
+        this.letterQuantities.putAll(letterBagContents);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LetterBag letterBag = (LetterBag) o;
+
+        return Objects.equals(letterQuantities, letterBag.letterQuantities);
+    }
+
+    @Override
+    public int hashCode() {
+        return letterQuantities != null ? letterQuantities.hashCode() : 0;
     }
 }
