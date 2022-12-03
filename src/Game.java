@@ -33,6 +33,7 @@ public class Game implements Serializable {
     private ArrayList<Integer> endingWordPos;
     private String currentWord;
     private int lengthOfWordBeingBuilt;
+
     private String input;
     private final boolean resetBoard = true;
     private boolean swapState;

@@ -33,13 +33,13 @@ public class MenuController implements ActionListener, Serializable {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(MenuCommands.NEW)){
+        if(e.getActionCommand().equals(MenuCommands.NEW.name())){
             view.quitView();
             ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
         }
 
         model.resetTurn();
-        if(e.getActionCommand().equals(MenuCommands.SAVE)){
+        if(e.getActionCommand().equals(MenuCommands.SAVE.name())){
             String fileName = JOptionPane.showInputDialog("Please input a file name to export to");
             try {
                 model.saveGame(new File(fileName));
@@ -50,7 +50,7 @@ public class MenuController implements ActionListener, Serializable {
 
 
 
-        if(e.getActionCommand().equals(MenuCommands.LOAD)) {
+        if(e.getActionCommand().equals(MenuCommands.LOAD.name())) {
             String fileName = JOptionPane.showInputDialog("Please input a file name to import from");
             try {
                 Game g = Game.importGameFile(new File(fileName));
@@ -67,16 +67,16 @@ public class MenuController implements ActionListener, Serializable {
         }
 
 
-        if(e.getActionCommand().equals(MenuCommands.QUIT)){
+        if(e.getActionCommand().equals(MenuCommands.QUIT.name())){
             view.quitView();
             System.exit(0);
         }
 
 
-        if(e.getActionCommand().equals(MenuCommands.UNDO)){}
+        if(e.getActionCommand().equals(MenuCommands.UNDO.name())){}
 
 
-        if(e.getActionCommand().equals(MenuCommands.REDO)){}
+        if(e.getActionCommand().equals(MenuCommands.REDO.name())){}
 
     }
 

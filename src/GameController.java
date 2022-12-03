@@ -8,6 +8,12 @@ import java.io.Serializable;
  */
 public class GameController implements ActionListener, Serializable {
 
+    public enum gameCommands{
+
+        PLACE, PASS, RESET, SWAP, GO, AI    //said AI was used
+
+    }
+
     private Game model;
 
     /**
@@ -21,22 +27,22 @@ public class GameController implements ActionListener, Serializable {
 
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getActionCommand().equals("PLACE")){
+        if(e.getActionCommand().equals(gameCommands.PLACE.name())){
             model.placeWord();
         }
-        if(e.getActionCommand().equals("PASS")){
+        if(e.getActionCommand().equals(gameCommands.PASS.name())){
             model.swapNoParameters(false);
         }
-        if(e.getActionCommand().equals("RESET")){
+        if(e.getActionCommand().equals(gameCommands.RESET.name())){
             model.reset();
         }
-        if(e.getActionCommand().equals("SWAP")){
+        if(e.getActionCommand().equals(gameCommands.SWAP.name())){
             model.swapNoParameters(true);
         }
-        if(e.getActionCommand().equals("GO")){
+        if(e.getActionCommand().equals(gameCommands.GO.name())){
             model.swapNoParameters(false);
         }
-        if(e.getActionCommand().equals("AI")){
+        if(e.getActionCommand().equals(gameCommands.AI.name())){
             model.play("test");
         }
     }
