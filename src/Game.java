@@ -74,6 +74,7 @@ public class Game implements Serializable {
         finished = false;
 
         lettersToSwap = "";
+
     }
 
 
@@ -88,6 +89,11 @@ public class Game implements Serializable {
         coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
         updateViews();
+        try {
+            saveToUndoStack();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -146,6 +152,11 @@ public class Game implements Serializable {
                  processWord(move);
              }
              processWord(move);
+        }
+        try {
+            saveToUndoStack();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -504,12 +515,6 @@ public class Game implements Serializable {
 
         }
 
-        try {
-            saveToUndoStack();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
 
@@ -678,12 +683,14 @@ public class Game implements Serializable {
     public void undo() throws Exception{
         byte[] currentStateArray = undoStack.pop();
         byte[] arrayToRead = undoStack.pop();
+        undoStack.push(arrayToRead);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arrayToRead);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
 
         Game game = (Game) ois.readObject();
         saveToRedoStack(currentStateArray);
         setGameFieldsRedoUndo(game);
+        updateViews();
 
     }
 
@@ -697,6 +704,7 @@ public class Game implements Serializable {
 
         Game game = (Game) ois.readObject();
         setGameFieldsRedoUndo(game);
+        updateViews();
 
 
     }
