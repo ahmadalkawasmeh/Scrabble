@@ -73,10 +73,22 @@ public class MenuController implements ActionListener, Serializable {
         }
 
 
-        if(e.getActionCommand().equals(MenuCommands.UNDO.name())){}
+        if(e.getActionCommand().equals(MenuCommands.UNDO.name())){
+            try {
+                model.undo();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 
 
-        if(e.getActionCommand().equals(MenuCommands.REDO.name())){}
+        if(e.getActionCommand().equals(MenuCommands.REDO.name())){
+            try {
+                model.redo();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 
     }
 

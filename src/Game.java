@@ -3,6 +3,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -42,6 +43,10 @@ public class Game implements Serializable {
     private boolean blankPlaced;
     private static AIHelper AI;
 
+    private Stack<byte[]> undoStack;
+
+    private Stack<byte[]> redoStack;
+
 
     /**
      * Initializes all aspects and then starts the game.
@@ -53,6 +58,10 @@ public class Game implements Serializable {
      */
     public Game(int numPlayers, int numAIPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
+
+        undoStack = new Stack<>();
+
+        redoStack = new Stack<>();
 
         players = new ArrayList<Player>();
         views = new ArrayList<>();
@@ -494,6 +503,13 @@ public class Game implements Serializable {
 
 
         }
+
+        try {
+            saveToUndoStack();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
@@ -627,7 +643,76 @@ public class Game implements Serializable {
         return game;
     }
 
+    /**
+     * saves current game state to undo stack
+     * @throws Exception
+     */
+    public void saveToUndoStack() throws Exception{
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 
+        oos.writeObject(this);
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+
+        undoStack.push(byteArray);
+
+    }
+
+    /**
+     * saves the current state to redo stack so it can be brought back
+     * @param arrayToRead
+     * @throws Exception
+     */
+    public void saveToRedoStack(byte[] arrayToRead) throws Exception{
+
+        redoStack.push(arrayToRead);
+
+    }
+
+    /**
+     * sets game to previous state
+     * @throws Exception
+     */
+    public void undo() throws Exception{
+        byte[] currentStateArray = undoStack.pop();
+        byte[] arrayToRead = undoStack.pop();
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arrayToRead);
+        ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+
+        Game game = (Game) ois.readObject();
+        saveToRedoStack(currentStateArray);
+        setGameFieldsRedoUndo(game);
+
+    }
+
+    /**
+     * reverses an undo re-do the move
+     * @throws Exception
+     */
+    public void redo() throws Exception{
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoStack.pop());
+        ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+
+        Game game = (Game) ois.readObject();
+        setGameFieldsRedoUndo(game);
+
+
+    }
+
+    /**
+     * changes the current game fields to the respective fields of a game state that was loaded in from undo or redo
+     * @param game
+     */
+    public void setGameFieldsRedoUndo(Game game){
+        this.board = game.board;
+        System.out.println(game.board);
+        this.currentPlayer = game.currentPlayer;
+        this.players = game.players;
+        this.letterBagContents = game.letterBagContents;
+
+    }
 
     public void loadGame() {
         letterBag.loadContents(letterBagContents);

@@ -100,8 +100,13 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
         JMenuItem undoMenuItem = new JMenuItem("Undo");
         gameHistoryOptions.add(undoMenuItem);
+        undoMenuItem.addActionListener(menuController);
+        undoMenuItem.setActionCommand("UNDO");
+
         JMenuItem redoMenuItem = new JMenuItem("Redo");
+        redoMenuItem.setActionCommand("REDO");
         gameHistoryOptions.add(redoMenuItem);
+        redoMenuItem.addActionListener(menuController);
 
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
