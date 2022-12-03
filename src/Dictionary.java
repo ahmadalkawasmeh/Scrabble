@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,9 +12,9 @@ import java.io.FileReader;
  * @author James Grieder
  * @version 1.0
  */
-public class Dictionary
+public class Dictionary implements Serializable
 {
-    private HashSet<String> legalWords; // The list of legal words that can be placed on the board
+    private static HashSet<String> legalWords; // The list of legal words that can be placed on the board
     private HashSet<String> AILegalWords; // A dictionary used to construct words for AI players
 
 
@@ -62,8 +63,10 @@ public class Dictionary
 
 
     /**
-     * Generates a possible list of legal words found in the dictionary based on an AI player's tray.
-     * An AI Player invokes this method to determine what words may be played on a specific turn.
+     * Generates a possible list of legal words found in the dictionary based
+     * on an AI player's tray, and a letter on the board.
+     * An AI Player invokes this method to determine what words may be played
+     * on a specific turn.
      *
      * @param tray The AI Player's tray representing the possible letters
      * @param letter The currently selected letter on the board to build a word off of
@@ -96,6 +99,40 @@ public class Dictionary
                     System.out.println(s);
                     possibleWords.add(s);
                 }
+            }
+        }
+        return possibleWords;
+    }
+
+
+    /**
+     * Generates a possible list of legal words found in the dictionary
+     * based on an AI player's tray.
+     * An AI Player invokes this method to determine what words may be
+     * played as the first word in the game.
+     *
+     * @param tray The AI Player's tray representing the possible letter.
+     * @return The list of legal words found in the tray
+     */
+    public static ArrayList<String> generateFirstWord(Tray tray) {
+        ArrayList<String> possibleWords = new ArrayList<>();
+
+        for (String s : legalWords) {
+
+            String[] strSplit = s.split("");
+
+            ArrayList<String> currentWord = new ArrayList<>(Arrays.asList(strSplit));
+
+            boolean lettersPresent = true;
+
+            for (int i = 0; i < currentWord.size(); i++) {
+                if (!tray.checkLetterInTray(currentWord.get(i).toUpperCase())) {
+                    lettersPresent = false;
+                }
+            }
+
+            if (lettersPresent) {
+                possibleWords.add(s);
             }
         }
         return possibleWords;

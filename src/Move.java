@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Move represents an action taken by the Players of the Game.
  * A Move is created from user input via the keyboard, and
@@ -6,7 +8,7 @@
  * @author James Grieder
  * @version 1.0
  */
-public class Move {
+public class Move implements Serializable {
 
     private String firstWord;
     private String secondWord;

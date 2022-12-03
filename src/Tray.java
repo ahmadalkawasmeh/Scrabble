@@ -1,5 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+import static java.lang.Math.round;
 
 /**
  * Represents a Player's letter tray.
@@ -10,14 +15,14 @@ import java.util.Collections;
  * @author Ibtasam Rasool
  * @version 1.0
  */
-public class Tray
+public class Tray implements Serializable
 {
     public static final int SIZE = 7; // The maximum number of letters a tray can hold
     public static final int SWAP_CONSTANT = 4;
 
     private ArrayList<String> letters; // The letters in this tray
 
-    private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
+    transient private LetterBag letterBag; // The LetterBag to fill the tray from (shared by all Trays)
 
 
     /**
@@ -29,6 +34,21 @@ public class Tray
         letters = new ArrayList<>();
         letterBag = Game.getLetterBag();
         this.fill();
+    }
+
+    /**
+     * Initializes a Tray and fills it with the specified trayValues.
+     * Used for testing purposes to force-set a tray to desired values.
+     * @param trayValues The values to set the tray to
+     */
+    public Tray(String trayValues)
+    {
+        String tray[] = trayValues.split(" ", Tray.SIZE);
+        letters = new ArrayList<>(List.of(tray));
+    }
+
+    public void fillBag(){
+        letterBag.fillBagForTesting();
     }
 
 
@@ -91,8 +111,9 @@ public class Tray
      * @param letter The letter to remove.
      */
     public void removeLetter(String letter) {
-                this.letters.remove(letter);
+        this.letters.remove(letter);
     }
+
 
 
     /**
@@ -176,6 +197,17 @@ public class Tray
         return lettersToSwap;
     }
 
+    public String AIGenerateFirstWordOnBoard() {
+        ArrayList<String> possibleWords = Dictionary.generateFirstWord(this);
+
+        for (int i = 0; i < possibleWords.size(); i++) {
+            if (possibleWords.get(i).length() >= 3) {
+                return possibleWords.get(i); // If possible, return a word of length 3 or more
+            }
+        }
+        return possibleWords.get(0); // otherwise return the first possible word
+    }
+
 
     /**
      * Gets the number of letters left in this Tray.
@@ -198,4 +230,18 @@ public class Tray
     public void addLetter(String letter){
         letters.add(letter);
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tray tray = (Tray) o;
+
+        return Objects.equals(letters, tray.letters);
+    }
+
+
+
 }

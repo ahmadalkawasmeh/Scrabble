@@ -1,7 +1,9 @@
+import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Game represents the game of scrabblescrabble.  The game simulates a mock version of the Scrabble board game that
@@ -9,17 +11,19 @@ import java.util.List;
  * Players can add words to the board, pass their turn, swap their pieces with the letterbag, and quit the game.
  * Developed by Ibtasam & James & Daniel
  */
-public class Game {
+public class Game implements Serializable {
 
-    private ArrayList<ScrabbleScrabbleView> views;
-    private static Board board;
-    public static ArrayList<Player> players;
-    private Player currentPlayer;
-    private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
+    private final ArrayList<ScrabbleScrabbleView> views;
+    private Board board;
+    public ArrayList<Player> players;
+    public Player currentPlayer;
+    final private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
+
+    public HashMap<String, Integer> letterBagContents;
     // private Round currentRound;
     // will be used in the future//private Stack<Round> roundHistory; // will be used for undo/redo in the future
     public static Dictionary dictionary;
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private boolean finished;
     private int zeroScoreTurns = 0; // Track for a game-ending condition
     private String currentSelectedTrayValue;
@@ -30,13 +34,18 @@ public class Game {
     private ArrayList<Integer> endingWordPos;
     private String currentWord;
     private int lengthOfWordBeingBuilt;
+
     private String input;
-    private boolean resetBoard = true;
+    private final boolean resetBoard = true;
     private boolean swapState;
     private String lettersToSwap;
     private HashMap<Integer, String> coordinatesOfWordToPlace;
     private boolean blankPlaced;
-    private AIHelper AI;
+    private static AIHelper AI;
+
+    private Stack<byte[]> undoStack;
+
+    private Stack<byte[]> redoStack;
 
 
     /**
@@ -50,6 +59,10 @@ public class Game {
     public Game(int numPlayers, int numAIPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
+        undoStack = new Stack<>();
+
+        redoStack = new Stack<>();
+
         players = new ArrayList<Player>();
         views = new ArrayList<>();
         // roundHistory = new Stack<Round>(); // for the future
@@ -61,6 +74,7 @@ public class Game {
         finished = false;
 
         lettersToSwap = "";
+
     }
 
 
@@ -75,6 +89,11 @@ public class Game {
         coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
         updateViews();
+        try {
+            saveToUndoStack();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -134,6 +153,11 @@ public class Game {
              }
              processWord(move);
         }
+        try {
+            saveToUndoStack();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -166,6 +190,9 @@ public class Game {
         return word;
     }
 
+    public void importCustomBoard(){
+        
+    }
 
     /**
      * Converts an AI Player input Move into a word object
@@ -327,7 +354,7 @@ public class Game {
     public void getPlayerScores(){
         System.out.println("--------------");
         System.out.println("Player scores:");
-        System.out.println("");
+        System.out.println();
         for (Player p : players){
             System.out.println(p.toString() + ": " + p.getScore());
         }
@@ -487,6 +514,7 @@ public class Game {
 
 
         }
+
     }
 
 
@@ -548,9 +576,11 @@ public class Game {
      *
      * @return The board being used for this Game.
      */
-    public static Board getBoard() {
+    public Board getBoard() {
         return board;
     }
+
+
 
     /**
      * Returns the speciality of this square
@@ -588,5 +618,150 @@ public class Game {
             currentSelectedBoardValue = coordinates;
             selectBoardValue(coordinates);
         }
+    }
+
+
+    /**
+     * Saves the Game using serialization
+     */
+    public void saveGame(File outputFileName) throws IOException {
+        letterBagContents = letterBag.copyContents();
+
+        FileOutputStream ostream = new FileOutputStream(outputFileName);
+        ObjectOutputStream p = new ObjectOutputStream(ostream);
+
+        p.writeObject(this);
+
+        ostream.close();
+    }
+
+
+    /**
+     * Loads the Game using serialization
+     */
+    public static Game importGameFile(File inputFileName) throws IOException, ClassNotFoundException {
+        FileInputStream istream = new FileInputStream(inputFileName);
+        ObjectInputStream o = new ObjectInputStream(istream);
+
+        Game game = (Game) o.readObject();
+
+        return game;
+    }
+
+    /**
+     * saves current game state to undo stack
+     * @throws Exception
+     */
+    public void saveToUndoStack() throws Exception{
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
+
+        oos.writeObject(this);
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+
+        undoStack.push(byteArray);
+
+    }
+
+    /**
+     * saves the current state to redo stack so it can be brought back
+     * @param arrayToRead
+     * @throws Exception
+     */
+    public void saveToRedoStack(byte[] arrayToRead) throws Exception{
+
+        redoStack.push(arrayToRead);
+
+    }
+
+    /**
+     * sets game to previous state
+     * @throws Exception
+     */
+    public void undo() throws Exception{
+        byte[] currentStateArray = undoStack.pop();
+        byte[] arrayToRead = undoStack.pop();
+        undoStack.push(arrayToRead);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arrayToRead);
+        ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+
+        Game game = (Game) ois.readObject();
+        saveToRedoStack(currentStateArray);
+        setGameFieldsRedoUndo(game);
+        updateViews();
+
+    }
+
+    /**
+     * reverses an undo re-do the move
+     * @throws Exception
+     */
+    public void redo() throws Exception{
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoStack.pop());
+        ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+
+        Game game = (Game) ois.readObject();
+        setGameFieldsRedoUndo(game);
+        updateViews();
+
+
+    }
+
+    /**
+     * changes the current game fields to the respective fields of a game state that was loaded in from undo or redo
+     * @param game
+     */
+    public void setGameFieldsRedoUndo(Game game){
+        this.board = game.board;
+        System.out.println(game.board);
+        this.currentPlayer = game.currentPlayer;
+        this.players = game.players;
+        this.letterBagContents = game.letterBagContents;
+
+    }
+
+    public void loadGame() {
+        letterBag.loadContents(letterBagContents);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+
+
+        if (finished != game.finished) return false;
+        System.out.println("finished is good");
+        if (zeroScoreTurns != game.zeroScoreTurns) return false;
+        System.out.println("zeroScoreTurns is good");
+        if (letterBag != game.letterBag) return false;
+        System.out.println("letterbag is good");
+
+        for (int i = 0; i < players.size(); i++) {
+            if (!players.get(i).equals(game.players.get(i))) {
+                System.out.println("Checking player " + i);
+                return false;
+            }
+        }
+        System.out.println("players is good");
+
+        if (!board.getBoardValues().equals(game.board.getBoardValues())) return false; // TODO delegate
+        System.out.println("board is good");
+
+        if (!currentPlayer.equals(game.currentPlayer)) return false;
+        System.out.println("currentPlayer is good...AI is not");
+        return AI.equals(AI);
+
+
+
+    }
+
+
+    public void resetTurn() {
+        resetViewValues();
     }
 }

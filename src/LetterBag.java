@@ -31,7 +31,8 @@ public class LetterBag {
      *
      * @return a random letter from the LetterBag.
      */
-    public String drawRandomLetter() {
+    public String drawRandomLetter() { // TODO need to fix IllegalArgumentException
+
         String letter;
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
@@ -84,12 +85,18 @@ public class LetterBag {
      * @return The quantity of letter in letter bag.
      */
     public int letterQuantity(String letter){
-        return letterQuantities.get(letter);
+        if (letterQuantities.get(letter) != null) {
+            return letterQuantities.get(letter);
+        }
+        return 0;
     }
 
 
     /**
-     * Returns the total amount of letters remaining in this LetterBag.
+     * Returns the amount of possible letters remaining in this LetterBag.
+     * NOTE: This returns the number of unique letters, not the total number of letters.
+     * i.e. If the LetterBag contains A, A, B, this method returns 2.
+     *
      * Made Public for testing in Deliverable 2
      * Developed by: Ibtasam Rasool
      *
@@ -114,4 +121,57 @@ public class LetterBag {
             letterQuantities.put(letter, 1);
         }
     }
+
+
+    /**
+     * Gets a copy of the LetterBag's current contents.
+     * Used to save the LetterBag for serialization.
+     *
+     * @return the contents of this LetterBag.
+     */
+    public HashMap<String, Integer> copyContents() {
+        return this.letterQuantities;
+    }
+
+
+    /**
+     * Updates the contents of this LetterBag based on letterBagContents.
+     * Used to load the LetterBag (deserialization).
+     *
+     * @param letterBagContents the contents to load the LetterBag with.
+     */
+    public void loadContents(HashMap<String, Integer> letterBagContents) {
+        this.letterQuantities.clear();
+        this.letterQuantities.putAll(letterBagContents);
+    }
+
+
+    /**
+     * Fills the LetterBag to its default contents.
+     * Used for testing purposes.
+     */
+    public void fillBagForTesting() {
+        for(Letters letter: Letters.values()){
+            letterQuantities.put(letter.toString(), letter.getQuantity());
+        }
+    }
+
+    public int getTotalLetters() {
+        int total = 0;
+        for (Integer i : letterQuantities.values()) {
+            total += i;
+        }
+        return total;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LetterBag letterBag = (LetterBag) o;
+
+        return Objects.equals(letterQuantities, letterBag.letterQuantities);
+    }
+
 }

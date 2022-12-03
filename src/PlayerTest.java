@@ -1,3 +1,5 @@
+import net.jcip.annotations.NotThreadSafe;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +11,7 @@ import static org.junit.Assert.*;
 /**
  * A test class for the Player class.
  */
+@NotThreadSafe
 public class PlayerTest {
 
     Player p, p2, p3;
@@ -16,8 +19,21 @@ public class PlayerTest {
     @Before
     public void setUp() throws Exception {
         p = new Player("Weird Al", false);
+        p.fillBag();
+        System.out.println("p bag:" + p.getLetterBag().lettersLeft());
         p2 = new Player("P2", false);
+        p2.fillBag();
+        System.out.println("p2 bag:" + p2.getLetterBag().lettersLeft());
         p3 = new Player("James", false);
+        p3.fillBag();
+        System.out.println("p3 bag:" + p3.getLetterBag().lettersLeft());
+
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
+
     }
 
 
@@ -29,12 +45,13 @@ public class PlayerTest {
 
     @Test
     public void testConstructorInitialNameIsCorrect() { // should update test after GUI (break from player input?)
-        assertTrue(p.toString().equals("Weird Al"));
+        assertEquals("Weird Al", p.toString());
     }
 
 
     @Test
-    public void testConstructorInitialTrayIsSetUp() { assertTrue(p.numberOfLettersLeftInTray() == Tray.SIZE);
+    public void testConstructorInitialTrayIsSetUp() {
+        assertTrue(p.numberOfLettersLeftInTray() == Tray.SIZE);
 
     }
 

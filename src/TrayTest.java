@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 
@@ -14,6 +16,7 @@ public class TrayTest {
     @Before
     public void setUp() throws Exception {
         t = new Tray();
+        t.fillBag();
     }
 
 
@@ -26,12 +29,16 @@ public class TrayTest {
 
     @Test
     public void testRemoveLetterRemoves1LetterAtATimeUntilEmpty() {
+        String letters = "";
         Tray testTray = t;
-        int i = Tray.SIZE-1;
         for(String letter : testTray.getLetters()){
-            t.removeLetter(letter);
-            assertEquals(i,t.getLetters().size());
-            i -= 1;
+            letters += letter;
+        }
+        int expectedSize = Tray.SIZE;
+        for(int i = 0; i < letters.length(); i ++) {
+            t.removeLetter("" + letters.charAt(i));
+            expectedSize--;
+            assertEquals(expectedSize, t.getLetters().size());
         }
     }
 
@@ -48,6 +55,20 @@ public class TrayTest {
 
 
     @Test
+    public void testRemoveBlank() {
+        Tray testTray = new Tray("A B C __ D E F");
+        String blank = "__";
+        assertEquals(1, testTray.checkInTrayFrequency(blank));
+        System.out.println("before: " + testTray);
+
+        testTray.removeLetter("__");
+        System.out.println("after: " + testTray);
+
+        assertEquals(0, testTray.checkInTrayFrequency(blank));
+    }
+
+
+    @Test
     public void testReturnLetterToBag() {
         Tray testTray = t;
         String letter = t.getLetters().get(0);
@@ -57,12 +78,20 @@ public class TrayTest {
         assertTrue(t.getLetterBag().letterQuantity(letter) > bagFreq);
     }
 
+
     @Test
     public void testFillFillsAnEmptyTray() {
+        ArrayList<String> letters = new ArrayList<>();
+        String string = "";
         Tray testTray = t;
-        for(String letter : testTray.getLetters()){
-            t.removeLetter(letter);
+        for(int i = 0; i < testTray.getLetters().size();i++){
+            letters.add(i,testTray.getLetters().get(i));
         }
+        for(int i = 0; i < letters.size(); i ++) {
+            t.removeLetter("" + letters.get(i));
+        }
+
+        assertEquals(0,t.getLetters().size());
         t.fill();
         assertEquals(Tray.SIZE,t.getLetters().size());
     }

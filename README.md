@@ -74,7 +74,7 @@ Upon opening the game, you are first prompted to choose the total number of play
 	- UML Diagram M3 Submission FINAL.png
 		- This UML diagram outlines the current class structure of the program
 	- Sequence Diagram 1: gameInitializationSequence.png
-		- Demonstrates how the scrabblescrabble Game class is initialized
+		- Demonstrates how the ScrabbleScrabble Game class is initialized
 	- Sequence Diagram 2: placeWord.png
 		- Demonstrates how a Word object is placed on the board
 	- Sequence Diagram 3: swapLetter.png
@@ -90,8 +90,24 @@ Upon opening the game, you are first prompted to choose the total number of play
 
 # New Updates
 
-This iteration represents milestone 3 of 4.  Newly introduced features for this version include:
+This iteration represents milestone 4 of 4.  Newly introduced features, listed by contributor, for this milestone include:
 
+- Ahmad Alkawasmeh - 101108706
+  - 
+
+- James Grieder - 101177911
+  - Implemented save/load functionality for game features included in milestone 3 (Java Serialization)
+  - AI now has the ability to place the first word
+  - Created AllTests test suite class
+
+- Daniel Kuchanski - 101182041
+  - 
+
+- Ibtasam Rasool - 101186050
+  - 
+
+
+(Below is from milestone 3)
 - "Special squares" that allow for boosting a player's score depending on which squares they place their letters/words on
 	- Includes: Double Letter, Double Word, Triple Letter, and Triple Word score multipliers
 - Blank tiles, earning the player zero points but allowing the player to select any letter from the alphabet to place on the board 
@@ -101,25 +117,12 @@ This iteration represents milestone 3 of 4.  Newly introduced features for this 
 
 # Known Issues
 
-- Letters on the board can currently be overwritten by other players
+- AI Players can currently overwrite other letters on the board
 
-- Placing a word with shared letters is not functional (players can only currently use letters in their tray)
-
-- Adjacent words do not currently need to be legal
-	- Preliminary code and data structures are present, but not fully implemented
-
-- If a player places a word unsuccessfully (i.e. using a word not valid in the dictionary) the turn is skipped to the next player
-
-- Illegal coordinates can be used by the user
-	- out of bound letter coordinates raise an exception
-	- out of bound numerical coordinates cause the player to lose the letters used (points awarded, but the word is placed off of the board)
 
 
 # Future Milestones
 
-The project is currently in milestone 3 of 4.  Future milestones are scheduled to include the following features:
-	
-- Milestone 4: 
-	- Undo/Redo buttons that work over multiple turns
-	- The ability to save the game and reload it
-	- Custom scrabblescrabble boards with different premium square layouts
+The project is currently in milestone 4 of 4.  There are currently no future updates planned for ScrabbleScrabble.
+
+

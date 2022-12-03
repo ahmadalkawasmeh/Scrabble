@@ -3,6 +3,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * ScrabbleScrabbleFrame is a GUI view for the game of ScrabbleScrabble.
  * This view is a part of the MVC pattern. This view displays the game title,
@@ -19,7 +21,6 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
     private JLabel currentPlayerLabel;
     private JButton placeWordButton, swapButton, passButton, goButton, resetButton, playAIMoveButton;
     private JLabel gameStatusMessage;
-    private Game gameModel;
 
     private static final Color DOUBLE_WORD = new Color(234, 113, 227);
     private static final Color TRIPLE_WORD = new Color(229, 7, 7);
@@ -43,13 +44,24 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         String[] optionsForNumberOfPlayers = {"2", "3", "4"};
         Object input = JOptionPane.showInputDialog(this, "Select the total number of players (user and AI):",
                 "Player Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfPlayers, "2");
-        int numPlayers = Integer.parseInt((String) input);
+
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
+            this.quitView();
+            System.exit(0);
+        }
+        int numPlayers = parseInt((String) input);
+
 
         // Prompt the user for the number of AI players
         String[] optionsForNumberOfAIPlayers = {"0", "1", "2", "3"};
         input = JOptionPane.showInputDialog(this, "Select the number of AI players:",
                 "AI Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfAIPlayers, "1");
-        int numAIPlayers = Integer.parseInt((String) input);
+
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
+            this.quitView();
+            System.exit(0);
+        }
+        int numAIPlayers = parseInt((String) input);
 
         Game gameModel = new Game(numPlayers, numAIPlayers);
         BoardController boardController = new BoardController(gameModel);
@@ -88,8 +100,13 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
         JMenuItem undoMenuItem = new JMenuItem("Undo");
         gameHistoryOptions.add(undoMenuItem);
+        undoMenuItem.addActionListener(menuController);
+        undoMenuItem.setActionCommand("UNDO");
+
         JMenuItem redoMenuItem = new JMenuItem("Redo");
+        redoMenuItem.setActionCommand("REDO");
         gameHistoryOptions.add(redoMenuItem);
+        redoMenuItem.addActionListener(menuController);
 
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);

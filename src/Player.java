@@ -1,5 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * Player represents an individual player in the game of scrabblescrabble.
@@ -11,14 +13,13 @@ import java.util.Collections;
  * @author James Grieder
  * @version 1.0
  */
-public class Player
+public class Player implements Serializable
 {
     private String name;
     private Integer score;
     private Tray tray;
 
     boolean isAIPlayer;
-    private AIHelper AI;
 
 
     /**
@@ -37,7 +38,6 @@ public class Player
         score = 0;
         tray = new Tray();
         isAIPlayer = isAI;
-        AI = new AIHelper(Game.getBoard());
     }
 
 
@@ -72,6 +72,17 @@ public class Player
      */
     public ArrayList<String> getLetters() {
         return tray.getLetters();
+    }
+
+    /**
+     * Fill this Player's bag with the initial letter amounts
+     */
+    public void fillBag(){
+        tray.fillBag();
+    }
+
+    public LetterBag getLetterBag(){
+        return tray.getLetterBag();
     }
 
 
@@ -196,7 +207,7 @@ public class Player
      * @return A string representing an AI Player's next move
      */
     public String getNextAIMove() {
-        return AI.getNextAIMove(tray);
+        return AIHelper.getNextAIMove(tray);
     }
 
 
@@ -213,4 +224,24 @@ public class Player
         tray.removeLetter(remove);
         tray.addLetter(String.valueOf(Letters.__));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        System.out.println("here here here player");
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+        System.out.println("here here here player");
+
+        if (isAIPlayer != player.isAIPlayer) return false;
+        System.out.println("isAIPlayer is good");
+        if (!name.equals(player.name)) return false;
+        System.out.println("name is good");
+        if (!score.equals(player.score)) return false;
+        System.out.println("score is good...tray is not");
+        return Objects.equals(tray, player.tray);
+    }
+
+
 }

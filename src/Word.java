@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Ibtasam Rasool
  * @version 1.0
  */
-public class Word {
+public class Word implements Serializable {
 
     private String word; // The string representation of this Word
     private String position; // The position of the first character of this Word
@@ -180,7 +181,7 @@ public class Word {
      * @return List containing X and Y values of word in numeric form
      */
     public static ArrayList<Integer> numCoordinate(String coordinate){
-        StringBuilder sb = new StringBuilder(coordinate);
+        StringBuffer sb = new StringBuffer(coordinate);
         ArrayList<Integer> numericCoordinate = new ArrayList<>();
         numericCoordinate.add(Letters.valueOf(Character.toString(coordinate.charAt(0))).ordinal());
         sb.deleteCharAt(0);

@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The TrayController controls the current player's letter tray.
  */
-public class TrayController implements ActionListener {
+public class TrayController implements ActionListener, Serializable {
 
     private Game gameModel;
 

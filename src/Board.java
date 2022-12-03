@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -5,17 +6,23 @@ import java.util.*;
  * The Board for scrabblescrabble.  Represents a square grid of squares, where
  * each square is able to hold one letter.
  */
-public class Board {
+public class Board implements Serializable {
 
 
-    enum scores{DL, TL, DW, TW}
 
+
+    public enum scores{DL, TL, DW, TW}
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
-    private static String[][] usedSquares; // Squares that have letters placed on them
-    public static Enum[][] specialSquares; // Squares with special scoring modifiers
-    private HashMap<String, String> boardValues;
 
+    // The String coordinate of the centre square
+    public static final String CENTRE_SQUARE =
+            "" + Letters.getLetterFromOrdinal(((Board.SIZE) / 2)) + ((Board.SIZE + 1) / 2);
+
+    private String[][] usedSquares; // Squares that have letters placed on them
+    public static Enum[][] specialSquares; // Squares with special scoring modifiers
+
+    public HashMap<String, String> boardValues;
 
     /**
      * Initializes the scrabblescrabble game board, by setting up the board with empty values (no letters), an
@@ -171,7 +178,7 @@ public class Board {
                                                 = specialSquares[0][11] = specialSquares[7][11] =
                                                 specialSquares[13][11] = specialSquares[6][12] =
                                                         specialSquares[8][12] = specialSquares[3][14] =
-                                                                specialSquares[11][14] = scores.DW;
+                                                                specialSquares[11][14] = scores.DL;
     }
 
 
@@ -455,7 +462,7 @@ public class Board {
         if(startY == endY){
             for(int i = 0; i < (endX - startX) + 1; i++){
 
-                if(usedSquares[startY][startX + i].equals(" ") && coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
+                if(/*usedSquares[startY][startX + i].equals(" ") &&*/ coordinatesOfWordToPlace.containsKey(startY * 10 + (startX + i)))
 
                 {
                     wordToBuild += coordinatesOfWordToPlace.get(startY * 10 + (startX + i));
@@ -475,7 +482,7 @@ public class Board {
 
             for(int i = 0; i < (endY - startY) + 1; i++){
 
-                if(usedSquares[startY + i][startX].equals(" ") && coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
+                if(/*usedSquares[startY + i][startX].equals(" ") &&*/ coordinatesOfWordToPlace.containsKey( ((startY + i) * 10) + startX))
 
                 {
                     wordToBuild += coordinatesOfWordToPlace.get((startY + i) * 10 + startX);
@@ -575,12 +582,12 @@ public class Board {
 
 
     /**
-     * Returns whether or not the centre square is clear.
+     * Returns whether the centre square is clear.
      * The square is clear if there is not currently a letter placed on it.
      *
      * @return true if the centre square does not have a letter placed on it, false otherwise
      */
-    public static boolean centreSquareIsClear() {
+    public boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
     }
 
@@ -615,6 +622,29 @@ public class Board {
     public String getPossibleWordPosition(int x, int y) {
         return AIHelper.getPossibleWordPosition(x, y);
     }
+
+
+    /**
+     * Gets the boardValues of this board.
+     * Used for Java Serialization.
+     *
+     * @return the board values of this board.
+     */
+    public HashMap<String, String> getBoardValues() {
+        return boardValues;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Board board = (Board) o;
+
+        return Objects.equals(boardValues, board.boardValues);
+    }
+
 
 }
 

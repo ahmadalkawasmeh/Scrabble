@@ -46,10 +46,10 @@ public enum Letters {
    }
 
 
-   /**
+    /**
     * Gets the letterScore of this letter.
     * Developed by: James Grieder
-    * 
+    *
     * @return the letterScore of a letter.
     */
    public int getLetterScore() {
@@ -64,4 +64,8 @@ public enum Letters {
     * @return the default quantity of a letter.
     */
    public int getQuantity(){return this.defaultQuantity;}
+
+   public static Letters getLetterFromOrdinal(int i) {
+      return Letters.values()[i];
+   }
 }
