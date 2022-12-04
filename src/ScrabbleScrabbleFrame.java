@@ -395,6 +395,11 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
 
                     gameBoardButtons[j][i].setText(" ");
                 }
+                if ((!gameBoardButtons[j][i].isEnabled()) && gameBoardButtons[j][i].getText().equals(" ") ) {
+
+                    gameBoardButtons[j][i].setEnabled(true);
+
+                }
             }
 
         }

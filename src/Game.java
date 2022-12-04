@@ -690,6 +690,7 @@ public class Game implements Serializable {
         Game game = (Game) ois.readObject();
         saveToRedoStack(currentStateArray);
         setGameFieldsRedoUndo(game);
+        resetViewValues();
         updateViews();
 
     }
@@ -704,6 +705,7 @@ public class Game implements Serializable {
 
         Game game = (Game) ois.readObject();
         setGameFieldsRedoUndo(game);
+        resetViewValues();
         updateViews();
 
 
@@ -715,7 +717,6 @@ public class Game implements Serializable {
      */
     public void setGameFieldsRedoUndo(Game game){
         this.board = game.board;
-        System.out.println(game.board);
         this.currentPlayer = game.currentPlayer;
         this.players = game.players;
         this.letterBagContents = game.letterBagContents;
