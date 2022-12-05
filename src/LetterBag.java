@@ -174,4 +174,8 @@ public class LetterBag {
         return Objects.equals(letterQuantities, letterBag.letterQuantities);
     }
 
+    @Override
+    public String toString() {
+        return letterQuantities.toString();
+    }
 }

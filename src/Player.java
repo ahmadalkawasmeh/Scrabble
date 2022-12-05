@@ -52,6 +52,8 @@ public class Player implements Serializable
         return this.name;
     }
 
+    public Tray getTray() {return tray;}
+
 
     /**
      * Returns a String representation of the letters in this Player's tray.

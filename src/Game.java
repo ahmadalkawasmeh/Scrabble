@@ -724,6 +724,12 @@ public class Game implements Serializable {
         this.letterBagContents = game.letterBagContents;
         letterBag.loadContents(letterBagContents);    //TEST
 
+        for(Player player : players){
+            player.getTray().setLetterBag(letterBag);
+        }
+
+        System.out.println(letterBag);
+
     }
 
     public void loadGame() {

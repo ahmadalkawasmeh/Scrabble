@@ -36,6 +36,10 @@ public class Tray implements Serializable
         this.fill();
     }
 
+    public void setLetterBag(LetterBag letterBag){
+        this.letterBag = letterBag;
+    }
+
     /**
      * Initializes a Tray and fills it with the specified trayValues.
      * Used for testing purposes to force-set a tray to desired values.
