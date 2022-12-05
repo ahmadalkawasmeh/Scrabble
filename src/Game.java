@@ -653,6 +653,7 @@ public class Game implements Serializable {
      * @throws Exception
      */
     public void saveToUndoStack() throws Exception{
+        letterBagContents = letterBag.copyContents();                                    //CAREFUL TEST THIS
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 
@@ -683,6 +684,7 @@ public class Game implements Serializable {
     public void undo() throws Exception{
         byte[] currentStateArray = undoStack.pop();
         byte[] arrayToRead = undoStack.pop();
+        this.letterBagContents = letterBag.copyContents();  //TEST
         undoStack.push(arrayToRead);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arrayToRead);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
@@ -690,7 +692,7 @@ public class Game implements Serializable {
         Game game = (Game) ois.readObject();
         saveToRedoStack(currentStateArray);
         setGameFieldsRedoUndo(game);
-        resetViewValues();
+        //resetViewValues();
         updateViews();
 
     }
@@ -705,7 +707,7 @@ public class Game implements Serializable {
 
         Game game = (Game) ois.readObject();
         setGameFieldsRedoUndo(game);
-        resetViewValues();
+        //resetViewValues();
         updateViews();
 
 
@@ -720,6 +722,7 @@ public class Game implements Serializable {
         this.currentPlayer = game.currentPlayer;
         this.players = game.players;
         this.letterBagContents = game.letterBagContents;
+        letterBag.loadContents(letterBagContents);    //TEST
 
     }
 
