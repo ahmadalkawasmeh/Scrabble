@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Math.round;
 
 /**
  * Represents a Player's letter tray.
