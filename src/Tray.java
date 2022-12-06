@@ -201,6 +201,12 @@ public class Tray implements Serializable
         return lettersToSwap;
     }
 
+    /**
+     * Generates a word from an AIPlayer's tray that can be played
+     * when there are no letters currently on the board.
+     *
+     * @return A word to be played on the board.
+     */
     public String AIGenerateFirstWordOnBoard() {
         ArrayList<String> possibleWords = Dictionary.generateFirstWord(this);
 

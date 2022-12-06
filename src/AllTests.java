@@ -20,6 +20,7 @@ import org.junit.BeforeClass;
  */
 public class AllTests {
 
+
     @BeforeClass
     public static void setUpClass() {}
 
