@@ -318,7 +318,7 @@ public class Game implements Serializable {
      *
      * @return true if the game will continue, false otherwise.
      */
-    /* public boolean playRound(){
+    /* public boolean playRound(){ // TODO turn on game ending conditions
         nextPlayer();
         currentRound = new Round(currentPlayer);
         if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || zeroScoreTurns == 6){
@@ -422,7 +422,7 @@ public class Game implements Serializable {
             currentSelectedTrayValue = fetchBlankState();
         }
         if(!currentSelectedTrayValue.equals(" ")){
-            //currentWord += currentSelectedTrayValue; //address this
+            //currentWord += currentSelectedTrayValue; //TODO address this
             currentSelectedBoardValue = boardValue;
             if(startingWordPos == null){
                 startingWordPos = currentSelectedBoardValue;
@@ -651,7 +651,7 @@ public class Game implements Serializable {
      * @throws Exception
      */
     public void saveToUndoStack() throws Exception{
-        letterBagContents = letterBag.copyContents();                                    //CAREFUL TEST THIS
+        letterBagContents = letterBag.copyContents();                                    //TODO CAREFUL TEST THIS
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 
@@ -720,7 +720,7 @@ public class Game implements Serializable {
         this.currentPlayer = game.currentPlayer;
         this.players = game.players;
         this.letterBagContents = game.letterBagContents;
-        letterBag.loadContents(letterBagContents);    //TEST
+        letterBag.loadContents(letterBagContents);    //TODO TEST
 
         for(Player player : players){
             player.getTray().setLetterBag(letterBag);
@@ -753,9 +753,6 @@ public class Game implements Serializable {
         if (!board.getBoardValues().equals(game.board.getBoardValues())) return false;
         if (!currentPlayer.equals(game.currentPlayer)) return false;
         return AI.equals(AI);
-
-
-
     }
 
 
