@@ -31,7 +31,7 @@ public class LetterBag {
      *
      * @return a random letter from the LetterBag.
      */
-    public String drawRandomLetter() { // TODO need to fix IllegalArgumentException
+    public String drawRandomLetter() {
 
         String letter;
         Set<String> keySet = letterQuantities.keySet();
@@ -156,6 +156,13 @@ public class LetterBag {
         }
     }
 
+
+    /**
+     * Gets the total number of remaining letters left from the LetterBag.
+     * Under normal gameplay conditions this will return a value between 0 and 100.
+     *
+     * @return the integer value of letters left in this bag.
+     */
     public int getTotalLetters() {
         int total = 0;
         for (Integer i : letterQuantities.values()) {

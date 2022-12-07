@@ -589,7 +589,7 @@ public class Board implements Serializable {
      */
     public boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
-    }
+    } // TODO hard code usedSquares[][] as centre coordinate
 
 
     /**
