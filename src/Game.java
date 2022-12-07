@@ -675,6 +675,7 @@ public class Game implements Serializable {
 
     }
 
+
     /**
      * sets game to previous state
      * @throws Exception
@@ -700,7 +701,9 @@ public class Game implements Serializable {
      * @throws Exception
      */
     public void redo() throws Exception{
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoStack.pop());
+        byte[] redoneMove = redoStack.pop();
+        undoStack.push(redoneMove);                     //adds to undoStack
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoneMove);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
 
         Game game = (Game) ois.readObject();
@@ -726,7 +729,7 @@ public class Game implements Serializable {
             player.getTray().setLetterBag(letterBag);
         }
 
-        System.out.println(letterBag);
+
 
     }
 
