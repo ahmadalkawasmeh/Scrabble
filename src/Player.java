@@ -52,6 +52,8 @@ public class Player implements Serializable
         return this.name;
     }
 
+    public Tray getTray() {return tray;}
+
 
     /**
      * Returns a String representation of the letters in this Player's tray.
@@ -228,18 +230,14 @@ public class Player implements Serializable
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        System.out.println("here here here player");
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Player player = (Player) o;
-        System.out.println("here here here player");
 
         if (isAIPlayer != player.isAIPlayer) return false;
-        System.out.println("isAIPlayer is good");
         if (!name.equals(player.name)) return false;
-        System.out.println("name is good");
         if (!score.equals(player.score)) return false;
-        System.out.println("score is good...tray is not");
         return Objects.equals(tray, player.tray);
     }
 

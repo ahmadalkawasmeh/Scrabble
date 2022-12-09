@@ -20,8 +20,7 @@ public class Game implements Serializable {
     final private static LetterBag letterBag = new LetterBag(); // the shared LetterBag that Players draw letters from
 
     public HashMap<String, Integer> letterBagContents;
-    // private Round currentRound;
-    // will be used in the future//private Stack<Round> roundHistory; // will be used for undo/redo in the future
+
     public static Dictionary dictionary;
     private final Parser parser = new Parser();
     private boolean finished;
@@ -59,22 +58,21 @@ public class Game implements Serializable {
     public Game(int numPlayers, int numAIPlayers){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
-        undoStack = new Stack<>();
+        views = new ArrayList<>();
 
+        undoStack = new Stack<>();
         redoStack = new Stack<>();
 
-        players = new ArrayList<Player>();
-        views = new ArrayList<>();
-        // roundHistory = new Stack<Round>(); // for the future
         dictionary = new Dictionary();
+
         initializeBoard();
+
+        players = new ArrayList<>();
         AI = new AIHelper(board);
         initializePlayers(numPlayers, numAIPlayers);
 
         finished = false;
-
         lettersToSwap = "";
-
     }
 
 
@@ -89,6 +87,7 @@ public class Game implements Serializable {
         coordinatesOfWordToPlace = new HashMap<>();
         resetViewValues();
         updateViews();
+
         try {
             saveToUndoStack();
         } catch (Exception e) {
@@ -319,7 +318,7 @@ public class Game implements Serializable {
      *
      * @return true if the game will continue, false otherwise.
      */
-    /* public boolean playRound(){
+    /* public boolean playRound(){ // TODO turn on game ending conditions
         nextPlayer();
         currentRound = new Round(currentPlayer);
         if((letterBag.lettersLeft() == 0 && currentRound.emptyTray()) || zeroScoreTurns == 6){
@@ -423,7 +422,7 @@ public class Game implements Serializable {
             currentSelectedTrayValue = fetchBlankState();
         }
         if(!currentSelectedTrayValue.equals(" ")){
-            //currentWord += currentSelectedTrayValue; //address this
+            //currentWord += currentSelectedTrayValue; //TODO address this
             currentSelectedBoardValue = boardValue;
             if(startingWordPos == null){
                 startingWordPos = currentSelectedBoardValue;
@@ -635,7 +634,6 @@ public class Game implements Serializable {
         ostream.close();
     }
 
-
     /**
      * Loads the Game using serialization
      */
@@ -653,6 +651,7 @@ public class Game implements Serializable {
      * @throws Exception
      */
     public void saveToUndoStack() throws Exception{
+        letterBagContents = letterBag.copyContents();                                    //TODO CAREFUL TEST THIS
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 
@@ -676,6 +675,7 @@ public class Game implements Serializable {
 
     }
 
+
     /**
      * sets game to previous state
      * @throws Exception
@@ -683,6 +683,7 @@ public class Game implements Serializable {
     public void undo() throws Exception{
         byte[] currentStateArray = undoStack.pop();
         byte[] arrayToRead = undoStack.pop();
+        this.letterBagContents = letterBag.copyContents();  //TEST
         undoStack.push(arrayToRead);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arrayToRead);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
@@ -690,7 +691,7 @@ public class Game implements Serializable {
         Game game = (Game) ois.readObject();
         saveToRedoStack(currentStateArray);
         setGameFieldsRedoUndo(game);
-        resetViewValues();
+        //resetViewValues();
         updateViews();
 
     }
@@ -700,12 +701,14 @@ public class Game implements Serializable {
      * @throws Exception
      */
     public void redo() throws Exception{
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoStack.pop());
+        byte[] redoneMove = redoStack.pop();
+        undoStack.push(redoneMove);                     //adds to undoStack
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(redoneMove);
         ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
 
         Game game = (Game) ois.readObject();
         setGameFieldsRedoUndo(game);
-        resetViewValues();
+        //resetViewValues();
         updateViews();
 
 
@@ -720,6 +723,13 @@ public class Game implements Serializable {
         this.currentPlayer = game.currentPlayer;
         this.players = game.players;
         this.letterBagContents = game.letterBagContents;
+        letterBag.loadContents(letterBagContents);    //TODO TEST
+
+        for(Player player : players){
+            player.getTray().setLetterBag(letterBag);
+        }
+
+
 
     }
 
@@ -734,31 +744,18 @@ public class Game implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
 
-
-        if (finished != game.finished) return false;
-        System.out.println("finished is good");
-        if (zeroScoreTurns != game.zeroScoreTurns) return false;
-        System.out.println("zeroScoreTurns is good");
-        if (letterBag != game.letterBag) return false;
-        System.out.println("letterbag is good");
-
         for (int i = 0; i < players.size(); i++) {
             if (!players.get(i).equals(game.players.get(i))) {
-                System.out.println("Checking player " + i);
                 return false;
             }
         }
-        System.out.println("players is good");
 
-        if (!board.getBoardValues().equals(game.board.getBoardValues())) return false; // TODO delegate
-        System.out.println("board is good");
-
+        if (finished != game.finished) return false;
+        if (zeroScoreTurns != game.zeroScoreTurns) return false;
+        if (letterBag != game.letterBag) return false;
+        if (!board.getBoardValues().equals(game.board.getBoardValues())) return false;
         if (!currentPlayer.equals(game.currentPlayer)) return false;
-        System.out.println("currentPlayer is good...AI is not");
         return AI.equals(AI);
-
-
-
     }
 
 
