@@ -22,9 +22,9 @@ Upon opening the game, you are first prompted to choose the total number of play
 - User Interface
 	- Menu
 		- "File" contains the following:
-			- "New Game" creates a new game and will take you back to the initial prompt pop ups 				where you choose the total number of players and the number of AI players.
-			- "Save Game" saves the current game progress to a text file to be loaded later and 				continued
-			- "Load Game" loads a previously saved game by promting you to enter a file name the 				previous game was saved under
+			- "New Game" creates a new game and will take you back to the initial prompt pop ups where you choose the total number of players and the number of AI players.
+			- "Save Game" saves the current game progress to a text file to be loaded later and continued
+			- "Load Game" loads a previously saved game by promting you to enter a file name the previous game was saved under
 			- "Quit Game" closes and terminates the current game
 			
 		- "Game History Options" contains the following:
@@ -36,10 +36,10 @@ Upon opening the game, you are first prompted to choose the total number of play
 			- "View ReadMe" lets you see the ReadMe file 
 		
 	- Game Board
-		- In the middle of the screen you will see all the squares for the game board where you will 			place your letters to form words.
+		- In the middle of the screen you will see all the squares for the game board where you will place your letters to form words.
 		
 	- Scoreboard
-		- On the left side of the board you will see the scoreboard which keeps track of points 		   earned per player
+		- On the left side of the board you will see the scoreboard which keeps track of points earned per player
 		
 	- Letter Tray
 		- On the bottom of the screen you will see your letter tray
@@ -48,16 +48,16 @@ Upon opening the game, you are first prompted to choose the total number of play
 		- On the right side of the board you will see the player moves' buttons
 		
 		- "Place Word"
-			- This button confirms your letters placement on the board and lets the next player 				take their turn to play
+			- This button confirms your letters placement on the board and lets the next player take their turn to play
 			
 		- "Swap" and "GO"
-			- This button allows you to swap your letters with another set of letters, in order 				to swap letters you first press "Swap" then you select 1-7 letters you'd like to 			     swap then press "GO" button in order to confirm the swap
+			- This button allows you to swap your letters with another set of letters, in order to swap letters you first press "Swap" then you select 1-7 letters you'd like to 			     swap then press "GO" button in order to confirm the swap
 			
 		- "Pass"
-			- This allows you to pass your turn to the next player if you're unable to make any 				moves
+			- This allows you to pass your turn to the next player if you're unable to make any moves
 			
 		- "Reset"
-			- This button allows you to reset your letter placements for that round by retracting 				your placed letters from the board back to the tray
+			- This button allows you to reset your letter placements for that round by retracting your placed letters from the board back to the tray
 		
 		- "Play AI Move"
 			- This button prompts the AI to make a move
@@ -70,7 +70,7 @@ This iteration of the game does not currently implement the game-ending conditio
 - src folder
 	- This folder contains all of the source code for the scrabblescrabble game.
 - legalWordsList.txt
-	-  This file contains the list of all legal words that may be played in the scrabblescrabble game.  		Each line of this file contains one legal word.
+	-  This file contains the list of all legal words that may be played in the scrabblescrabble game. Each line of this file contains one legal word.
 - UMLDiagrams folder
 	- UML Diagram 1: M4 UML with dependencies.png
 		- This UML diagram outlines the current class structure of the program with dependencies
@@ -81,15 +81,13 @@ This iteration of the game does not currently implement the game-ending conditio
 	- Sequence Diagram 2: placeWord.png
 		- Demonstrates how a Word object is placed on the board
 	- Sequence Diagram 3: swapLetter.png
-		- Demonstrates how a Player is able to swap a letter from their tray for a new letter from 			the shared LetterBag
-	- Sequence Diagram 4: scoreCalculation.png
-		- Demonstrates how the score is calculated for a Word placed on the board
-	- Sequence Diagram 5: AIDecisionMaking.png
-		- Demonstrates how the AI chooses to either place a word, swap, or pass to progress the game 			forward
-	- Sequence Diagram 6: xmlsequence.png
-		- Demonstrates how board reads and parses an XML file and applies the special square 			  configuration to itself
+		- Demonstrates how a Player is able to swap a letter from their tray for a new letter from the shared LetterBag
+	- Sequence Diagram 4: AIDecisionMaking.png
+		- Demonstrates how the AI chooses to either place a word, swap, or pass to progress the game forward
+	- Sequence Diagram 5: XMLSequence.png
+		- Demonstrates how board reads and parses an XML file and applies the special square configuration to itself
 	- ChangeLog.PDF
-		- This document outlines the rationale of design decisions for the current implementation of 			the program.
+		- This document outlines the rationale of design decisions for the current implementation of the program.
         - board.xml
                 - This is the original standard Scrabble board setup
         - board2.xml
@@ -104,6 +102,7 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
 - Ahmad Alkawasmeh - 101108706
   - Updated readme
   - UML Diagrams x2
+  - Created an extra custom board (board3.xml)
 
 - James Grieder - 101177911
   - Implemented save/load functionality for all game features included in milestone 3 (Java Serialization)
@@ -111,19 +110,18 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
   - Debugging of PlayerTest, TrayTest & LetterBag Test multithreading issues
   - AI now has the ability to place the first word
   - Refactoring of AI to be its own individual static class, instead of just a field within the Player class
-  - Implemented functionality for the "cancel" buttons when first opening the game and selecting the number       of players and AI
+  - Implemented functionality for the "cancel" buttons when first opening the game and selecting the number of players and AI
 
 - Daniel Kuchanski - 101182041
   - Implemented custom special square positioning
   - Debugging of PlayerTest, TrayTest & LetterBag Test multithreading issues
   - Added ability to export and import custom boards using XML
   - Added testing for XML input/output
-  - Created an extra custom board
+  - Created an extra custom board (board2.xml)
+  - New sequence diagram: XMLSequence.png
 
 - Ibtasam Rasool - 101186050
   - Implemented multi-level undo/redo functionality
-
-
 
 
 # Known Issues
