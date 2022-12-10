@@ -131,7 +131,6 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
 - Scoring does not include earning 50 points for using the player's entire tray
 
 
-
 # Future Milestones
 
 The project is currently in milestone 4 of 4.  There are currently no future updates planned for ScrabbleScrabble.
