@@ -90,7 +90,12 @@ This iteration of the game does not currently implement the game-ending conditio
 		- Demonstrates how board reads and parses an XML file and applies the special square 			  configuration to itself
 	- ChangeLog.PDF
 		- This document outlines the rationale of design decisions for the current implementation of 			the program.
-
+        - board.xml
+                - This is the original standard Scrabble board setup
+        - board2.xml
+        	- This is the second board configuration consisting of only Triple Word squares
+        - board3.xml
+        	- This is the third custom board configuration
 
 # New Updates
 
