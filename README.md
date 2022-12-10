@@ -29,11 +29,7 @@ Upon opening the game, you are first prompted to choose the total number of play
 			
 		- "Game History Options" contains the following:
 			- "Undo" retracts your last move
-			- "Redo" reinstates your undon move, basically a Undo for your Undo
-			
-		- "Help" contains the following:
-			- "View Game Instructions" lets you view the game instructions
-			- "View ReadMe" lets you see the ReadMe file 
+			- "Redo" reinstates your undone move, basically a Undo for your Undo
 		
 	- Game Board
 		- In the middle of the screen you will see all the squares for the game board where you will place your letters to form words.
@@ -139,6 +135,7 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
 - Word scoring is not fully implemented for double/triple word scores & letter scores
 - Scoring does not include earning 50 points for using the player's entire tray
 - Issue where a blank tile cannot be removed from a Player's tray, so the player logically has an 8th blank tile (that cannot be used on the GUI)
+- Memory issues begin to appear if too many undo or redo functions are invoked (~15+ in a row, hardware dependent)
 
 
 # Future Milestones

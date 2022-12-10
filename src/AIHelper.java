@@ -106,7 +106,7 @@ public class AIHelper implements Serializable {
             s += String.valueOf((char) (j + 64));
             s += i;
         }
-        System.out.println("S = " + s);
+        //System.out.println("S = " + s);
         return s;
 
     }

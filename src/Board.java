@@ -665,7 +665,6 @@ public class Board extends DefaultHandler implements Serializable {
             }
         }
         string += "</ScrabbleScrabbleBoard>\n";
-        System.out.println(string);
         return string;
     }
 
@@ -697,8 +696,6 @@ public class Board extends DefaultHandler implements Serializable {
      */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-
-        System.out.printf("Start Element : %s%n", qName);
 
         if (qName.equalsIgnoreCase("x")) {
             bx = true;
@@ -769,7 +766,6 @@ public class Board extends DefaultHandler implements Serializable {
      */
     @Override
     public void characters(char ch[], int start, int length) {
-        System.out.println(new String(ch, start, length));
 
         if(bx){
             tempx = Integer.parseInt(new String(ch, start, length)) - 1;
