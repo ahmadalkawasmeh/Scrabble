@@ -1,0 +1,903 @@
+<?xml version="1.0"?>
+<ScrabbleScrabbleBoard>
+<Square name="TW">
+<x>1</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>3</y>
+</Square>
+<Square name="DL">
+<x>1</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>7</y>
+</Square>
+<Square name="TW">
+<x>1</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>11</y>
+</Square>
+<Square name="DL">
+<x>1</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>1</x>
+<y>14</y>
+</Square>
+<Square name="TW">
+<x>1</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>1</y>
+</Square>
+<Square name="DW">
+<x>2</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>5</y>
+</Square>
+<Square name="TL">
+<x>2</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>9</y>
+</Square>
+<Square name="TL">
+<x>2</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>13</y>
+</Square>
+<Square name="DW">
+<x>2</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>2</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>2</y>
+</Square>
+<Square name="DW">
+<x>3</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>6</y>
+</Square>
+<Square name="DL">
+<x>3</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>8</y>
+</Square>
+<Square name="DL">
+<x>3</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>12</y>
+</Square>
+<Square name="DW">
+<x>3</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>3</x>
+<y>15</y>
+</Square>
+<Square name="DL">
+<x>4</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>3</y>
+</Square>
+<Square name="DW">
+<x>4</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>7</y>
+</Square>
+<Square name="DL">
+<x>4</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>11</y>
+</Square>
+<Square name="DW">
+<x>4</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>4</x>
+<y>14</y>
+</Square>
+<Square name="DL">
+<x>4</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>4</y>
+</Square>
+<Square name="DW">
+<x>5</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>10</y>
+</Square>
+<Square name="DW">
+<x>5</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>5</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>1</y>
+</Square>
+<Square name="TL">
+<x>6</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>5</y>
+</Square>
+<Square name="TL">
+<x>6</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>9</y>
+</Square>
+<Square name="TL">
+<x>6</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>13</y>
+</Square>
+<Square name="TL">
+<x>6</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>6</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>2</y>
+</Square>
+<Square name="DL">
+<x>7</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>6</y>
+</Square>
+<Square name="DL">
+<x>7</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>8</y>
+</Square>
+<Square name="DL">
+<x>7</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>12</y>
+</Square>
+<Square name="DL">
+<x>7</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>7</x>
+<y>15</y>
+</Square>
+<Square name="TW">
+<x>8</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>3</y>
+</Square>
+<Square name="DL">
+<x>8</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>7</y>
+</Square>
+<Square name="TW">
+<x>8</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>11</y>
+</Square>
+<Square name="DL">
+<x>8</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>8</x>
+<y>14</y>
+</Square>
+<Square name="TW">
+<x>8</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>2</y>
+</Square>
+<Square name="DL">
+<x>9</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>6</y>
+</Square>
+<Square name="DL">
+<x>9</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>8</y>
+</Square>
+<Square name="DL">
+<x>9</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>12</y>
+</Square>
+<Square name="DL">
+<x>9</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>9</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>1</y>
+</Square>
+<Square name="TL">
+<x>10</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>4</y>
+</Square>
+<Square name="DW">
+<x>10</x>
+<y>5</y>
+</Square>
+<Square name="TL">
+<x>10</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>9</y>
+</Square>
+<Square name="TL">
+<x>10</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>13</y>
+</Square>
+<Square name="TL">
+<x>10</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>10</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>3</y>
+</Square>
+<Square name="DW">
+<x>11</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>10</y>
+</Square>
+<Square name="DW">
+<x>11</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>11</x>
+<y>15</y>
+</Square>
+<Square name="DL">
+<x>12</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>7</y>
+</Square>
+<Square name="DL">
+<x>12</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>11</y>
+</Square>
+<Square name="DW">
+<x>12</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>12</x>
+<y>14</y>
+</Square>
+<Square name="DL">
+<x>12</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>2</y>
+</Square>
+<Square name="DW">
+<x>13</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>6</y>
+</Square>
+<Square name="DL">
+<x>13</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>8</y>
+</Square>
+<Square name="DL">
+<x>13</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>12</y>
+</Square>
+<Square name="DW">
+<x>13</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>13</x>
+<y>15</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>1</y>
+</Square>
+<Square name="DW">
+<x>14</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>3</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>5</y>
+</Square>
+<Square name="TL">
+<x>14</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>7</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>9</y>
+</Square>
+<Square name="TL">
+<x>14</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>11</y>
+</Square>
+<Square name="DL">
+<x>14</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>13</y>
+</Square>
+<Square name="DW">
+<x>14</x>
+<y>14</y>
+</Square>
+<Square name="NONE">
+<x>14</x>
+<y>15</y>
+</Square>
+<Square name="TW">
+<x>15</x>
+<y>1</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>2</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>3</y>
+</Square>
+<Square name="DL">
+<x>15</x>
+<y>4</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>5</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>6</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>7</y>
+</Square>
+<Square name="TW">
+<x>15</x>
+<y>8</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>9</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>10</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>11</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>12</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>13</y>
+</Square>
+<Square name="NONE">
+<x>15</x>
+<y>14</y>
+</Square>
+<Square name="TW">
+<x>15</x>
+<y>15</y>
+</Square>
+</ScrabbleScrabbleBoard>
