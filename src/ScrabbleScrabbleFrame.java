@@ -1,6 +1,10 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
@@ -33,7 +37,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
      * Constructor for ScrabbleScrabbleFrame.
      * Initializes all GUI elements.
      */
-    public ScrabbleScrabbleFrame() {
+    public ScrabbleScrabbleFrame() throws ParserConfigurationException, IOException, SAXException {
         super("ScrabbleScrabble Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -63,7 +67,27 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
         int numAIPlayers = parseInt((String) input);
 
-        Game gameModel = new Game(numPlayers, numAIPlayers);
+
+        // Prompt the user for the special squares configuration
+        String[] optionsForSpecialSquareConfiguration = {"Standard", "Alternate 1", "Alternate 2"};
+        input = JOptionPane.showInputDialog(this, "Select the configuration for special squares:",
+                "Special Squares Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForSpecialSquareConfiguration, "Standard");
+
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
+            this.quitView();
+            System.exit(0);
+        }
+        String configuration = (String) input;
+        String fileName = null;
+        if (configuration.equals("Alternate 1")) {
+            fileName = "board2.xml";
+        } else if (configuration.equals("Alternate 2")) {
+            fileName = "board3.xml";
+        } else {
+            fileName = "board.xml";
+        }
+
+        Game gameModel = new Game(numPlayers, numAIPlayers, fileName);
         BoardController boardController = new BoardController(gameModel);
         TrayController trayController = new TrayController(gameModel);
         GameController gameController = new GameController(gameModel);
@@ -495,7 +519,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
 
 
-        public static void main (String[]args){
+        public static void main (String[]args) throws ParserConfigurationException, IOException, SAXException {
 
             ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
 

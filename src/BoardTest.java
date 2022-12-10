@@ -16,9 +16,9 @@ public class BoardTest {
 
 
     @org.junit.Before
-    public void setUp() {
-        board = new Board();
-        board2 = new Board();
+    public void setUp() throws ParserConfigurationException, IOException, SAXException {
+        board = new Board(null);
+        board2 = new Board(null);
     }
 
 
@@ -334,8 +334,8 @@ public class BoardTest {
 
 
     @Test
-    public void testCentreSquareIsClear() {
-        Board b = new Board();
+    public void testCentreSquareIsClear() throws ParserConfigurationException, IOException, SAXException {
+        Board b = new Board(null);
         assertTrue(b.centreSquareIsClear());
         Word word = new Word("WORD", "H8");
         b.addWordToBoard(word);

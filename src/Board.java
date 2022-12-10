@@ -1,4 +1,3 @@
-import jdk.jfr.StackTrace;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -6,11 +5,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -40,13 +35,17 @@ public class Board extends DefaultHandler implements Serializable {
      * Initializes the scrabblescrabble game board, by setting up the board with empty values (no letters), an
      * empty array for used squares, and initializes the special squares in the game.
      */
-    public Board(){
+    public Board(String fileName) throws ParserConfigurationException, IOException, SAXException {
         boardValues = new HashMap<>();
         usedSquares = new String[SIZE][SIZE];
         specialSquares = new scores[SIZE][SIZE];
 
         this.initializeBoard();
-        setSpecialSquaresStandard();
+        if (fileName != null) {
+            importBoard(fileName);
+        } else {
+            setSpecialSquaresStandard();
+        }
     }
 
 

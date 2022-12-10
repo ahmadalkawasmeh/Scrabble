@@ -1,4 +1,8 @@
 import org.junit.Test;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -11,9 +15,9 @@ public class WordScoreTest {
 
 
     @org.junit.Before
-    public void setUp() {
-        board = new Board();
-        board2 = new Board();
+    public void setUp() throws ParserConfigurationException, IOException, SAXException {
+        board = new Board(null);
+        board2 = new Board(null);
     }
 
     @Test
