@@ -193,9 +193,6 @@ public class Game implements Serializable {
         return word;
     }
 
-    public void importCustomBoard(){
-        
-    }
 
     /**
      * Converts an AI Player input Move into a word object
@@ -737,10 +734,19 @@ public class Game implements Serializable {
 
     }
 
+    /**
+     * Retrieves any saved game states that must be updated to load the game.
+     */
     public void loadGame() {
         letterBag.loadContents(letterBagContents);
     }
 
+    /**
+     * Calls the view to update itself when a turn is reset.
+     */
+    public void resetTurn() {
+        resetViewValues();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -762,8 +768,4 @@ public class Game implements Serializable {
         return AI.equals(AI);
     }
 
-
-    public void resetTurn() {
-        resetViewValues();
-    }
 }

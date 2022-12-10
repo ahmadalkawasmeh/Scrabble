@@ -52,6 +52,14 @@ public class Player implements Serializable
         return this.name;
     }
 
+
+    /**
+     * gets the tray
+     *
+     * Developed by Ibtasam Rasool
+     *
+     * @return Tray
+     */
     public Tray getTray() {return tray;}
 
 
@@ -83,6 +91,11 @@ public class Player implements Serializable
         tray.fillBag();
     }
 
+    /**
+     *  Returns the LetterBag of this Player's tray
+     *
+     * @return the letterbag associated with this tray
+     */
     public LetterBag getLetterBag(){
         return tray.getLetterBag();
     }

@@ -65,6 +65,12 @@ public enum Letters {
     */
    public int getQuantity(){return this.defaultQuantity;}
 
+   /**
+    * Returns the letter associated with ordinal value i.
+    *
+    * @param i The ordinal value of this letter
+    * @return The Letter enum associated with i
+    */
    public static Letters getLetterFromOrdinal(int i) {
       return Letters.values()[i];
    }

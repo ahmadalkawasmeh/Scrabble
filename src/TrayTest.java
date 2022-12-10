@@ -30,15 +30,15 @@ public class TrayTest {
     @Test
     public void testRemoveLetterRemoves1LetterAtATimeUntilEmpty() {
         String letters = "";
-        Tray testTray = t;
+        Tray testTray = new Tray();
         for(String letter : testTray.getLetters()){
             letters += letter;
         }
         int expectedSize = Tray.SIZE;
         for(int i = 0; i < letters.length(); i ++) {
-            t.removeLetter("" + letters.charAt(i));
+            testTray.removeLetter("" + letters.charAt(i));
             expectedSize--;
-            assertEquals(expectedSize, t.getLetters().size());
+            assertEquals(expectedSize, testTray.getLetters().size());
         }
     }
 

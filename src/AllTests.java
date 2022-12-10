@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
                 LetterBagTest.class,
                 PlayerTest.class,
                 TrayTest.class,
+                UndoRedoTest.class,
                 WordScoreTest.class})
 
 

@@ -95,6 +95,7 @@ This iteration of the game does not currently implement the game-ending conditio
         - board3.xml
         	- This is the third custom board configuration
 
+
 # New Updates
 
 This iteration represents milestone 4 of 4.  Newly introduced features/changes, listed by contributor, for this milestone include:
@@ -103,6 +104,7 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
   - Updated readme
   - UML Diagrams x2
   - Created an extra custom board (board3.xml)
+  - 
 
 - James Grieder - 101177911
   - Implemented save/load functionality for all game features included in milestone 3 (Java Serialization)
@@ -111,6 +113,8 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
   - AI now has the ability to place the first word
   - Refactoring of AI to be its own individual static class, instead of just a field within the Player class
   - Implemented functionality for the "cancel" buttons when first opening the game and selecting the number of players and AI
+  - Added additional constructor for Tray class for testing purposes
+  
 
 - Daniel Kuchanski - 101182041
   - Implemented custom special square positioning
@@ -119,9 +123,14 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
   - Added testing for XML input/output
   - Created an extra custom board (board2.xml)
   - New sequence diagram: XMLSequence.png
+  - 
 
 - Ibtasam Rasool - 101186050
   - Implemented multi-level undo/redo functionality
+  - Added test methods for undo/redo
+  - Refactored GameController and MenuController to use hard-coded command values
+  - Debugging of word logic related to diagonal coordinates (i.e. usedSquares[7][7])
+  - Added setters for LetterBag and Player classes for testing
 
 
 # Known Issues
@@ -129,6 +138,7 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
 - AI Players can currently overwrite other letters on the board
 - Word scoring is not fully implemented for double/triple word scores & letter scores
 - Scoring does not include earning 50 points for using the player's entire tray
+- Issue where a blank tile cannot be removed from a Player's tray, so the player logically has an 8th blank tile (that cannot be used on the GUI)
 
 
 # Future Milestones

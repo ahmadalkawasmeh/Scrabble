@@ -35,6 +35,13 @@ public class Tray implements Serializable
         this.fill();
     }
 
+    /**
+     * Sets the letterbag contents using another letterbag
+     *
+     * Developed by Ibtasam Rasool
+     *
+     * @param letterBag to be set to
+     */
     public void setLetterBag(LetterBag letterBag){
         this.letterBag = letterBag;
     }
@@ -50,6 +57,9 @@ public class Tray implements Serializable
         letters = new ArrayList<>(List.of(tray));
     }
 
+    /**
+     *  Fills this tray's letterbag
+     */
     public void fillBag(){
         letterBag.fillBagForTesting();
     }

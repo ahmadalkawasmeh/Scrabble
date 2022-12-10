@@ -132,6 +132,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         gameHistoryOptions.add(redoMenuItem);
         redoMenuItem.addActionListener(menuController);
 
+        /*
+
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
 
@@ -139,6 +141,8 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         helpMenu.add(viewGameInstructions);
         JMenuItem viewReadme = new JMenuItem("View readme");
         helpMenu.add(viewReadme);
+
+         */
 
         JPanel logoPanel = new JPanel();
         JPanel scoreBoardPanel = new JPanel();

@@ -10,7 +10,7 @@ public class GameController implements ActionListener, Serializable {
 
     public enum gameCommands{
 
-        PLACE, PASS, RESET, SWAP, GO, AI    //said AI was used
+        PLACE, PASS, RESET, SWAP, GO, AI
 
     }
 

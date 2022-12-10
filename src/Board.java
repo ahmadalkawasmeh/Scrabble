@@ -164,7 +164,6 @@ public class Board extends DefaultHandler implements Serializable {
     }
 
     /**
-     * --- NOT FOR MILESTONE 1 ---
      * Initializes the standard mapping of special squares on the board.
      * A special square is one that will have alternative scoring implementations
      * (double letter score, triple letter score, double word score, triple word

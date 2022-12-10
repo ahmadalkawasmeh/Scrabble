@@ -1,8 +1,6 @@
 import java.io.Serializable;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * This parser reads user input from the keyboard and translates it to a
  * command in the ScrabbleScrabble game.

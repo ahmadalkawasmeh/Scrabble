@@ -37,12 +37,16 @@ public class LetterBag {
         Set<String> keySet = letterQuantities.keySet();
         List<String> keyList = new ArrayList<>(keySet);
 
+        if (keyList.size() > 0) {
         int randIndex = new Random().nextInt(keyList.size());
         letter = keyList.get(randIndex);
 
         decreaseLetterQuantity(letter);
 
-        return letter;
+        return letter; }
+        else {
+            return "";
+        }
     }
 
 

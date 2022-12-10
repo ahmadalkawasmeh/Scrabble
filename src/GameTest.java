@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,9 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     File file;
-    Game game1, game2;
+    Game game1, game2, game_LoadIn, game_PlayMove;
+
+
 
     @Before
     public void setUp() throws Exception {
@@ -22,6 +25,11 @@ public class GameTest {
         file = new File("savedGame.txt");
     }
 
+
+
+
+
+
     @Test
     public void testSerialize() throws IOException, ClassNotFoundException {
         game1.saveGame(file);
@@ -30,4 +38,6 @@ public class GameTest {
 
         assertTrue(game1.equals(game2));
     }
+
+
 }
