@@ -654,6 +654,11 @@ public class Board extends DefaultHandler implements Serializable {
         return boardValues;
     }
 
+    /**
+     * Returns the XMl representation of this board's special square locations.
+     *
+     * @return the string XML representation of this board's special squares
+     */
     public String toXML(){
         String string = "<?xml version=\"1.0\"?>\n<ScrabbleScrabbleBoard>\n";
         for(int i = 0; i < SIZE; i++){
@@ -667,6 +672,12 @@ public class Board extends DefaultHandler implements Serializable {
     }
 
 
+    /**
+     * Compares two boards for equal placements
+     *
+     * @param o the object to be compared true
+     * @return true if this board and the given board are the same, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -678,6 +689,14 @@ public class Board extends DefaultHandler implements Serializable {
     }
 
 
+    /**
+     * Parser notices end of an element
+     *
+     * @param uri
+     * @param localName
+     * @param qName element name
+     * @param attributes attributes detected in element
+     */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
@@ -697,6 +716,12 @@ public class Board extends DefaultHandler implements Serializable {
 
     }
 
+    /**
+     * export the current board special square configuration as an XML document
+     *
+     * @param strenum string to be turned into an enum
+     * @return the enum equivalent to the string
+     */
     private scores toEnum(String strenum){
         return switch (strenum) {
             case "DW" -> scores.DW;
@@ -707,6 +732,10 @@ public class Board extends DefaultHandler implements Serializable {
         };
     }
 
+
+    /**
+     * export the current board special square configuration as an XML document
+     */
     public void exportXML() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("board.xml"));
         writer.write(this.toXML());
@@ -714,6 +743,13 @@ public class Board extends DefaultHandler implements Serializable {
 
     }
 
+    /**
+     * Parser notices the end of an element
+     *
+     * @param uri the character string
+     * @param localName the start of the string
+     * @param qName the string length
+     */
     @Override
     public void endElement(String uri,
                            String localName,
@@ -726,6 +762,13 @@ public class Board extends DefaultHandler implements Serializable {
 
     }
 
+    /**
+     * Parser notices a character in an element
+     *
+     * @param ch the character string
+     * @param start the start of the string
+     * @param length the string length
+     */
     @Override
     public void characters(char ch[], int start, int length) {
         System.out.println(new String(ch, start, length));
@@ -740,17 +783,6 @@ public class Board extends DefaultHandler implements Serializable {
         bsquare = false;
 
     }
-    public static void main(String args[]) throws IOException, ParserConfigurationException, SAXException {
-        Board b = new Board();
-        b.setSpecialSquaresStandard();
-        b.exportXML();
-
-        Board b2 = new Board();
-        b.importBoard("board.xml");
-        System.out.println(b.toXML());
-    }
-
-
 
 }
 
