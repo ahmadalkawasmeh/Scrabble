@@ -87,6 +87,7 @@ public class WordScoreTest {
         Word word2 = new Word("CAR", "6H"); // double letter at R
         board.addWordToBoard(word1);
         board.addWordToBoard(word2);
+        System.out.println(board.toString());
 
         assertEquals(6, word2.wordScore());
     }

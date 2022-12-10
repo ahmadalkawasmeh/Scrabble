@@ -1,4 +1,16 @@
-import java.io.Serializable;
+import jdk.jfr.StackTrace;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -6,12 +18,12 @@ import java.util.*;
  * The Board for scrabblescrabble.  Represents a square grid of squares, where
  * each square is able to hold one letter.
  */
-public class Board implements Serializable {
+public class Board extends DefaultHandler implements Serializable {
 
-
-
-
-    public enum scores{DL, TL, DW, TW}
+    enum scores{DL, TL, DW, TW,NONE;}
+    private scores tempScore = scores.NONE;
+    private boolean bx,by,bsquare;
+    private int tempx, tempy;
 
     public static final int SIZE = 15; // The size of the Board (a grid of SIZE x SIZE)
 
@@ -146,6 +158,12 @@ public class Board implements Serializable {
         }
     }
 
+    public void importBoard(String fileName) throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        SAXParser sp = spf.newSAXParser();
+        sp.parse(fileName,this);
+    }
+
     /**
      * --- NOT FOR MILESTONE 1 ---
      * Initializes the standard mapping of special squares on the board.
@@ -191,6 +209,7 @@ public class Board implements Serializable {
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++){
                 usedSquares[i][j] = " ";
+                specialSquares[i][j] = scores.NONE;
             }
         }
     }
@@ -589,7 +608,7 @@ public class Board implements Serializable {
      */
     public boolean centreSquareIsClear() {
         return usedSquares[7][7].equals(" ");
-    } // TODO hard code usedSquares[][] as centre coordinate
+    }
 
 
     /**
@@ -634,6 +653,18 @@ public class Board implements Serializable {
         return boardValues;
     }
 
+    public String toXML(){
+        String string = "<?xml version=\"1.0\"?>\n<ScrabbleScrabbleBoard>\n";
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++) {
+                string += "<Square name=\"" + specialSquares[i][j] + "\">\n<x>" + (i+1) + "</x>\n<y>"+ (j + 1) + "</y>\n</Square>\n";
+            }
+        }
+        string += "</ScrabbleScrabbleBoard>\n";
+        System.out.println(string);
+        return string;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -643,6 +674,79 @@ public class Board implements Serializable {
         Board board = (Board) o;
 
         return Objects.equals(boardValues, board.boardValues);
+    }
+
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+        System.out.printf("Start Element : %s%n", qName);
+
+        if (qName.equalsIgnoreCase("x")) {
+            bx = true;
+        }
+
+        if (qName.equalsIgnoreCase("y")) {
+            by = true;
+        }
+
+        if(qName.equalsIgnoreCase("Square")){
+            tempScore = toEnum(attributes.getValue(0));
+        }
+
+    }
+
+    private scores toEnum(String strenum){
+        return switch (strenum) {
+            case "DW" -> scores.DW;
+            case "DL" -> scores.DL;
+            case "TW" -> scores.TW;
+            case "TL" -> scores.TL;
+            default -> scores.NONE;
+        };
+    }
+
+    public void exportXML() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("board.xml"));
+        writer.write(this.toXML());
+        writer.close();
+
+    }
+
+    @Override
+    public void endElement(String uri,
+                           String localName,
+                           String qName) {
+
+        if (qName.equalsIgnoreCase("Square")) {
+            specialSquares[tempx][tempy] = tempScore;
+        }
+
+
+    }
+
+    @Override
+    public void characters(char ch[], int start, int length) {
+        System.out.println(new String(ch, start, length));
+
+        if(bx){
+            tempx = Integer.parseInt(new String(ch, start, length)) - 1;
+        } else if(by){
+            tempy = Integer.parseInt(new String(ch, start, length)) - 1;
+        }
+        bx = false;
+        by = false;
+        bsquare = false;
+
+    }
+    public static void main(String args[]) throws IOException, ParserConfigurationException, SAXException {
+        Board b = new Board();
+        b.setSpecialSquaresStandard();
+        b.exportXML();
+
+        Board b2 = new Board();
+        b.importBoard("board.xml");
+        System.out.println(b.toXML());
     }
 
 
