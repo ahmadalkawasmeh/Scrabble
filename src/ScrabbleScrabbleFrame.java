@@ -482,6 +482,7 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
                     case TL -> TRIPLE_LETTER;
                     case DW -> DOUBLE_WORD;
                     case TW -> TRIPLE_WORD;
+                    default -> PLAIN;
                 });
     }
 
