@@ -111,6 +111,9 @@ This iteration represents milestone 4 of 4.  Newly introduced features/changes, 
 - Daniel Kuchanski - 101182041
   - Implemented custom special square positioning
   - Debugging of PlayerTest, TrayTest & LetterBag Test multithreading issues
+  - Added ability to export and import custom boards using XML
+  - Added testing for XML input/output
+  - Created an extra custom board
 
 - Ibtasam Rasool - 101186050
   - Implemented multi-level undo/redo functionality
