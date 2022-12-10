@@ -7,6 +7,8 @@ SYSC 3110 Group Project (Fall 2022)
 	- Daniel Kuchanski - 101182041
 	- Ibtasam Rasool - 101186050
 
+Individual contributions are listed below.  See the "New Updates" section.
+
 
 # Introduction
 
@@ -62,31 +64,28 @@ This iteration of the game does not currently implement the game-ending conditio
 
 # New Updates
 
-This iteration represents milestone 4 of 4.  Newly introduced features, listed by contributor, for this milestone include:
+This iteration represents milestone 4 of 4.  Newly introduced features/changes, listed by contributor, for this milestone include:
 
 - Ahmad Alkawasmeh - 101108706
-  - 
+  - Updated readme
+  - UML Diagrams x2
 
 - James Grieder - 101177911
   - Implemented save/load functionality for all game features included in milestone 3 (Java Serialization)
   - Created AllTests test suite class
+  - Debugging of PlayerTest, TrayTest & LetterBag Test multithreading issues
   - AI now has the ability to place the first word
   - Refactoring of AI to be its own individual static class, instead of just a field within the Player class
-  - Implemented functionality for the "cancel" butttons when first opening the game and selecting the number of players and AI
+  - Implemented functionality for the "cancel" buttons when first opening the game and selecting the number of players and AI
 
 - Daniel Kuchanski - 101182041
-  - 
+  - Implemented custom special square positioning
+  - Debugging of PlayerTest, TrayTest & LetterBag Test multithreading issues
 
 - Ibtasam Rasool - 101186050
-  - 
+  - Implemented multi-level undo/redo functionality
 
 
-(Below is from milestone 3)
-- "Special squares" that allow for boosting a player's score depending on which squares they place their letters/words on
-	- Includes: Double Letter, Double Word, Triple Letter, and Triple Word score multipliers
-- Blank tiles, earning the player zero points but allowing the player to select any letter from the alphabet to place on the board 
-- AI functionality that allows an AI player to place a word, swap letters, or pass their turn
-- The menu bar above the game currently includes functionality to start a new game, or to quit the current game
 
 
 # Known Issues

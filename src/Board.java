@@ -607,8 +607,6 @@ public class Board extends DefaultHandler implements Serializable {
      * @return true if the centre square does not have a letter placed on it, false otherwise
      */
     public boolean centreSquareIsClear() {
-        return usedSquares[7][7].equals(" ");
-    }
         return usedSquares[(Board.SIZE / 2)][((Board.SIZE + 1) / 2)].equals(" ");
     }
 
