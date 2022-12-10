@@ -68,9 +68,11 @@ This iteration represents milestone 4 of 4.  Newly introduced features, listed b
   - 
 
 - James Grieder - 101177911
-  - Implemented save/load functionality for game features included in milestone 3 (Java Serialization)
-  - AI now has the ability to place the first word
+  - Implemented save/load functionality for all game features included in milestone 3 (Java Serialization)
   - Created AllTests test suite class
+  - AI now has the ability to place the first word
+  - Refactoring of AI to be its own individual static class, instead of just a field within the Player class
+  - Implemented functionality for the "cancel" butttons when first opening the game and selecting the number of players and AI
 
 - Daniel Kuchanski - 101182041
   - 
@@ -90,6 +92,8 @@ This iteration represents milestone 4 of 4.  Newly introduced features, listed b
 # Known Issues
 
 - AI Players can currently overwrite other letters on the board
+- Word scoring is not fully implemented for double/triple word scores & letter scores
+- Scoring does not include earning 50 points for using the player's entire tray
 
 
 
