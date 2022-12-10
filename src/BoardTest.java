@@ -1,4 +1,8 @@
 import org.junit.Test;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 import static junit.framework.TestCase.*;
 
@@ -336,5 +340,13 @@ public class BoardTest {
         Word word = new Word("WORD", "H8");
         b.addWordToBoard(word);
         assertFalse(b.centreSquareIsClear());
+    }
+
+    @Test
+    public void testImportExport() throws IOException, ParserConfigurationException, SAXException {
+        board.setSpecialSquaresStandard();
+        board.exportXML();
+        board2.importBoard("board.xml");
+        assertTrue(board.toXML().equals(board2.toXML()));
     }
 }
