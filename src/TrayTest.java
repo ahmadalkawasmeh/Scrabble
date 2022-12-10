@@ -82,7 +82,6 @@ public class TrayTest {
     @Test
     public void testFillFillsAnEmptyTray() {
         ArrayList<String> letters = new ArrayList<>();
-        String string = "";
         Tray testTray = t;
         for(int i = 0; i < testTray.getLetters().size();i++){
             letters.add(i,testTray.getLetters().get(i));
