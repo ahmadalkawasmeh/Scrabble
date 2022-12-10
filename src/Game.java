@@ -54,8 +54,9 @@ public class Game implements Serializable {
      * Developed by Daniel
      *
      * @param numPlayers The number of Players in this game.
+     * @param fileName
      */
-    public Game(int numPlayers, int numAIPlayers){
+    public Game(int numPlayers, int numAIPlayers, String fileName){
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         views = new ArrayList<>();

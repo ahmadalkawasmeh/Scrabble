@@ -63,7 +63,27 @@ public class ScrabbleScrabbleFrame extends JFrame implements ScrabbleScrabbleVie
         }
         int numAIPlayers = parseInt((String) input);
 
-        Game gameModel = new Game(numPlayers, numAIPlayers);
+
+        // Prompt the user for the special squares configuration
+        String[] optionsForSpecialSquareConfiguration = {"Standard", "Alternate 1", "Alternate 2"};
+        input = JOptionPane.showInputDialog(this, "Select the configuration for special squares:",
+                "Special Squares Selection", JOptionPane.QUESTION_MESSAGE, null, optionsForNumberOfAIPlayers, "Standard");
+
+        if (!(input instanceof String) || input.equals(JOptionPane.CLOSED_OPTION) || input.equals(JOptionPane.CANCEL_OPTION)) {
+            this.quitView();
+            System.exit(0);
+        }
+        String configuration = (String) input;
+        String fileName = null;
+        if (configuration.equals("Alternate 1")) {
+            fileName = "board2.xml";
+        } else if (configuration.equals("Alternate 2")) {
+            fileName = "board3.xml";
+        } else {
+            fileName = "board.xml";
+        }
+
+        Game gameModel = new Game(numPlayers, numAIPlayers, fileName);
         BoardController boardController = new BoardController(gameModel);
         TrayController trayController = new TrayController(gameModel);
         GameController gameController = new GameController(gameModel);
