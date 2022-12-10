@@ -327,4 +327,14 @@ public class BoardTest {
 
         assertTrue(board.checkWordOnBoard(word2));
     }
+
+
+    @Test
+    public void testCentreSquareIsClear() {
+        Board b = new Board();
+        assertTrue(b.centreSquareIsClear());
+        Word word = new Word("WORD", "H8");
+        b.addWordToBoard(word);
+        assertFalse(b.centreSquareIsClear());
+    }
 }

@@ -588,8 +588,9 @@ public class Board implements Serializable {
      * @return true if the centre square does not have a letter placed on it, false otherwise
      */
     public boolean centreSquareIsClear() {
-        return usedSquares[7][7].equals(" ");
-    } // TODO hard code usedSquares[][] as centre coordinate
+        return usedSquares[(Board.SIZE / 2)][((Board.SIZE + 1) / 2)].equals(" ");
+    }
+
 
 
     /**
@@ -644,6 +645,7 @@ public class Board implements Serializable {
 
         return Objects.equals(boardValues, board.boardValues);
     }
+
 
 
 }
