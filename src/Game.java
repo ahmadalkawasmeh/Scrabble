@@ -1,3 +1,6 @@
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class Game implements Serializable {
      * @param numPlayers The number of Players in this game.
      * @param fileName
      */
-    public Game(int numPlayers, int numAIPlayers, String fileName){
+    public Game(int numPlayers, int numAIPlayers, String fileName) throws ParserConfigurationException, IOException, SAXException {
         if(numPlayers < 2 || numPlayers > 4){throw new InvalidParameterException("Invalid number of players.");}
 
         views = new ArrayList<>();
@@ -66,7 +69,7 @@ public class Game implements Serializable {
 
         dictionary = new Dictionary();
 
-        initializeBoard();
+        initializeBoard(fileName);
 
         players = new ArrayList<>();
         AI = new AIHelper(board);
@@ -268,8 +271,8 @@ public class Game implements Serializable {
      * Initializes the game Board.
      * Developed by Daniel
      */
-    private void initializeBoard(){
-        board = new Board();
+    private void initializeBoard(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        board = new Board(fileName);
     }
 
 

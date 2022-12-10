@@ -13,7 +13,7 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        game1 = new Game(2, 1, fileName); // Initialize a game with 1 AI and 1 user player
+        game1 = new Game(2, 1, null); // Initialize a game with 1 AI and 1 user player
         game1.initializeGamePlay();
         game1.play(game1.currentPlayer.getNextAIMove());
         game1.play(game1.currentPlayer.getNextAIMove());

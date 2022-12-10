@@ -1,4 +1,7 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,7 +38,15 @@ public class MenuController implements ActionListener, Serializable {
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals(MenuCommands.NEW.name())){
             view.quitView();
-            ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+            try {
+                ScrabbleScrabbleFrame f = new ScrabbleScrabbleFrame();
+            } catch (ParserConfigurationException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SAXException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         model.resetTurn();
